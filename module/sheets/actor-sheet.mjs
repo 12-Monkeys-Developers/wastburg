@@ -215,7 +215,7 @@ import { WastburgUtility } from "../system/utility.mjs";
 
   /* -------------------------------------------- */
   async _onButtonRoll () {    
-    let formula = document.getElementById("selectRollInput")
-    WastburgUtility.manageWastburgRoll( this.actor, formula)
+    let formula = document.getElementById("selectRollInput")    
+    WastburgUtility.manageWastburgRoll( this.actor, Number(formula.value) )
   }
 }  

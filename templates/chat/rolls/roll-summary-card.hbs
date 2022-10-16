@@ -24,6 +24,17 @@
           <button class="chat-button apply-aubaine-groupe">Utiliser une aubaine de groupe ({{aubainesDeGroupe}})</button>
         </li>
         {{/if}}
+        {{#if nbOne}}
+        <li>
+          <label>Vous pouvez récupérer {{nbOne}} aubaines !</label>
+        </li> 
+        <li>
+          <button class="chat-button receive-aubaine-perso">Recevoir une aubaine perso</button>
+        </li>
+        <li>
+          <button class="chat-button receive-aubaine-groupe">Recevoir une aubaine de groupe</button>
+        </li>
+        {{/if}}
       {{/if}}
     {{/if}}
   </ol>

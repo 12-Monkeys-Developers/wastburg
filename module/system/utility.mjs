@@ -187,6 +187,7 @@ export class WastburgUtility {
 
   /* -------------------------------------------- */
   static getRollFormula(value) {
+    console.log("FORMU", value, __wastburgWollFormula)
     return __wastburgWollFormula[value] ?? "1d6"
   }
 
@@ -237,11 +238,18 @@ export class WastburgUtility {
         actorId: actor.id,
         actorImg: actor.img,
         actorName: actor.name,
-        aubainesPerso: actor.system.aubaine.value,
-        aubainesDeGroupe: game.settings.get("wastburg", "aubaine-de-groupe"),
         rollQuality: this.getRollQuality(roll.total),
         cssQuality: this.getClassQuality(roll.total),
-        rerollMode: "none"
+        rerollMode: "none",
+        selectRollInput: 3 
+      }
+      if ( roll.total < 6) {
+        rollData.aubainesPerso = actor.system.aubaine.value,
+        rollData.aubainesDeGroupe = game.settings.get("wastburg", "aubaine-de-groupe")
+      }
+      if ( roll.total == 1) {
+        let oneList = roll.terms[0].results.filter(res => res.result == 1)         
+        rollData.nbOne = oneList.length    
       }
     } else {
       this.cleanupButtons(rollData.rollDataID) // Delete previous buttons
@@ -269,7 +277,6 @@ export class WastburgUtility {
   /* -------------------------------------------- */
   static async chatListeners(html) {
 
-    // Damage handling
     html.on("click", '.apply-aubaine-perso', event => {
       let rollData = this.getRollDataFromMessage(event)
       let actor = game.actors.get(rollData.actorId)
@@ -278,13 +285,22 @@ export class WastburgUtility {
       this.manageWastburgRoll(actor, 0, rollData)
     })
 
-    // Damage handling
     html.on("click", '.apply-aubaine-groupe', event => {
       let rollData = this.getRollDataFromMessage(event)
       let actor = game.actors.get(rollData.actorId)
       this.incDecAubaineGroupe(-1)
       rollData.rerollMode = "aubaine-groupe"
       this.manageWastburgRoll(actor, 0, rollData)
+    })
+
+    html.on("click", '.receive-aubaine-perso', event => {
+      let rollData = this.getRollDataFromMessage(event)
+      let actor = game.actors.get(rollData.actorId)
+      this.incDecAubaineGroupe(1)
+    })
+
+    html.on("click", '.receive-aubaine-groupe', event => {
+      this.incDecAubaineGroupe(1)
     })
 
   }
