@@ -1,0 +1,35 @@
+<div>
+  <h2 class="{{cssQuality}}">{{rollQuality}}
+  <img class="chat-icon" src="{{actorImg}}" alt="{{actor.name}}"/>
+  </h2>
+</div>
+
+<h3><strong>{{description}}</strong></h3> 
+
+<div class="actions-section">
+  <ol class="items-list" id="{{rollDataID}}">
+    {{#if (eq rerollMode "aubaine-perso")}}
+      <li>Le jet a reçu une aubaine personnelle !</li>
+    {{else}}
+      {{#if (eq rerollMode "aubaine-groupe")}}
+        <li>Le jet a reçu une aubaine de groupe !</li>
+      {{else}}
+        {{#if aubainesPerso}}
+        <li>
+          <button class="chat-button apply-aubaine-perso">Utiliser une aubaine perso ({{aubainesPerso}})</button>
+        </li>
+        {{/if}}
+        {{#if aubainesDeGroupe}}
+        <li>
+          <button class="chat-button apply-aubaine-groupe">Utiliser une aubaine de groupe ({{aubainesDeGroupe}})</button>
+        </li>
+        {{/if}}
+      {{/if}}
+    {{/if}}
+  </ol>
+  
+  <h2 class="{{cssQuality}}"><strong>Résultat : {{result}}</strong></h2>
+
+</div>
+
+
