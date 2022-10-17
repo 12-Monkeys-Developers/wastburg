@@ -1,6 +1,12 @@
 /* -------------------------------------------- */
-const __wastburgWollFormula = {
-  1: "3d6kl", 2: "2d6kl", 3: "1d6", 4: "2d6kh", 5: "3d6kh"
+import { WastburgRollDialog } from "../dialogs/dialog-roll-complex.mjs"
+
+/* -------------------------------------------- */
+const __wastburgRollFormula = {
+  [-2]: "3d6kl", [-1]: "2d6kl", 0: "1d6", 1: "2d6kh", 2: "3d6kh"
+}
+const __wastburgValueToLevel = {
+  [-2]: "--", [-1]: "-", 0: "0", 1: "+", 2: "++"
 }
 
 /* -------------------------------------------- */
@@ -36,7 +42,7 @@ export class WastburgUtility {
       $(`#${sockmsg.data.id}`).hide() // Hide the options roll buttons
     }
     if (sockmsg.name == "msg_incdec_aubaine_groupe") {
-      WastburgUtility.processIncDecAubaineGroupe(sockmsg.data.value )
+      WastburgUtility.processIncDecAubaineGroupe(sockmsg.data.value)
     }
   }
 
@@ -66,14 +72,14 @@ export class WastburgUtility {
   }
 
   /* -------------------------------------------- */
-  static updateAubaineGroupe( value) {
+  static updateAubaineGroupe(value) {
     // Force refresh of actors
-    for( let actor of game.actors) {
+    for (let actor of game.actors) {
       actor.setAubaineGroupe(value)
     }
   }
   /* -------------------------------------------- */
-  static processIncDecAubaineGroupe( value) {
+  static processIncDecAubaineGroupe(value) {
     let aubainesDeGroupe = game.settings.get("wastburg", "aubaine-de-groupe")
     aubainesDeGroupe += value
     game.settings.set("wastburg", "aubaine-de-groupe", aubainesDeGroupe)
@@ -85,7 +91,7 @@ export class WastburgUtility {
     if (game.user.isGM) {
       this.processIncDecAubaineGroupe(value)
     } else {
-      game.socket.emit("system.wastburg", { name: "msg_incdec_aubaine_groupe", data: { value: value} });
+      game.socket.emit("system.wastburg", { name: "msg_incdec_aubaine_groupe", data: { value: value } });
     }
   }
 
@@ -187,8 +193,18 @@ export class WastburgUtility {
 
   /* -------------------------------------------- */
   static getRollFormula(value) {
-    console.log("FORMU", value, __wastburgWollFormula)
-    return __wastburgWollFormula[value] ?? "1d6"
+    value = Number(value)
+    value = Math.max(value, -2)
+    value = Math.min(value, 2)
+    return __wastburgRollFormula[value] ?? "1d6"
+  }
+
+  /* -------------------------------------------- */
+  static getLevelFromValue(value) {
+    value = Number(value)
+    value = Math.max(value, -2)
+    value = Math.min(value, 2)
+    return __wastburgValueToLevel[value] ?? "1d6"
   }
 
   /* -------------------------------------------- */
@@ -223,80 +239,159 @@ export class WastburgUtility {
   }
 
   /* -------------------------------------------- */
-  static async manageWastburgRoll(actor, value, rollDataReroll = false) {
-
-    let rollData = rollDataReroll
-    if (!rollData) {
-      let diceFormula = WastburgUtility.getRollFormula(value)
-      const roll = await new Roll(diceFormula).roll({ async: true })
-      await this.showDiceSoNice(roll, game.settings.get("core", "rollMode"))
-      rollData = {
-        rollDataID: randomID(16),
-        diceFormula: diceFormula,
-        roll: roll,
-        result: roll.total,
-        actorId: actor.id,
-        actorImg: actor.img,
-        actorName: actor.name,
-        rollQuality: this.getRollQuality(roll.total),
-        cssQuality: this.getClassQuality(roll.total),
-        rerollMode: "none",
-        selectRollInput: 3 
-      }
-      if ( roll.total < 6) {
-        rollData.aubainesPerso = actor.system.aubaine.value,
-        rollData.aubainesDeGroupe = game.settings.get("wastburg", "aubaine-de-groupe")
-      }
-      if ( roll.total == 1) {
-        let oneList = roll.terms[0].results.filter(res => res.result == 1)         
-        rollData.nbOne = oneList.length    
-      }
-    } else {
-      this.cleanupButtons(rollData.rollDataID) // Delete previous buttons
-      if (rollData.rerollMode == "aubaine-perso") {
-        rollData.result += 1
-      } else {
-        const roll = await new Roll(rollData.diceFormula).roll({ async: true })
-        await this.showDiceSoNice(roll, game.settings.get("core", "rollMode"))
-        rollData.roll = roll
-        rollData.result = roll.total
-      }
-      rollData.rollQuality = this.getRollQuality(rollData.result)
-      rollData.cssQuality = this.getClassQuality(rollData.result)
-      rollData.rollDataID = randomID(16)
+  static processRollQuality( rollData, actor ) {
+    rollData.rollQuality =  this.getRollQuality(rollData.roll.total)
+    rollData.cssQuality =  this.getClassQuality(rollData.roll.total)
+    if (rollData.roll.total < 6) {
+      rollData.aubainesPerso = actor.system.aubaine.value
+      rollData.aubainesDeGroupe = game.settings.get("wastburg", "aubaine-de-groupe")
     }
+    if (rollData.roll.total == 1) {
+      let oneList = rollData.roll.terms[0].results.filter(res => res.result == 1)
+      rollData.nbOne = oneList.length
+    }
+  }
+  /* -------------------------------------------- */
+  static async manageWastburgSimpleRoll(actor, value) {
 
+    let diceFormula = WastburgUtility.getRollFormula(value)
+    const roll = await new Roll(diceFormula).roll({ async: true })
+    await this.showDiceSoNice(roll, game.settings.get("core", "rollMode"))
+    let rollData = {
+      rollDataID: randomID(16),
+      mode: "simple",
+      diceFormula: diceFormula,
+      roll: roll,
+      result: roll.total,
+      actorId: actor.id,
+      actorImg: actor.img,
+      actorName: actor.name,
+      rerollMode: "none",
+      selectRollInput: 3
+    }
+    this.processRollQuality( rollData, actor)
+    this.outputRollMessage(rollData)
+  }
+
+  /* -------------------------------------------- */
+  static async manageWastburgComplexRoll(actor, value) {
+
+    let rollData = {
+      rollDataID: randomID(16),
+      mode: "complex",
+      actorId: actor.id,
+      actorImg: actor.img,
+      actorName: actor.name,
+      rerollMode: "none",
+      selectRollInput: 3,
+      traits: actor.items.filter(item => item.type == "trait"),
+      contacts: actor.items.filter(item => item.type == "contact"),
+      santeValue: actor.system.sante.value,
+      mentalValue: actor.system.mental.value,
+      socialValue: actor.system.social.value,
+      selectedTrait: "none",
+      selectedContact: "none",
+      selectedBonusMalus: 0,
+      applySante: false,
+      applyMental: false,
+      applySocial: false,
+      totalLevel: 0
+    }
+    let rollDialog = await WastburgRollDialog.create(rollData)
+    rollDialog.render(true)
+  }
+
+  /* -------------------------------------------- */
+  static async performRollComplex( rollData) {
+    let diceFormula = WastburgUtility.getRollFormula(rollData.totalLevel)
+    
+    const roll = await new Roll(diceFormula).roll({ async: true })
+    await this.showDiceSoNice(roll, game.settings.get("core", "rollMode"))
+    
+    rollData.roll = roll
+    rollData.diceFormula =  diceFormula
+    rollData.roll = roll
+    rollData.result =  roll.total
+    
+    let actor = game.actors.get( rollData.actorId)
+    this.processRollQuality( rollData, actor)
+    this.outputRollMessage(rollData)
+  }
+
+  /* -------------------------------------------- */
+  static computeFinalLevel( rollData) {
+    let level = 0
+    level += Number(rollData.selectedBonusMalus)
+    if ( rollData.selectedTrait != "none") {
+      level++;
+    }
+    if ( rollData.selectedContact != "none") {
+      let contact = rollData.contacts.find(c => c.id == rollData.selectedContact)
+      level += Number(contact.system.value)
+    }
+    if ( rollData.applySante) { 
+      level += Number(rollData.santeValue)
+    }
+    if ( rollData.applySocial) { 
+      level += Number(rollData.socialValue)
+    }
+    if ( rollData.applyMental) { 
+      level += Number(rollData.mentalValue)
+    }
+    level = Math.max(level, -2)
+    level = Math.min(level, 2)
+    rollData.totalLevel = level
+  }
+
+  /* -------------------------------------------- */
+  static async manageWastburgReroll(rollData) {
+    this.cleanupButtons(rollData.rollDataID) // Delete previous buttons
+    if (rollData.rerollMode == "aubaine-perso") {
+      let actor = game.actors.get(rollData.actorId)
+      actor.incDecAubainePerso(-1)
+      rollData.result += 1
+    } else {
+      this.incDecAubaineGroupe(-1)
+      const roll = await new Roll(rollData.diceFormula).roll({ async: true })
+      await this.showDiceSoNice(roll, game.settings.get("core", "rollMode"))
+      rollData.roll = roll
+      rollData.result = roll.total
+    }
+    rollData.rollQuality = this.getRollQuality(rollData.result)
+    rollData.cssQuality = this.getClassQuality(rollData.result)
+    rollData.rollDataID = randomID(16)
+
+    this.outputRollMessage(rollData)
+  }
+
+  /* -------------------------------------------- */
+  static async outputRollMessage(rollData) {
     let msg = await ChatMessage.create({
-      alias: actor.name,
+      alias: rollData.actorName,
       content: await renderTemplate('systems/wastburg/templates/chat/rolls/roll-summary-card.hbs', rollData)
     })
     msg.setFlag("world", "wastburg-roll-data", rollData)
   }
-
 
   /* -------------------------------------------- */
   static async chatListeners(html) {
 
     html.on("click", '.apply-aubaine-perso', event => {
       let rollData = this.getRollDataFromMessage(event)
-      let actor = game.actors.get(rollData.actorId)
-      actor.incDecAubainePerso(-1)
       rollData.rerollMode = "aubaine-perso"
-      this.manageWastburgRoll(actor, 0, rollData)
+      this.manageWastburgReroll(rollData)
     })
 
     html.on("click", '.apply-aubaine-groupe', event => {
       let rollData = this.getRollDataFromMessage(event)
-      let actor = game.actors.get(rollData.actorId)
-      this.incDecAubaineGroupe(-1)
       rollData.rerollMode = "aubaine-groupe"
-      this.manageWastburgRoll(actor, 0, rollData)
+      this.manageWastburgReroll(rollData)
     })
 
     html.on("click", '.receive-aubaine-perso', event => {
       let rollData = this.getRollDataFromMessage(event)
       let actor = game.actors.get(rollData.actorId)
-      this.incDecAubaineGroupe(1)
+      actor.incDecAubainePerso(1)
     })
 
     html.on("click", '.receive-aubaine-groupe', event => {

@@ -161,7 +161,7 @@ label.label-difficulte-rollInput {
   font-weight: 600;
   margin-bottom: 2%;
 }
-button.onRollButton {
+button.onRollButton-UNUSED {
   color: #422800;
   transform: translate(2px, 2px);
   margin-top: 6px;
@@ -759,7 +759,10 @@ h2.failure {
   background: rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   font-size: 0.8rem;
-  padding-bottom: 6px;
+  margin-bottom: 6px;
   border-color:  rgba(0, 0, 0, 0.1);
   border-width: 1px;
+}
+.select-roll {
+  max-width: 5rem;
 }

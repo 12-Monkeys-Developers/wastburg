@@ -2,7 +2,7 @@
   "id": "wastburg",
   "title": "Wastburg",
   "description": "The Wastburg system for FoundryVTT!",
-  "version": "1.2.3",
+  "version": "1.2.6",
   "minimumCoreVersion": "10",
   "compatibleCoreVersion": "10",
   "compatibility": {

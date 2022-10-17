@@ -19,17 +19,16 @@
   </thead>
   <tbody>
     <tr>
-      <td><select class="selectContact" name="system.niveau.value" data-dtype="String">
-                            {{#select system.niveau.value}}
-                            {{#each system.niveau as |niveau key|}}
-                            <option  value="{{key}}">{{niveau.label}}</option>
-                            {{/each}}
+      <td>
+        <select class="selectContact" name="system.value" data-dtype="String">
+                            {{#select system.value}}
+                              {{> systems/wastburg/templates/common/select-levels.hbs}}
                             {{/select}}
                           </select>  
                           </td>
       <td><input type="text" name="system.quartier" value="{{system.quartier}}" data-dtype="String" /></td>
-      <td><input type="text" name="system.traitsPremier" value="{{system.traitsPremier}}" data-dtype="String" /></td>
-      <td><input type="text" name="system.traitsSecond" value="{{system.traitsSecond}}" data-dtype="String" /></td>
+      <td><input type="text" name="system.traitsPremier" value="{{system.trait1}}" data-dtype="String" /></td>
+      <td><input type="text" name="system.traitsSecond" value="{{system.trait2}}" data-dtype="String" /></td>
     </tr>
   </tbody>
 </table>

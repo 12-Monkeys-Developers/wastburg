@@ -1,0 +1,66 @@
+<form class="skill-roll-dialog">
+  <header class="roll-dialog-header">
+    {{#if img}}
+    <img class="actor-icon" src="{{img}}" data-edit="img" title="{{name}}" />
+    {{/if}}
+    <h1 class="dialog-roll-title roll-dialog-header">{{title}}</h1>
+  </header>
+
+  <div class="flexcol">
+
+    <div class="flexrow">
+      <span class="roll-dialog-label">Trait</span>
+        <select class="status-small-label color-class-common" id ="select-trait" type="text" name="attrKey" value="selectedTrait" data-dtype="string" >
+          {{#select selectedTrait}}
+          <option value="none">Aucun</option>
+          {{#each traits as |trait id|}}
+            <option value="{{trait.id}}">{{trait.name}}</option>
+          {{/each}}
+          {{/select}}
+      </select>      
+    </div>
+
+    <div class="flexrow">
+      <span class="roll-dialog-label">Contact</span>
+        <select class="status-small-label color-class-common" id ="select-contact" type="text" name="attrKey" value="selectedContact" data-dtype="string" >
+          {{#select selectedContact}}
+          <option value="none">Aucun</option>
+          {{#each contacts as |contact id|}}
+            <option value="{{contact.id}}">{{contact.name}}</option>
+          {{/each}}
+          {{/select}}
+      </select>      
+    </div>
+
+    <div class="flexrow">
+      <label class="generic-label">Bonus/Malus </label>
+        <select id="select-bonusmalus" value="selectedBonusMalus" data-dtype="Number">
+        {{#select selectedBonusMalus}}
+            {{> systems/wastburg/templates/common/select-levels.hbs}}
+        {{/select}}
+        </select>  
+    </div>
+
+    <div class="flexrow">
+      <label class="generic-label">Appliquer la santé ( {{getLevel santeValue}} ) ? </label>
+      <input type="checkbox" id="applySante" name="applySante" {{checked applySante}}/>
+    </div>
+
+    <div class="flexrow">
+      <label class="generic-label">Appliquer le mental ( {{getLevel mentalValue}} ) ? </label>
+      <input type="checkbox" id="applyMental" name="applyMental" {{checked applyMental}}/>
+    </div>
+
+    <div class="flexrow">
+      <label class="generic-label">Appliquer le social ( {{getLevel socialValue}} ) ? </label>
+      <input type="checkbox" id="applySocial" name="applySocial" {{checked applySocial}}/>
+    </div>
+
+
+    <div class="flexrow">
+      <label class="generic-label">Niveau final : </label><label id="total-level">0</label>
+    </div>
+
+  </div>
+
+</form>

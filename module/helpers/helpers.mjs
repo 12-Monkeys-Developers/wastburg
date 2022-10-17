@@ -1,3 +1,5 @@
+import { WastburgUtility } from "../system/utility.mjs";
+
 export class WastburgHelpers {
 
   /* -------------------------------------------- */
@@ -11,12 +13,16 @@ export class WastburgHelpers {
         }
       }
       return outStr;
-    });
+    })
 
     Handlebars.registerHelper('toLowerCase', function (str) {
       return str.toLowerCase();
-    });
+    })
 
+    Handlebars.registerHelper('getLevel', function (str) {
+      return WastburgUtility.getLevelFromValue( str)
+    })
+    
   }
 }
 

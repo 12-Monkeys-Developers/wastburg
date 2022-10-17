@@ -40,7 +40,7 @@ import { WastburgUtility } from "../system/utility.mjs";
     context.system = actorData.system;
     context.flags = actorData.flags;
     context.aubaindeDeGroupe = game.settings.get("wastburg", "aubaine-de-groupe") // Roll armor or not
-
+    context.selectRollInput = 0 // Per default level 0
 
     // Prepare character data and items.
     if (actorData.type == 'personnage' || actorData.type == 'prevot' || actorData.type == 'caid') {
@@ -74,32 +74,11 @@ import { WastburgUtility } from "../system/utility.mjs";
    * @return {undefined}
    */
   _prepareItems(context) {
-    // Initialize containers.
-    const traits = [];
-    const item = [];
-    const contacts =[];
-    // Iterate through items, allocating to containers
-    for (let i of context.items) {
-      i.img = i.img || DEFAULT_TOKEN;
-      // Append to gear.
-      if (i.type === 'item') {
-        item.push(i);
-      }
-      if (i.type === 'trait') {
-        traits.push(i);
-      }
-      if (i.type == 'contact') {
-        contacts.push(i);
-      }
-    }
-
     // Assign and return
-    context.item = item;
-    context.traits = traits;
-    context.contacts = contacts;
+    context.item = context.items.filter( item => item.type == "item") 
+    context.traits = context.items.filter( item => item.type == "trait") 
+    context.contacts = context.items.filter( item => item.type == "contact") 
    }
-
- 
 
 
   /* -------------------------------------------- */
@@ -120,8 +99,9 @@ import { WastburgUtility } from "../system/utility.mjs";
     if (!this.isEditable) return;
 
     // Add Button Rooll
-    html.find('.onRollButton').click(this._onButtonRoll.bind(this));
-    html.find('.fas fa-dice-d6').click(this._onButtonRoll.bind(this));
+    html.find('.roll-simple').click(this._onButtonSimpleRoll.bind(this))
+    html.find('.roll-complex').click(this._onButtonComplexRoll.bind(this))
+    html.find('.fas fa-dice-d6').click(this._onButtonSimpleRoll.bind(this))
     
 
     // Add Inventory Item
@@ -214,8 +194,13 @@ import { WastburgUtility } from "../system/utility.mjs";
   }
 
   /* -------------------------------------------- */
-  async _onButtonRoll () {    
+  async _onButtonSimpleRoll () {    
     let formula = document.getElementById("selectRollInput")    
-    WastburgUtility.manageWastburgRoll( this.actor, Number(formula.value) )
+    WastburgUtility.manageWastburgSimpleRoll( this.actor, Number(formula.value) )
+  }
+
+  /* -------------------------------------------- */
+  async _onButtonComplexRoll () {    
+    WastburgUtility.manageWastburgComplexRoll( this.actor, 0 )
   }
 }  

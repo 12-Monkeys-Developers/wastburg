@@ -13,15 +13,17 @@
                       </tr>
                       <tr>
                         <td><label class="aubaine">Aubaine de groupe:</label></td>
-                        <td> <input class="input-aubaine"type="text" value="{{aubaindeDeGroupe}}" data-dtype="Number" disabled /></td>
+                        <td> <input class="input-aubaine" type="text" value="{{aubaindeDeGroupe}}" data-dtype="Number" disabled /></td>
+                      </tr>
+                      <tr>
+                        <td><label class="aubaine">Ancienneté:</label></td>
+                        <td> <input class="input-aubaine" type="text" value="{{system.anciennetereputation.value}}" data-dtype="Number" /></td>
                       </tr>
                       <tr>
                         <td><label class="reputation">Reputation:</label></td>
                         <td>  <select class="selectreputation" name="system.reputation.value" data-dtype="String">
                         {{#select system.reputation.value}}
-                        {{#each system.reputation as |reputation key|}}
-                        <option  value="{{key}}">{{reputation.label}}</option>
-                        {{/each}}
+                          {{> systems/wastburg/templates/common/select-levels.hbs}}
                         {{/select}}
                         </select>
                         </td>
@@ -32,18 +34,17 @@
         </div>
        
         <div class="difficulte-rollInput">
-        <label class="label-difficulte-rollInput">MODIFICATEUR</label><br>
-        <select  id="selectRollInput" class="selectRollInput" name="selectRollInput" data-dtype="Number">
-          {{#select selectRollInput}}
-            <option value="1">(--)</option>
-            <option value="2">(-)</option>
-            <option value="3">(0)</option>
-            <option value="4">(+)</option>
-            <option value="5">(++)</option>
-          {{/select}}
-        </select>
-         <br>
-        <button class="onRollButton" type="button">TEST</button>
+          <div class="flexrow">
+            <select  id="selectRollInput" class="select-roll" name="selectRollInput" data-dtype="Number">
+              {{#select selectRollInput}}
+                {{> systems/wastburg/templates/common/select-levels.hbs}}
+              {{/select}}
+            </select>
+            <button class="roll-simple chat-button" type="button">Lancer!</button>
+          </div>          
+          <div class="flexrow">
+            <button class="roll-complex chat-button" type="button">Test Avancé</button>
+          </div>          
         </div>
         
       
