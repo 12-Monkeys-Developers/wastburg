@@ -2,19 +2,19 @@
   "id": "wastburg",
   "title": "Wastburg",
   "description": "The Wastburg system for FoundryVTT!",
-  "version": "1.3.0",
-  "minimumCoreVersion": "10",
-  "compatibleCoreVersion": "10",
+  "version": "1.3.1",
   "compatibility": {
-    "minimum": 10,
+    "minimum": "10",
     "verified": "10.288"
   },
   "authors": [
     {
-      "name": "Abolas"
+      "name": "Abolas",
+      "flags": {}
     },
     {
-      "name": "LeRatierBretonnien"
+      "name": "LeRatierBretonnien",
+      "flags": {}
     }
   ],
   "esmodules": [
@@ -23,22 +23,20 @@
   "styles": [
     "css/style.css"
   ],
-  "scripts": [],
-  "packs": [],
   "languages": [
     {
       "lang": "en",
       "name": "English",
-      "path": "lang/en.json"
+      "path": "lang/en.json",
+      "flags": {}
     }
   ],
   "gridDistance": 5,
   "gridUnits": "ft",
   "primaryTokenAttribute": "health",
   "secondaryTokenAttribute": "power",
-  "url": "",
   "manifest": "https://www.uberwald.me/gitea/public/wastburg/raw/branch/master/system.json",
-  "download": "https://www.uberwald.me/gitea/public/wastburg/archive/wastburg-1.3.0.zip",
+  "download": "https://www.uberwald.me/gitea/public/wastburg/archive/wastburg-1.3.1.zip",
   "socket": true,
   "license": "LICENSE.txt"
 }

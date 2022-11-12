@@ -11,8 +11,8 @@ import { WastburgUtility } from "../system/utility.mjs";
     return mergeObject(super.defaultOptions, {
       classes: ["wastburg", "sheet", "actor", "personnage", "trait","prevot","caid"],
       template: "systems/wastburg/templates/actor/actor-sheet.hbs",
-      width: 520,
-      height: 600,
+      width: 620,
+      height: 720,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "etats-list" }]
     });
   }

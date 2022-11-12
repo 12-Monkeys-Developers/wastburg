@@ -39,7 +39,6 @@ Hooks.once('init', async function () {
   Items.registerSheet("wastburg", WastburgItemSheet, { makeDefault: true });
 
   WastburgUtility.registerHooks()
-
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();
 

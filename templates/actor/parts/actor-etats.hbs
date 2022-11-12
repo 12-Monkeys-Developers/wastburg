@@ -2,14 +2,14 @@
       <table class="tableEtats">
       <thead>
       <tr>
-        <th>ETATS</th>
-        <th>DESCRIPTION</th>
-        <th>BONUS/MALUS</th>
+        <th class="subtab-header-title">Etats</th>
+        <th >Description</th>
+        <th >Bonus/Malus</th>
       </tr>
       </thead>
       <tbody>
       <tr>
-        <td>SANTE</td>
+        <td>Santé</td>
         <td><input type="text" name="system.sante.santeText" value="{{system.sante.santeText}}" data-dtype="String" />  </td>
         <td> <select class="selectSante" name="system.sante.value" data-dtype="String">
             {{#select system.sante.value}}
@@ -19,7 +19,7 @@
         </td>
       </tr>
       <tr>
-        <td>MENTAL</td>
+        <td>Mental</td>
         <td><input type="text" name="system.mental.mentalText" value="{{system.mental.mentalText}}" data-dtype="String" /></td>
         <td><select class="selectMental" name="system.mental.value" data-dtype="String">
             {{#select system.mental.value}}
@@ -29,7 +29,7 @@
         </td>
         </tr>
       <tr>
-        <td>SOCIAL</td>
+        <td>Social</td>
         <td><input type="text" name="system.social.socialText" value="{{system.social.socialText}}" data-dtype="String" /></td>
         <td><select class="selectSocial" name="system.social.value" data-dtype="String">
             {{#select system.social.value}}

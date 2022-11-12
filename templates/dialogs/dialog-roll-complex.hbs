@@ -8,7 +8,7 @@
 
   <div class="flexcol">
 
-    <div class="flexrow">
+    <div class="flexrow roll-dialog-list">
       <span class="roll-dialog-label">Trait</span>
         <select class="status-small-label color-class-common" id ="select-trait" type="text" name="attrKey" value="selectedTrait" data-dtype="string" >
           {{#select selectedTrait}}
@@ -20,7 +20,7 @@
       </select>      
     </div>
 
-    <div class="flexrow">
+    <div class="flexrow roll-dialog-list">
       <span class="roll-dialog-label">Contact</span>
         <select class="status-small-label color-class-common" id ="select-contact" type="text" name="attrKey" value="selectedContact" data-dtype="string" >
           {{#select selectedContact}}
@@ -32,7 +32,7 @@
       </select>      
     </div>
 
-    <div class="flexrow">
+    <div class="flexro roll-dialog-list">
       <label class="generic-label">Bonus/Malus </label>
         <select id="select-bonusmalus" value="selectedBonusMalus" data-dtype="Number">
         {{#select selectedBonusMalus}}
@@ -41,23 +41,22 @@
         </select>  
     </div>
 
-    <div class="flexrow">
+    <div class="flexrow roll-dialog-list">
       <label class="generic-label">Appliquer la santé ( {{getLevel santeValue}} ) ? </label>
       <input type="checkbox" id="applySante" name="applySante" {{checked applySante}}/>
     </div>
 
-    <div class="flexrow">
+    <div class="flexrow roll-dialog-list">
       <label class="generic-label">Appliquer le mental ( {{getLevel mentalValue}} ) ? </label>
       <input type="checkbox" id="applyMental" name="applyMental" {{checked applyMental}}/>
     </div>
 
-    <div class="flexrow">
+    <div class="flexrow roll-dialog-list">
       <label class="generic-label">Appliquer le social ( {{getLevel socialValue}} ) ? </label>
       <input type="checkbox" id="applySocial" name="applySocial" {{checked applySocial}}/>
     </div>
 
-
-    <div class="flexrow">
+    <div class="flexrow roll-dialog-list">
       <label class="generic-label">Niveau final : </label><label id="total-level">0</label>
     </div>
 

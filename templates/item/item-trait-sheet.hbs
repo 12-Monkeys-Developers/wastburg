@@ -9,8 +9,14 @@
         </div>
     </header>
     <div class="label-type">
-      <label class="type">Type</label>
-      <input class="input-trait" type="text" name="system.type" value="{{system.type}}" data-dtype="String" />
+      <label class="type">Type :&nbsp; </label>
+      <select class="input-trait"  name="system.type" value="{{system.type}}" data-dtype="String">
+        {{#select system.type}}
+          <option value="jeunesse">Jeunesse</option>
+          <option value="passe">Passé</option>
+          <option value="present">Présent</option>
+        {{/select}}
+      </select>
     </div>
     <div class="editor-trait">
      <label class="description-contact">Description du trait:</label>
