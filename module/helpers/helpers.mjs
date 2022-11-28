@@ -32,7 +32,14 @@ export class WastburgHelpers {
     Handlebars.registerHelper('sub', function (a, b) {
       return parseInt(a) - parseInt(b);
     })
-
+    
+    Handlebars.registerHelper('for', function (from, to, incr, block) {
+      var accum = '';
+      for (var i = from; i < to; i += incr)
+        accum += block.fn(i);
+      return accum;
+    })
+  
     // If you need to add Handlebars helpers, here are a few useful examples:
     Handlebars.registerHelper('concat', function () {
       var outStr = '';

@@ -30,17 +30,18 @@ import { WastburgUtility } from "../system/utility.mjs";
     // the context variable to see the structure, but some key properties for
     // sheets are the actor object, the data object, whether or not it's
     // editable, the items array, and the effects array.
-    const context = super.getData();
+    const context = super.getData()
     
 
     // Use a safe clone of the actor data for further operations.
     const actorData = this.actor.toObject(false);
 
     // Add the actor's data to context.data for easier access, as well as flags.
-    context.system = actorData.system;
-    context.flags = actorData.flags;
+    context.system = actorData.system
+    context.flags = actorData.flags
     context.aubaindeDeGroupe = game.settings.get("wastburg", "aubaine-de-groupe") // Roll armor or not
     context.selectRollInput = 0 // Per default level 0
+    context.combatRules = game.settings.get("wastburg", "house-combat-rules")
 
     // Prepare character data and items.
     if (actorData.type == 'personnage' || actorData.type == 'prevot' || actorData.type == 'caid') {

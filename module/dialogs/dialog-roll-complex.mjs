@@ -5,7 +5,7 @@ export class WastburgRollDialog extends Dialog {
   /* -------------------------------------------- */
   static async create(rollData ) {
 
-    let options = { classes: ["WastburgDialog"], width: 340, height: 320, 'z-index': 99999 }
+    let options = { classes: ["WastburgDialog"], width: 340, height: 'fit-content', 'z-index': 99999 }
     let html = await renderTemplate('systems/wastburg/templates/dialogs/dialog-roll-complex.hbs', rollData)
 
     return new WastburgRollDialog(rollData, html, options )

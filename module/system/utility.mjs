@@ -23,6 +23,14 @@ export class WastburgUtility {
       type: Number,
       onChange: value => WastburgUtility.updateAubaineGroupe(value)
     })
+    game.settings.register("wastburg", "house-combat-rules", {
+      name: "Utiliser les règles maison de combat",
+      hint: "Applique les règles de combat maison",
+      scope: "world",
+      config: true,
+      default: false,
+      type: Boolean
+    })
   }
   /* -------------------------------------------- */
   static registerHooks() {

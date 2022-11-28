@@ -2,7 +2,7 @@
   "id": "wastburg",
   "title": "Wastburg",
   "description": "The Wastburg system for FoundryVTT!",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "compatibility": {
     "minimum": "10",
     "verified": "10.288"
@@ -36,7 +36,7 @@
   "primaryTokenAttribute": "health",
   "secondaryTokenAttribute": "power",
   "manifest": "https://www.uberwald.me/gitea/public/wastburg/raw/branch/master/system.json",
-  "download": "https://www.uberwald.me/gitea/public/wastburg/archive/wastburg-1.3.1.zip",
+  "download": "https://www.uberwald.me/gitea/public/wastburg/archive/wastburg-1.3.2.zip",
   "socket": true,
   "license": "LICENSE.txt"
 }

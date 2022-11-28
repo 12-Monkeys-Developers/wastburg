@@ -27,6 +27,12 @@ Hooks.once('init', async function () {
   // Add custom constants for configuration.
   CONFIG.WASTBURG = WASTBURG;
 
+    /* -------------------------------------------- */
+  // Set an initiative formula for the system 
+  CONFIG.Combat.initiative = {
+    formula: "1d6",
+    decimals: 0
+  }
 
   // Define custom Document classes
   CONFIG.Actor.documentClass = WastburgActor;

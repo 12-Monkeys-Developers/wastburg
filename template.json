@@ -54,6 +54,11 @@
       "social": {
         "socialText": "",
         "value": 0
+      },
+      "combat": {
+        "santemax": 8,
+        "santecurrent": 8,
+        "initiative": 0
       }
     },
     "prevot": {

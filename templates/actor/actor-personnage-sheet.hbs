@@ -46,8 +46,23 @@
             <button class="roll-complex chat-button" type="button">Test Avancé</button>
           </div>          
         </div>
-        
-      
+
+        {{#if combatRules}}
+        <div class="sante-block">
+          <div class="flexrow">            
+            <label class="reputation">Santé Max:</label></td>
+            <input type="text" name="combat.santemax" value="{{combat.santemax}}" data-dtype="Number" /></td>
+            <label class="reputation">Santé Actuelle:</label></td>
+            <input type="text" name="combat.santecurrent" value="{{combat.santecurrent}}" data-dtype="Number" /></td>
+          </div>          
+          <div class="flexrow">            
+            <label class="reputation">Initiative:</label></td>
+            <input type="text" name="combat.initiative" value="{{combat.initiative}}" data-dtype="Number" /></td>
+            <button class="roll-initiative chat-button" type="button">Initiative</button>
+          </div>
+        </div>
+        {{/if}}
+
   </header>
    {{!-- Sheet Body --}}
     <section class="sheet-body">
