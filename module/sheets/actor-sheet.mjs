@@ -42,6 +42,7 @@ import { WastburgUtility } from "../system/utility.mjs";
     context.aubaindeDeGroupe = game.settings.get("wastburg", "aubaine-de-groupe") // Roll armor or not
     context.selectRollInput = 0 // Per default level 0
     context.combatRules = game.settings.get("wastburg", "house-combat-rules")
+    context.initiative = this.actor.getInitiative()
 
     // Prepare character data and items.
     if (actorData.type == 'personnage' || actorData.type == 'prevot' || actorData.type == 'caid') {
@@ -102,6 +103,7 @@ import { WastburgUtility } from "../system/utility.mjs";
     // Add Button Rooll
     html.find('.roll-simple').click(this._onButtonSimpleRoll.bind(this))
     html.find('.roll-complex').click(this._onButtonComplexRoll.bind(this))
+    html.find('.roll-initiative').click(this._onButtonInitiative.bind(this))
     html.find('.fas fa-dice-d6').click(this._onButtonSimpleRoll.bind(this))
     
 
@@ -118,7 +120,7 @@ import { WastburgUtility } from "../system/utility.mjs";
 
     // Active Effect management
     html.find(".effect-control").click(ev => onManageActiveEffect(ev, this.actor));
-
+    
     // Rollable abilities.
     html.find('.rollable').click(this._onRoll.bind(this));
 
@@ -202,6 +204,9 @@ import { WastburgUtility } from "../system/utility.mjs";
 
   /* -------------------------------------------- */
   async _onButtonComplexRoll () {    
-    WastburgUtility.manageWastburgComplexRoll( this.actor, 0 )
+    WastburgUtility.manageWastburgComplexRoll( this.actor, false )
+  }
+  async _onButtonInitiative() {
+    WastburgUtility.manageWastburgComplexRoll( this.actor, true )
   }
 }  

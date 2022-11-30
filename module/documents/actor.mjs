@@ -102,4 +102,13 @@ export class WastburgActor extends Actor {
     this.update({ 'system.aubaine': aubaine })
   }
 
+  /* -------------------------------------------- */
+  setInitiative(value) {
+    this.setFlag("world", "last-initiative", value)
+  }
+  /* -------------------------------------------- */
+  getInitiative() {
+    let value = this.getFlag("world", "last-initiative")
+    return value || -1
+  }
 }

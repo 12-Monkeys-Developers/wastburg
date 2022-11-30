@@ -200,6 +200,18 @@ export class WastburgUtility {
   }
 
   /* -------------------------------------------- */
+  static getActorFromRollData(rollData) {
+    let actor = game.actors.get(rollData.actorId)
+    if (rollData.tokenId) {
+      let token = canvas.tokens.placeables.find(t => t.id == rollData.tokenId)
+      if (token) {
+        actor = token.actor
+      }
+    }
+    return actor
+  }
+
+  /* -------------------------------------------- */
   static getRollFormula(value) {
     value = Number(value)
     value = Math.max(value, -2)
@@ -247,9 +259,9 @@ export class WastburgUtility {
   }
 
   /* -------------------------------------------- */
-  static processRollQuality( rollData, actor ) {
-    rollData.rollQuality =  this.getRollQuality(rollData.roll.total)
-    rollData.cssQuality =  this.getClassQuality(rollData.roll.total)
+  static processRollQuality(rollData, actor) {
+    rollData.rollQuality = this.getRollQuality(rollData.roll.total)
+    rollData.cssQuality = this.getClassQuality(rollData.roll.total)
     if (rollData.roll.total < 6) {
       rollData.aubainesPerso = actor.system.aubaine.value
       rollData.aubainesDeGroupe = game.settings.get("wastburg", "aubaine-de-groupe")
@@ -272,24 +284,27 @@ export class WastburgUtility {
       roll: roll,
       result: roll.total,
       actorId: actor.id,
+      tokenId: actor.token?.id,
       actorImg: actor.img,
       actorName: actor.name,
       rerollMode: "none",
       selectRollInput: 3
     }
-    this.processRollQuality( rollData, actor)
+    this.processRollQuality(rollData, actor)
     this.outputRollMessage(rollData)
   }
 
   /* -------------------------------------------- */
-  static async manageWastburgComplexRoll(actor, value) {
+  static async manageWastburgComplexRoll(actor, isInit = false) {
 
     let rollData = {
       rollDataID: randomID(16),
       mode: "complex",
       actorId: actor.id,
+      tokenId: actor.token?.id,
       actorImg: actor.img,
       actorName: actor.name,
+      isInit: isInit,
       rerollMode: "none",
       selectRollInput: 3,
       traits: actor.items.filter(item => item.type == "trait"),
@@ -310,40 +325,40 @@ export class WastburgUtility {
   }
 
   /* -------------------------------------------- */
-  static async performRollComplex( rollData) {
+  static async performRollComplex(rollData) {
     let diceFormula = WastburgUtility.getRollFormula(rollData.totalLevel)
-    
+
     const roll = await new Roll(diceFormula).roll({ async: true })
     await this.showDiceSoNice(roll, game.settings.get("core", "rollMode"))
-    
+
     rollData.roll = roll
-    rollData.diceFormula =  diceFormula
+    rollData.diceFormula = diceFormula
     rollData.roll = roll
-    rollData.result =  roll.total
-    
-    let actor = game.actors.get( rollData.actorId)
-    this.processRollQuality( rollData, actor)
+    rollData.result = roll.total
+
+    let actor = WastburgUtility.getActorFromRollData(rollData)
+    this.processRollQuality(rollData, actor)
     this.outputRollMessage(rollData)
   }
 
   /* -------------------------------------------- */
-  static computeFinalLevel( rollData) {
+  static computeFinalLevel(rollData) {
     let level = 0
     level += Number(rollData.selectedBonusMalus)
-    if ( rollData.selectedTrait != "none") {
+    if (rollData.selectedTrait != "none") {
       level++;
     }
-    if ( rollData.selectedContact != "none") {
+    if (rollData.selectedContact != "none") {
       let contact = rollData.contacts.find(c => c.id == rollData.selectedContact)
       level += Number(contact.system.value)
     }
-    if ( rollData.applySante) { 
+    if (rollData.applySante) {
       level += Number(rollData.santeValue)
     }
-    if ( rollData.applySocial) { 
+    if (rollData.applySocial) {
       level += Number(rollData.socialValue)
     }
-    if ( rollData.applyMental) { 
+    if (rollData.applyMental) {
       level += Number(rollData.mentalValue)
     }
     level = Math.max(level, -2)
@@ -355,7 +370,7 @@ export class WastburgUtility {
   static async manageWastburgReroll(rollData) {
     this.cleanupButtons(rollData.rollDataID) // Delete previous buttons
     if (rollData.rerollMode == "aubaine-perso") {
-      let actor = game.actors.get(rollData.actorId)
+      let actor = WastburgUtility.getActorFromRollData( rollData)
       actor.incDecAubainePerso(-1)
       rollData.result += 1
     } else {
@@ -378,7 +393,13 @@ export class WastburgUtility {
       alias: rollData.actorName,
       content: await renderTemplate('systems/wastburg/templates/chat/rolls/roll-summary-card.hbs', rollData)
     })
+    // Save rollData in the message 
     msg.setFlag("world", "wastburg-roll-data", rollData)
+    // Save init 
+    if(rollData.isInit) {
+      let actor = WastburgUtility.getActorFromRollData( rollData)
+      actor.setInitiative( rollData.result )
+    }
   }
 
   /* -------------------------------------------- */
@@ -398,7 +419,7 @@ export class WastburgUtility {
 
     html.on("click", '.receive-aubaine-perso', event => {
       let rollData = this.getRollDataFromMessage(event)
-      let actor = game.actors.get(rollData.actorId)
+      let actor = WastburgUtility.getActorFromRollData( rollData)
       actor.incDecAubainePerso(1)
     })
 

@@ -51,21 +51,21 @@
         <div class="sante-block">
           <div class="flexrow">            
             <label class="reputation">Santé Max:</label></td>
-            <input type="text" name="combat.santemax" value="{{combat.santemax}}" data-dtype="Number" /></td>
+            <input type="text" name="system.combat.santemax" value="{{system.combat.santemax}}" data-dtype="Number" /></td>
             <label class="reputation">Santé Actuelle:</label></td>
-            <input type="text" name="combat.santecurrent" value="{{combat.santecurrent}}" data-dtype="Number" /></td>
+            <input type="text" name="system.combat.santecurrent" value="{{system.combat.santecurrent}}" data-dtype="Number" /></td>
           </div>          
           <div class="flexrow">            
-            <label class="reputation">Initiative:</label></td>
-            <input type="text" name="combat.initiative" value="{{combat.initiative}}" data-dtype="Number" /></td>
-            <button class="roll-initiative chat-button" type="button">Initiative</button>
+            <label class="reputation">Initiative : {{initiative}}</label></td>
+            <button class="roll-initiative chat-button" type="button">Relancer</button>
           </div>
         </div>
         {{/if}}
 
   </header>
-   {{!-- Sheet Body --}}
-    <section class="sheet-body">
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
         <nav class="sheet-tabs tabs" data-group="primary">
         <a class="item tab-header-title" data-tab="etats-list">Etats</a>
         <a class="item tab-header-title" data-tab="traits-list">Traits</a>
