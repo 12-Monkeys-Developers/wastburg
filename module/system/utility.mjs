@@ -8,6 +8,9 @@ const __wastburgRollFormula = {
 const __wastburgValueToLevel = {
   [-2]: "--", [-1]: "-", 0: "0", 1: "+", 2: "++"
 }
+const __wastburgValueToLevelFull = {
+  [-2]: "(--)", [-1]: "(-)", 0: "(0)", 1: "(+)", 2: "(++)"
+}
 
 /* -------------------------------------------- */
 export class WastburgUtility {
@@ -39,7 +42,7 @@ export class WastburgUtility {
 
     // Game socket 
     game.socket.on("system.wastburg", sockmsg => {
-      WastburgUtility.onSocketMessage(sockmsg);
+      WastburgUtility.onSocketMessage(sockmsg);      
     })
 
   }
@@ -105,7 +108,7 @@ export class WastburgUtility {
 
   /* -------------------------------------------- */
   static getUsers(filter) {
-    return game.users.filter(filter).map(user => user.data._id);
+    return game.users.filter(filter).map(user => user.id);
   }
   /* -------------------------------------------- */
   static getWhisperRecipients(rollMode, name) {
@@ -228,6 +231,19 @@ export class WastburgUtility {
   }
 
   /* -------------------------------------------- */
+  static getLevelFullFromValue(value) {
+    value = Number(value)
+    value = Math.max(value, -2)
+    value = Math.min(value, 2)
+    return __wastburgValueToLevelFull[value]
+  }
+
+  /* -------------------------------------------- */
+  static getTraitType(value) {
+    return CONFIG.WASTBURG.traitType[value]
+  }
+
+  /* -------------------------------------------- */
   static getRollQuality(result) {
     if (result == "1") {
       return "Non, et..."
@@ -271,55 +287,58 @@ export class WastburgUtility {
       rollData.nbOne = oneList.length
     }
   }
-  /* -------------------------------------------- */
-  static async manageWastburgSimpleRoll(actor, value) {
 
-    let diceFormula = WastburgUtility.getRollFormula(value)
-    const roll = await new Roll(diceFormula).roll({ async: true })
-    await this.showDiceSoNice(roll, game.settings.get("core", "rollMode"))
-    let rollData = {
-      rollDataID: randomID(16),
-      mode: "simple",
-      diceFormula: diceFormula,
-      roll: roll,
-      result: roll.total,
+  /* -------------------------------------------- */
+  static getCommonRollData(actor) {
+    return {
+      rollDataId: randomID(16),
+      aubaineButtonId: randomID(16),
       actorId: actor.id,
       tokenId: actor.token?.id,
       actorImg: actor.img,
       actorName: actor.name,
       rerollMode: "none",
-      selectRollInput: 3
-    }
-    this.processRollQuality(rollData, actor)
-    this.outputRollMessage(rollData)
-  }
-
-  /* -------------------------------------------- */
-  static async manageWastburgComplexRoll(actor, isInit = false) {
-
-    let rollData = {
-      rollDataID: randomID(16),
-      mode: "complex",
-      actorId: actor.id,
-      tokenId: actor.token?.id,
-      actorImg: actor.img,
-      actorName: actor.name,
-      isInit: isInit,
-      rerollMode: "none",
-      selectRollInput: 3,
-      traits: actor.items.filter(item => item.type == "trait"),
-      contacts: actor.items.filter(item => item.type == "contact"),
-      santeValue: actor.system.sante.value,
-      mentalValue: actor.system.mental.value,
-      socialValue: actor.system.social.value,
       selectedTrait: "none",
       selectedContact: "none",
       selectedBonusMalus: 0,
       applySante: false,
       applyMental: false,
       applySocial: false,
-      totalLevel: 0
+      totalLevel: 0,
+      selectRollInput: 3,
+      rerollMode: "none"
     }
+  }
+
+  /* -------------------------------------------- */
+  static async manageWastburgSimpleRoll(actor, value) {
+
+    let diceFormula = WastburgUtility.getRollFormula(value)
+    const roll = await new Roll(diceFormula).roll({ async: true })
+    await this.showDiceSoNice(roll, game.settings.get("core", "rollMode"))
+    
+    let rollData = this.getCommonRollData(actor)
+    rollData.mode = "simple",
+    rollData.diceFormula = diceFormula
+    rollData.roll =  roll
+    rollData.result = roll.total
+    
+    this.processRollQuality(rollData, actor)    
+    this.outputRollMessage(rollData)
+  }
+
+  /* -------------------------------------------- */
+  static async manageWastburgComplexRoll(actor, isInit = false) {
+
+    let rollData = this.getCommonRollData(actor)
+    rollData.mode = "complex"
+    rollData.traits = actor.items.filter(item => item.type == "trait")
+    rollData.contacts = actor.items.filter(item => item.type == "contact")
+    rollData.santeValue = actor.system.sante.value
+    rollData.mentalValue = actor.system.mental.value
+    rollData.socialValue = actor.system.social.value
+    rollData.isInit = isInit
+
     let rollDialog = await WastburgRollDialog.create(rollData)
     rollDialog.render(true)
   }
@@ -368,9 +387,9 @@ export class WastburgUtility {
 
   /* -------------------------------------------- */
   static async manageWastburgReroll(rollData) {
-    this.cleanupButtons(rollData.rollDataID) // Delete previous buttons
+    this.cleanupButtons(rollData.rollDataId) // Delete previous buttons
     if (rollData.rerollMode == "aubaine-perso") {
-      let actor = WastburgUtility.getActorFromRollData( rollData)
+      let actor = WastburgUtility.getActorFromRollData(rollData)
       actor.incDecAubainePerso(-1)
       rollData.result += 1
     } else {
@@ -382,7 +401,7 @@ export class WastburgUtility {
     }
     rollData.rollQuality = this.getRollQuality(rollData.result)
     rollData.cssQuality = this.getClassQuality(rollData.result)
-    rollData.rollDataID = randomID(16)
+    rollData.rollDataId = randomID(16)
 
     this.outputRollMessage(rollData)
   }
@@ -396,10 +415,17 @@ export class WastburgUtility {
     // Save rollData in the message 
     msg.setFlag("world", "wastburg-roll-data", rollData)
     // Save init 
-    if(rollData.isInit) {
-      let actor = WastburgUtility.getActorFromRollData( rollData)
-      actor.setInitiative( rollData.result )
+    if (rollData.isInit) {
+      let actor = WastburgUtility.getActorFromRollData(rollData)
+      actor.setInitiative(rollData.result)
     }
+  }
+
+  /* -------------------------------------------- */
+  static cleanupButtons(id) {
+    console.log("Hidinng", id)
+    $(`#${id}`).hide() // Hide the options roll buttons
+    game.socket.emit("system.wastburg", { name: "msg_cleanup_buttons", data: { id: id } })
   }
 
   /* -------------------------------------------- */
@@ -407,23 +433,28 @@ export class WastburgUtility {
 
     html.on("click", '.apply-aubaine-perso', event => {
       let rollData = this.getRollDataFromMessage(event)
+      this.cleanupButtons(rollData.aubaineButtonId)
       rollData.rerollMode = "aubaine-perso"
       this.manageWastburgReroll(rollData)
     })
 
     html.on("click", '.apply-aubaine-groupe', event => {
       let rollData = this.getRollDataFromMessage(event)
+      this.cleanupButtons(rollData.aubaineButtonId)
       rollData.rerollMode = "aubaine-groupe"
       this.manageWastburgReroll(rollData)
     })
 
     html.on("click", '.receive-aubaine-perso', event => {
       let rollData = this.getRollDataFromMessage(event)
-      let actor = WastburgUtility.getActorFromRollData( rollData)
+      this.cleanupButtons(rollData.aubaineButtonId)
+      let actor = WastburgUtility.getActorFromRollData(rollData)
       actor.incDecAubainePerso(1)
     })
 
     html.on("click", '.receive-aubaine-groupe', event => {
+      let rollData = this.getRollDataFromMessage(event)
+      this.cleanupButtons(rollData.aubaineButtonId)
       this.incDecAubaineGroupe(1)
     })
 

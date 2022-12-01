@@ -33,6 +33,13 @@ export class WastburgHelpers {
       return parseInt(a) - parseInt(b);
     })
     
+    Handlebars.registerHelper('levelText', function (a) {
+      return WastburgUtility.getLevelFullFromValue(a)
+    })
+    Handlebars.registerHelper('getTraitType', function (a) {
+      return WastburgUtility.getTraitType(a)
+    })
+    
     Handlebars.registerHelper('for', function (from, to, incr, block) {
       var accum = '';
       for (var i = from; i < to; i += incr)

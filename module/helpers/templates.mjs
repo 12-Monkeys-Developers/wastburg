@@ -11,7 +11,8 @@
     "systems/wastburg/templates/actor/parts/actor-traits.hbs",
     "systems/wastburg/templates/actor/parts/actor-contact.hbs",
     "systems/wastburg/templates/actor/parts/actor-inventaire.hbs",
-    "systems/wastburg/templates/common/select-levels.hbs"
+    "systems/wastburg/templates/common/select-levels.hbs",
+    "systems/wastburg/templates/actor/parts/actor-traits-list.hbs"
 
   ]);
 };

@@ -826,3 +826,7 @@ h2.failure {
 .roll-dialog-list {
   margin-bottom: 4px;
 }
+.advice-drag-drop {
+  font-size: 1.0rem;
+  font-style: italic;
+}

@@ -88,18 +88,20 @@ export class WastburgActor extends Actor {
 
   /* -------------------------------------------- */
   setAubaineGroupe( value ) {
-    let aubaine = duplicate(this.system.aubainegroupe)
-    aubaine.value = game.settings.get("wastburg", "aubaine-de-groupe")
-    aubaine.value = Math.max(aubaine.value, 0)
-    this.update({ 'system.aubainegroupe': aubaine })
+    if ( this.type =="personnage") {
+      let aubaine = this.system.aubainegroupe
+      aubaine.value = game.settings.get("wastburg", "aubaine-de-groupe")
+      aubaine.value = Math.max(aubaine.value, 0)
+      this.sheet.render(true)
+    }
   }
 
   /* -------------------------------------------- */
-  incDecAubainePerso(value) {
+  async incDecAubainePerso(value) {
     let aubaine = duplicate(this.system.aubaine)
     aubaine.value += value
     aubaine.value = Math.max(aubaine.value, 0)
-    this.update({ 'system.aubaine': aubaine })
+    await this.update({ 'system.aubaine': aubaine })
   }
 
   /* -------------------------------------------- */
@@ -111,4 +113,5 @@ export class WastburgActor extends Actor {
     let value = this.getFlag("world", "last-initiative")
     return value || -1
   }
+  
 }

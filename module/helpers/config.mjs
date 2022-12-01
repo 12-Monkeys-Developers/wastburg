@@ -4,4 +4,10 @@ export const WASTBURG = {};
 WASTBURG.foobar = {
   'bas': 'WASTBURG.bas',
   'bar': 'WASTBURG.bar'
-};
+}
+
+WASTBURG.traitType = {
+  'passe': 'Passé',
+  'present': 'Présent',
+  'jeunesse': 'Jeunesse'
+}

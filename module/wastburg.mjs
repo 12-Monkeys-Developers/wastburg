@@ -8,6 +8,7 @@ import { WastburgItemSheet } from "./sheets/item-sheet.mjs";
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { WastburgHelpers } from "./helpers/helpers.mjs";
 import { WastburgUtility } from "./system/utility.mjs";
+import { WastburgCombatManager } from "./system/combat.mjs";
 import { WASTBURG } from "./helpers/config.mjs";
 
 /* -------------------------------------------- */
@@ -37,6 +38,7 @@ Hooks.once('init', async function () {
   // Define custom Document classes
   CONFIG.Actor.documentClass = WastburgActor;
   CONFIG.Item.documentClass = WastburgItem;
+  CONFIG.Combat.documentClass = WastburgCombatManager;
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);

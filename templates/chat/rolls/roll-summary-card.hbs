@@ -7,35 +7,44 @@
 <h3><strong>{{description}}</strong></h3> 
 
 <div class="actions-section">
-  <ol class="items-list" id="{{rollDataID}}">
+  <ol class="items-list" id="{{rollDataId}}">
     {{#if (eq rerollMode "aubaine-perso")}}
       <li>Le jet a reçu une aubaine personnelle !</li>
     {{else}}
       {{#if (eq rerollMode "aubaine-groupe")}}
-        <li>Le jet a reçu une aubaine de groupe !</li>
+        <li>Jet relancé suite grâce à une aubaine de groupe !</li>
       {{else}}
-        {{#if aubainesPerso}}
-        <li>
-          <button class="chat-button apply-aubaine-perso">Utiliser une aubaine perso ({{aubainesPerso}})</button>
-        </li>
-        {{/if}}
-        {{#if aubainesDeGroupe}}
-        <li>
-          <button class="chat-button apply-aubaine-groupe">Utiliser une aubaine de groupe ({{aubainesDeGroupe}})</button>
-        </li>
-        {{/if}}
-        {{#if nbOne}}
-        <li>
-          <label>Vous pouvez récupérer {{nbOne}} aubaines !</label>
-        </li> 
-        <li>
-          <button class="chat-button receive-aubaine-perso">Recevoir une aubaine perso</button>
-        </li>
-        <li>
-          <button class="chat-button receive-aubaine-groupe">Recevoir une aubaine de groupe</button>
-        </li>
-        {{/if}}
-      {{/if}}
+
+        <div id={{aubaineButtonId}}>
+
+          {{#if aubainesPerso}}
+          <li>
+            <button class="chat-button apply-aubaine-perso">Utiliser une aubaine perso ({{aubainesPerso}})</button>
+          </li>
+          {{/if}}
+          {{#if aubainesDeGroupe}}
+          <li>
+            <button class="chat-button apply-aubaine-groupe">Utiliser une aubaine de groupe ({{aubainesDeGroupe}})</button>
+          </li>
+          {{/if}}
+          {{#if nbOne}}
+              <li>
+                <label>Vous pouvez récupérer {{nbOne}} aubaines !</label>
+              </li> 
+              
+              {{#if (ne selectedTrait "none")}}
+              <li>
+                <button class="chat-button receive-aubaine-perso">Recevoir une aubaine perso</button>
+              </li>
+              {{/if}}
+              
+              <li>
+                <button class="chat-button receive-aubaine-groupe">Recevoir une aubaine de groupe</button>
+              </li>
+            {{/if}}
+          {{/if}}
+        </div>
+
     {{/if}}
   </ol>
   
