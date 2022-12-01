@@ -2,7 +2,21 @@
  * Extend the basic Item with some very simple modifications.
  * @extends {Item}
  */
+
+ export const defaultItemImg = {
+  contact: "systems/wastburg/assets/icons/icon_contact.webp",
+  trait: "systems/wastburg/assets/icons/icon_trait.webp"
+ }
+
 export class WastburgItem extends Item {
+
+  constructor(data, context) {
+    if (!data.img) {
+      data.img = defaultItemImg[data.type];
+    }
+    super(data, context);
+  }
+
   /**
    * Augment the basic Item data model with additional dynamic data.
    */
