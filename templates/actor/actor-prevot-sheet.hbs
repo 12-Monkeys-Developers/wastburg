@@ -3,21 +3,26 @@
 
   {{!-- Sheet Header --}}
   <header class="sheet-header-personnage" >
-        <div class="firstColumnHeader"><h1 class="charname-personnage"><input class="namePlayer" name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>     
-        </div>  
 
-    {{> "systems/wastburg/templates/actor/parts/actor-traits-list.hbs"}}
-
-
+    <div class="firstColumnHeader">
+      <h1 class="charname-personnage">
+        <input class="namePlayer" name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
+      </h1>     
+      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+    </div>  
+    
+    <div class="question-prevot">
+      <label class="question">Honnêtenement,comment il l'a eu, son poste le prévôt?</label>
+      <input class="reponse" type="text" name="system.reponsePrevot01" value="{{system.reponsePrevot01}}" data-dtype="String" />
+      <label class="question">C'est quel genre de chef?</label>
+      <input class="reponse" type="text" name="system.reponsePrevot02" value="{{system.reponsePrevot02}}" data-dtype="String" />
+      <label class="question">Et comme gardoche, il a laissé quel souvenir?</label>
+      <input class="reponse" type="text" name="system.reponsePrevot03" value="{{system.reponsePrevot03}}" data-dtype="String" />
+    </div>
   </header>
-<div class="question-prevot">
-<label class="question">Honnêtenement,comment il l'a eu, son poste le prévôt?</label>
-<input class="reponse" type="text" name="system.reponsePrevot01" value="{{system.reponsePrevot01}}" data-dtype="String" />
-<label class="question">C'est quel genre de chef?</label>
-<input class="reponse" type="text" name="system.reponsePrevot02" value="{{system.reponsePrevot02}}" data-dtype="String" />
-<label class="question">Et comme gardoche, il a laissé quel souvenir?</label>
-<input class="reponse" type="text" name="system.reponsePrevot03" value="{{system.reponsePrevot03}}" data-dtype="String" />
-</div>
+
+      {{> "systems/wastburg/templates/actor/parts/actor-traits-list.hbs"}}
+
 
 <div class="tables-prevot-appreciation">
     <table class="prevot-appreciation">

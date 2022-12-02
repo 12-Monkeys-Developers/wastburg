@@ -723,6 +723,7 @@ div.question-prevot {
   padding: 9px;
   font-weight: bold;
   margin-top: 20px;
+  max-width: 70%;
 }
 table.prevot-renfort {
   max-width: 245px;
