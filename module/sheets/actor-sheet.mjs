@@ -12,7 +12,7 @@ import { WastburgUtility } from "../system/utility.mjs";
       classes: ["wastburg", "sheet", "actor", "personnage", "trait","prevot","caid"],
       template: "systems/wastburg/templates/actor/actor-sheet.hbs",
       width: 620,
-      height: 720,
+      height: 740,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "etats-list" }]
     });
   }
@@ -25,7 +25,7 @@ import { WastburgUtility } from "../system/utility.mjs";
   /* -------------------------------------------- */
 
    /** @override */
-   getData() {
+   async getData() {
     // Retrieve the data structure from the base sheet. You can inspect or log
     // the context variable to see the structure, but some key properties for
     // sheets are the actor object, the data object, whether or not it's
@@ -43,6 +43,7 @@ import { WastburgUtility } from "../system/utility.mjs";
     context.selectRollInput = 0 // Per default level 0
     context.combatRules = game.settings.get("wastburg", "house-combat-rules")
     context.initiative = this.actor.getInitiative()
+    context.biography = await TextEditor.enrichHTML(this.object.system.biography, { async: true })
 
     // Prepare character data and items.
     if (actorData.type == 'personnage' || actorData.type == 'prevot' || actorData.type == 'caid') {

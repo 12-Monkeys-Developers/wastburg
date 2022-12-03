@@ -143,13 +143,13 @@ table th {
 }
 .infoAubaineReput th {
   border: 5px solide #422800;
-  padding: 9px;
+  padding: 2px;
   background: #F0F0F0;
 }
 .infoAubaineReput td {
   border: 5px solide #422800;
   text-align: centre;
-  padding: 9px;
+  padding: 2px;
   background: #FBEEE0;
 }
 .difficulte-rollInput {
@@ -178,7 +178,7 @@ label.label-difficulte-rollInput {
   border: 2px solid #422800;
   color: #422800;
   float: right;
-  margin-top: 4px;
+  margin-top: 2px;
   margin-right: 147px;
   text-align: center;
   text-decoration: none;
@@ -189,6 +189,8 @@ label.label-difficulte-rollInput {
   max-width: 40%;
   min-width: 40%;
   padding: 2%;
+  font-weight: bold;
+  font-size: 12px;
 }
 .sheet nav.sheet-tabs {
   padding: -1px;
@@ -622,7 +624,8 @@ h1.charname {
   border-bottom: none;
 }
 .sheet .editor-content {
-  height: 100px;
+
+  height: 400px;
   margin-top: 3%;
 }
 .tableContact {

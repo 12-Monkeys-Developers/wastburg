@@ -68,11 +68,13 @@
   {{!-- Sheet Body --}}
   <section class="sheet-body">
         <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item tab-header-title" data-tab="etats-list">Etats</a>
-        <a class="item tab-header-title" data-tab="traits-list">Traits</a>
-        <a class="item tab-header-title" data-tab="contact-list">Contacts</a>
-        <a class="item tab-header-title" data-tab="actor-inventaire">Inventaire</a>
-        </nav>
+          <a class="item tab-header-title" data-tab="etats-list">Etats</a>
+          <a class="item tab-header-title" data-tab="traits-list">Traits</a>
+          <a class="item tab-header-title" data-tab="contact-list">Contacts</a>
+          <a class="item tab-header-title" data-tab="actor-inventaire">Inventaire</a>
+          <a class="item tab-header-title" data-tab="actor-biography">Biography</a>
+          </nav>
+
       <section class="section-etats">
           {{> "systems/wastburg/templates/actor/parts/actor-etats.hbs"}}
       </section>     
@@ -84,6 +86,9 @@
       </section>
       <section class="section-inventaire">
            {{~> "systems/wastburg/templates/actor/parts/actor-inventaire.hbs"}}
+      </section> 
+      <section class="section-biography">
+           {{~> "systems/wastburg/templates/actor/parts/actor-biography.hbs"}}
       </section> 
     </section> 
 </form>
