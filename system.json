@@ -45,7 +45,7 @@
   "gridUnits": "ft",
   "primaryTokenAttribute": "health",
   "secondaryTokenAttribute": "power",
-  "manifest": "https://www.uberwald.me/gitea/public/wastburg/raw/branch/master/system.json",
+  "manifest": "https://raw.githubusercontent.com/12-Monkeys-Developers/wastburg/master/system.json",
   "download": "https://www.uberwald.me/gitea/public/wastburg/archive/wastburg-10.0.0.zip",
   "socket": true,
   "license": "LICENSE.txt"
