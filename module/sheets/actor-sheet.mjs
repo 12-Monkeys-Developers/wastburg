@@ -44,6 +44,7 @@ import { WastburgUtility } from "../system/utility.mjs";
     context.combatRules = game.settings.get("wastburg", "house-combat-rules")
     context.initiative = this.actor.getInitiative()
     context.biography = await TextEditor.enrichHTML(this.object.system.biography, { async: true })
+    context.config = CONFIG.WASTBURG
 
     // Prepare character data and items.
     if (actorData.type == 'personnage' || actorData.type == 'prevot' || actorData.type == 'caid') {

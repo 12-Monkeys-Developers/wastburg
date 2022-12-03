@@ -32,9 +32,9 @@
       </select>      
     </div>
 
-    <div class="flexro roll-dialog-list">
-      <label class="generic-label">Bonus/Malus </label>
-        <select id="select-bonusmalus" value="selectedBonusMalus" data-dtype="Number">
+    <div class="flexrow roll-dialog-list">
+      <span class="roll-dialog-label">Bonus/Malus </span>
+        <select class="status-small-label color-class-common"  id="select-bonusmalus" value="selectedBonusMalus" data-dtype="Number">
         {{#select selectedBonusMalus}}
             {{> systems/wastburg/templates/common/select-levels.hbs}}
         {{/select}}
@@ -56,8 +56,9 @@
       <input type="checkbox" id="applySocial" name="applySocial" {{checked applySocial}}/>
     </div>
 
-    <div class="flexrow roll-dialog-list">
-      <label class="generic-label">Niveau final : </label><label id="total-level">0</label>
+    <div class="flexrow roll-dialog-list dialog-result">
+      <label class="generic-label">Niveau final : </label>
+      <label id="total-level">(0)</label>
     </div>
 
   </div>

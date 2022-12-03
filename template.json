@@ -8,6 +8,7 @@
     "templates": {
       "base": {
         "biography": "",
+        "persotype": "gardoche",
         "note": "",
         "arme": "",
         "protection": "",

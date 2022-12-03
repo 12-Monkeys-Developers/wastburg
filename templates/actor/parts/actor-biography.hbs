@@ -1,0 +1,20 @@
+<div class="tab actor-biography" data-group="primary" data-tab="actor-biography">
+
+    <div>
+      <label class="labelEditor">Personnage</label>
+      <select class="input-trait"  name="system.persotype" value="{{system.persotype}}" data-dtype="String">
+        {{#select system.persotype}}
+          {{#each config.persoType as |name key|}}
+            <option value="{{key}}">{{name}}</option>
+          {{/each}}
+        {{/select}}
+      </select>
+    </div>
+
+    <label class="labelEditor">Biographie et Notes</label>
+    
+    <div class="form-group editor">
+      {{editor biography target="system.biography" button=true owner=owner editable=editable}}
+    </div>
+
+</div>    

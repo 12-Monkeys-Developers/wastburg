@@ -52,32 +52,32 @@ export class WastburgRollDialog extends Dialog {
     html.find('#select-trait').change(async (event) =>  {
       this.rollData.selectedTrait = event.currentTarget.value
       WastburgUtility.computeFinalLevel(this.rollData)
-      $('#total-level').html( WastburgUtility.getLevelFromValue(this.rollData.totalLevel))
+      $('#total-level').html( WastburgUtility.getLevelFullFromValue( this.rollData.totalLevel))
     })
     html.find('#select-contact').change(async (event) =>  {
       this.rollData.selectedContact = event.currentTarget.value
       WastburgUtility.computeFinalLevel(this.rollData)
-      $('#total-level').html( WastburgUtility.getLevelFromValue(this.rollData.totalLevel))
+      $('#total-level').html( WastburgUtility.getLevelFullFromValue(this.rollData.totalLevel))
     })
     html.find('#select-bonusmalus').change(async (event) =>  {
       this.rollData.selectedBonusMalus = event.currentTarget.value
       WastburgUtility.computeFinalLevel(this.rollData)
-      $('#total-level').html( WastburgUtility.getLevelFromValue(this.rollData.totalLevel))
+      $('#total-level').html( WastburgUtility.getLevelFullFromValue(this.rollData.totalLevel))
     })  
     html.find('#applySante').change(async (event) =>  {
       this.rollData.applySante = event.currentTarget.checked
       WastburgUtility.computeFinalLevel(this.rollData)
-      $('#total-level').html( WastburgUtility.getLevelFromValue(this.rollData.totalLevel))
+      $('#total-level').html( WastburgUtility.getLevelFullFromValue(this.rollData.totalLevel))
     })         
     html.find('#applyMental').change(async (event) =>  {
       this.rollData.applyMental = event.currentTarget.checked
       WastburgUtility.computeFinalLevel(this.rollData)
-      $('#total-level').html( WastburgUtility.getLevelFromValue(this.rollData.totalLevel))
+      $('#total-level').html( WastburgUtility.getLevelFullFromValue(this.rollData.totalLevel))
     })         
     html.find('#applySocial').change(async (event) =>  {
       this.rollData.applySocial = event.currentTarget.checked
       WastburgUtility.computeFinalLevel(this.rollData)
-      $('#total-level').html( WastburgUtility.getLevelFromValue(this.rollData.totalLevel))
+      $('#total-level').html( WastburgUtility.getLevelFullFromValue(this.rollData.totalLevel))
     })         
 
   }

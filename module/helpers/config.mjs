@@ -6,3 +6,8 @@ WASTBURG.traitType = {
   'present': 'Présent',
   'jeunesse': 'Jeunesse'
 }
+
+WASTBURG.persoType = {
+  'gardoche': 'Gardoche',
+  'malfrat': 'Malfrat'
+}
