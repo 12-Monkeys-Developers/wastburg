@@ -92,7 +92,9 @@ export class WastburgActor extends Actor {
       let aubaine = this.system.aubainegroupe
       aubaine.value = game.settings.get("wastburg", "aubaine-de-groupe")
       aubaine.value = Math.max(aubaine.value, 0)
-      this.sheet.render(true)
+      if ( this.sheet.rendered) {
+        this.sheet.render(true)
+      } 
     }
   }
 
