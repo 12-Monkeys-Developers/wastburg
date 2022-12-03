@@ -1,6 +1,21 @@
 {
+  "ACTOR": {
+    "TypePersonnage": "Personnage",
+    "TypePrevot": "Prévôt",
+    "TypeCaid": "Caïd"
+  },
+
   "ITEM": {
     "TypeTrait": "Trait",
     "TypeContact": "Contact"
+  },
+
+  "WASTBURG": {
+    "ui": {
+      "editContact": "Modifier le contact",
+      "deleteContact": "Supprimer le contact",
+      "editTrait": "Modifier le trait",
+      "deleteTrait": "Supprimer le trait"
+    }
   }
 }
