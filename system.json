@@ -42,10 +42,10 @@
     "flags": {}
   } ],
   "gridDistance": 5,
-  "gridUnits": "ft",
+  "gridUnits": "m",
   "primaryTokenAttribute": "health",
   "secondaryTokenAttribute": "power",
-  "manifest": "https://raw.githubusercontent.com/12-Monkeys-Developers/wastburg/master/system.json",
+  "manifest": "https://github.com/12-Monkeys-Developers/wastburg/releases/latest/download/system.json",
   "download": "https://www.uberwald.me/gitea/public/wastburg/archive/wastburg-10.0.0.zip",
   "socket": true,
   "license": "LICENSE.txt"
