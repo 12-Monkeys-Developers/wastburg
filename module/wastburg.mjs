@@ -56,13 +56,55 @@ Hooks.once('init', async function () {
 /*  Handlebars Helpers                          */
 /* -------------------------------------------- */
 
+/* -------------------------------------------- */
+// Register world usage statistics
+function registerUsageCount( registerKey ) {
+  if ( game.user.isGM ) {
+    game.settings.register(registerKey, "world-key", {
+      name: "Unique world key",
+      scope: "world",
+      config: false,
+      default: "",
+      type: String
+    });
 
+    let worldKey = game.settings.get(registerKey, "world-key")
+    if ( worldKey == undefined || worldKey == "" ) {
+      worldKey = randomID(32)
+      game.settings.set(registerKey, "world-key", worldKey )
+    }
+    // Simple API counter
+    let regURL = `https://www.uberwald.me/fvtt_appcount/count.php?name="${registerKey}"&worldKey="${worldKey}"&version="${game.release.generation}.${game.release.build}"&system="${game.system.id}"&systemversion="${game.system.version}"`
+    //$.ajaxSetup({
+      //headers: { 'Access-Control-Allow-Origin': '*' }
+    //})
+    $.ajax(regURL)
+  }
+}
 
 /* -------------------------------------------- */
 /*  Ready Hook                                  */
 /* -------------------------------------------- */
 Hooks.once("ready", async function () {
+
+  // Ready stage init
   WastburgHelpers.registerHelpers()
   WastburgUtility.registerSettings()
+
+  // World count
+  registerUsageCount('bol')
+
+  // Welcome messages
+  ChatMessage.create({
+    user: game.user.id,
+    whisper: [game.user.id],
+    content: `<div id="welcome-message-wastburg"><span class="rdd-roll-part">
+    <strong>Bienvenu dans le système Wastburg pour FoundryVTT</strong>, développé par LeRatierBretonnien, sur un travail initial de MagisterPhantom.
+    <br><strong>Wastburg</strong> est un jeu édité par les XII Singes, sur la base d'un roman de Cédric Ferrand. Ce système est publié avec leur autorisation.
+    <br>Tout les livres de la <a href="https://www.les12singes.com/9-wastburg">gamme sont disponibles à l'achat via ce lien</a>.
+    <br>Support et assistance sur le <a href="https://discord.gg/pPSDNJk">Discord FR de Foundry</a>.
+    <br><strong>Bon courage les Gardoches !</strong>`
+  } )
+
 })
 
