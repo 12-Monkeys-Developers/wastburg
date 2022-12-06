@@ -107,13 +107,25 @@ export class WastburgActor extends Actor {
   }
 
   /* -------------------------------------------- */
+  clearInitiative() {
+    this.setFlag("world", "last-initiative", -1)
+  }
+
+  /* -------------------------------------------- */
   setInitiative(value) {
     this.setFlag("world", "last-initiative", value)
   }
   /* -------------------------------------------- */
-  getInitiative() {
-    let value = this.getFlag("world", "last-initiative")
-    return value || -1
-  }
-  
+  getInitiative(fromCombat = false) {
+    if ( game.settings.get("wastburg", "house-combat-rules") ) {
+      let value = this.getFlag("world", "last-initiative")
+      if ( fromCombat && (!value || value == -1) ) {
+        ui.notifications.warn("Votre Initiative n'a pas été initialisée pour ce combat. Faites un jet depuis votre fiche de personnage.")
+      }
+      return value || -1  
+    } else {
+      let r = new Roll("1d6").roll({async: false})
+      return r.total
+    }
+  }  
 }
