@@ -8,6 +8,13 @@
 
 <div class="actions-section">
   <ol class="items-list" id="{{rollDataId}}">
+    
+    <li>Dés  :
+      {{#each roll.terms.0.results as |result key|}}
+        {{result.result}}
+      {{/each}}
+    </li>
+    
     {{#if (eq rerollMode "aubaine-perso")}}
       <li>Le jet a reçu une aubaine personnelle !</li>
     {{else}}

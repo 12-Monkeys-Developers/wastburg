@@ -9,7 +9,8 @@ import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { WastburgHelpers } from "./helpers/helpers.mjs";
 import { WastburgUtility } from "./system/utility.mjs";
 import { WastburgCombatManager } from "./system/combat.mjs";
-import { WASTBURG } from "./helpers/config.mjs";
+import { WastburgCommands} from "./system/commands.mjs"
+import { WASTBURG } from "./helpers/config.mjs"
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -47,6 +48,8 @@ Hooks.once('init', async function () {
   Items.registerSheet("wastburg", WastburgItemSheet, { makeDefault: true });
 
   WastburgUtility.registerHooks()
+  WastburgCommands.init()
+
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();
 

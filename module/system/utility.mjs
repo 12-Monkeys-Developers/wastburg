@@ -326,6 +326,14 @@ export class WastburgUtility {
     this.processRollQuality(rollData, actor)    
     this.outputRollMessage(rollData)
   }
+  /* -------------------------------------------- */
+  static async commandWastburgComplexRoll () {
+    let actor = _token?.actor
+    if (actor) {
+      return this.manageWastburgComplexRoll(actor)       
+    }
+    ui.notifications.warn("Vous devez sélectionner un token pour lancer cette commande.")
+  }
 
   /* -------------------------------------------- */
   static async manageWastburgComplexRoll(actor, isInit = false) {
@@ -412,6 +420,7 @@ export class WastburgUtility {
       alias: rollData.actorName,
       content: await renderTemplate('systems/wastburg/templates/chat/rolls/roll-summary-card.hbs', rollData)
     })
+    console.log("Rolldata", rollData)
     // Save rollData in the message 
     msg.setFlag("world", "wastburg-roll-data", rollData)
     // Save init 
