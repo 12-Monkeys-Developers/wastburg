@@ -298,7 +298,8 @@ export class WastburgUtility {
       actorImg: actor.img,
       actorName: actor.name,
       rerollMode: "none",
-      selectedTrait: "none",
+      selectedTraitBonus: "none",
+      selectedTraitMalus: "none",
       selectedContact: "none",
       selectedBonusMalus: 0,
       applySante: false,
@@ -318,10 +319,11 @@ export class WastburgUtility {
     await this.showDiceSoNice(roll, game.settings.get("core", "rollMode"))
     
     let rollData = this.getCommonRollData(actor)
-    rollData.mode = "simple",
+    rollData.mode = "simple"
     rollData.diceFormula = diceFormula
     rollData.roll =  roll
     rollData.result = roll.total
+    rollData.totalLevel = value
     
     this.processRollQuality(rollData, actor)    
     this.outputRollMessage(rollData)
@@ -372,8 +374,11 @@ export class WastburgUtility {
   static computeFinalLevel(rollData) {
     let level = 0
     level += Number(rollData.selectedBonusMalus)
-    if (rollData.selectedTrait != "none") {
+    if (rollData.selectedTraitBonus != "none") {
       level++;
+    }
+    if (rollData.selectedTraitMalus != "none") {
+      level--;
     }
     if (rollData.selectedContact != "none") {
       let contact = rollData.contacts.find(c => c.id == rollData.selectedContact)

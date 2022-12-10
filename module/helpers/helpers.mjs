@@ -46,7 +46,7 @@ export class WastburgHelpers {
         accum += block.fn(i);
       return accum;
     })
-  
+    
     // If you need to add Handlebars helpers, here are a few useful examples:
     Handlebars.registerHelper('concat', function () {
       var outStr = '';

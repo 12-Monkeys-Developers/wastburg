@@ -9,9 +9,21 @@
   <div class="flexcol">
 
     <div class="flexrow roll-dialog-list">
-      <span class="roll-dialog-label">Trait</span>
-        <select class="status-small-label color-class-common" id ="select-trait" type="text" name="attrKey" value="selectedTrait" data-dtype="string" >
-          {{#select selectedTrait}}
+      <span class="roll-dialog-label">Trait (Bonus)</span>
+        <select class="status-small-label color-class-common" id ="select-trait-bonus" type="text" name="attrKey" value="selectedTraitBonus" data-dtype="string" >
+          {{#select selectedTraitBonus}}
+          <option value="none">Aucun</option>
+          {{#each traits as |trait id|}}
+            <option value="{{trait.id}}">{{trait.name}}</option>
+          {{/each}}
+          {{/select}}
+      </select>      
+    </div>
+
+    <div class="flexrow roll-dialog-list">
+      <span class="roll-dialog-label">Trait (Malus)</span>
+        <select class="status-small-label color-class-common" id ="select-trait-malus" type="text" name="attrKey" value="selectedTraitMalus" data-dtype="string" >
+          {{#select selectedTraitMalus}}
           <option value="none">Aucun</option>
           {{#each traits as |trait id|}}
             <option value="{{trait.id}}">{{trait.name}}</option>
@@ -26,7 +38,7 @@
           {{#select selectedContact}}
           <option value="none">Aucun</option>
           {{#each contacts as |contact id|}}
-            <option value="{{contact.id}}">{{contact.name}}</option>
+            <option value="{{contact.id}}">{{contact.name}} ({{getLevel contact.system.value}})</option>
           {{/each}}
           {{/select}}
       </select>      

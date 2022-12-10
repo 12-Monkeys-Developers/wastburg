@@ -49,13 +49,21 @@ export class WastburgRollDialog extends Dialog {
     }
     $(function () { onLoad(); });
     
-    html.find('#select-trait').change(async (event) =>  {
-      this.rollData.selectedTrait = event.currentTarget.value
+    html.find('#select-trait-bonus').change(async (event) =>  {
+      this.rollData.selectedTraitBonus = event.currentTarget.value
+      this.rollData.traitBonus =  this.rollData.traits.find(it => it.id == event.currentTarget.value)
+      WastburgUtility.computeFinalLevel(this.rollData)
+      $('#total-level').html( WastburgUtility.getLevelFullFromValue( this.rollData.totalLevel))
+    })
+    html.find('#select-trait-malus').change(async (event) =>  {
+      this.rollData.selectedTraitMalus = event.currentTarget.value
+      this.rollData.traitMalus =  this.rollData.traits.find(it => it.id == event.currentTarget.value)
       WastburgUtility.computeFinalLevel(this.rollData)
       $('#total-level').html( WastburgUtility.getLevelFullFromValue( this.rollData.totalLevel))
     })
     html.find('#select-contact').change(async (event) =>  {
       this.rollData.selectedContact = event.currentTarget.value
+      this.rollData.contact =  this.rollData.contacts.find(it => it.id == event.currentTarget.value)
       WastburgUtility.computeFinalLevel(this.rollData)
       $('#total-level').html( WastburgUtility.getLevelFullFromValue(this.rollData.totalLevel))
     })

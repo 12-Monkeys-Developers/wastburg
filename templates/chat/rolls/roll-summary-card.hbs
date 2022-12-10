@@ -9,6 +9,38 @@
 <div class="actions-section">
   <ol class="items-list" id="{{rollDataId}}">
     
+    {{#if (ne selectedTraitBonus "none")}}
+    <li>Trait Bonus : {{traitBonus.name}}
+    </li>    
+    {{/if}}
+    {{#if (ne selectedTraitMalus "none")}}
+    <li>Trait Malus : {{traitMalus.name}}
+    </li>    
+    {{/if}}
+    {{#if (ne selectedContact "none")}}
+    <li>Contact : {{contact.name}} {{levelText contact.system.value}}
+    </li>    
+    {{/if}}
+    {{#if selectedBonusMalus}}
+    <li>Bonus/Malus : {{levelText selectedBonusMalus}}
+    </li>    
+    {{/if}}
+    {{#if applySante}}
+    <li>La Santé a été appliquée : {{levelText santeValue}}
+    </li>    
+    {{/if}}
+    {{#if applyMental}}
+    <li>Le Mental a été appliquée : {{levelText mentalValue}}
+    </li>    
+    {{/if}}
+    {{#if applySocial}}
+    <li>Le Social a été appliquée : {{levelText socialValue}}
+    </li>    
+    {{/if}}
+
+    <li>Modificateur final : {{levelText totalLevel}}
+    </li>    
+    
     <li>Dés  :
       {{#each roll.terms.0.results as |result key|}}
         {{result.result}}
