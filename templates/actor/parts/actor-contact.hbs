@@ -2,11 +2,11 @@
 <ol class="items-list">
   <li class="item flexrow items-header">
     <div class="div-item-icon"></div>
-    <div class="item-name">Nom</div>
-    <div class="item-type">Niveau</div>
-    <div class="item-type">Quartier</div>
-    <div class="item-type">Trait 1</div>
-    <div class="item-type">Trait 2</div>
+    <div class="item-name list-item-text-medium2">Nom</div>
+    <div class="item-type list-item-text-medium">Niveau</div>
+    <div class="item-type list-item-text-medium">Quartier</div>
+    <div class="item-type list-item-text-medium">Trait 1</div>
+    <div class="item-type list-item-text-medium">Trait 2</div>
     <div class="item-type"></div>
   </li>
 
@@ -19,15 +19,15 @@
       <div class="div-item-icon">
         <img class="sheet-item-icon" src="{{item.img}}">
       </div>
-      <div class="item-name-trait">
+      <div class="item-name-trait list-item-text-medium2">
         {{item.name}}
       </div>
-      <div class="item-name-trait">
+      <div class="item-name-trait list-item-text-medium">
         {{levelText system.value}}
       </div>
-      <div class="item-name-trait">{{system.quartier}}</div>
-      <div class="item-name-trait">{{system.trait1}}</div>
-      <div class="item-name-trait">{{system.trait2}}</div>
+      <div class="item-name-trait list-item-text-medium">{{system.quartier}}</div>
+      <div class="item-name-trait list-item-text-medium">{{system.trait1}}</div>
+      <div class="item-name-trait list-item-text-medium">{{system.trait2}}</div>
       <div class="item-controls">
         <a class="item-control item-edit" data-tooltip="{{ localize 'WASTBURG.ui.editContact' }}" data-tooltip-direction="UP"><i class="fas fa-edit" ></i></a>
         <a class="item-control item-delete" data-tooltip="{{ localize 'WASTBURG.ui.deleteContact' }}" data-tooltip-direction="UP"><i class="fas fa-trash"></i></a>

@@ -32,22 +32,23 @@
       "flags": {}
     }
   ],
-  "packs": [{
-    "label": "Aides de Jeu",
-    "type": "JournalEntry",
-    "name": "aides-de-jeu",
-    "path": "packs/aides-de-jeu.db",
-    "system": "wastburg",
-    "private": false,
-    "flags": {}
-  } ],
+  "packs": [
+    {
+      "label": "Aides de Jeu",
+      "type": "JournalEntry",
+      "name": "aides-de-jeu",
+      "path": "packs/aides-de-jeu.db",
+      "system": "wastburg",
+      "private": false,
+      "flags": {}
+    }
+  ],
   "gridDistance": 5,
   "gridUnits": "m",
   "primaryTokenAttribute": "health",
   "secondaryTokenAttribute": "power",
-  "url": "https://github.com/12-Monkeys-Developers/wastburg",
   "manifest": "https://github.com/12-Monkeys-Developers/wastburg/releases/latest/download/system.json",
-  "download": "https://github.com/12-Monkeys-Developers/wastburg/releases/latest/wastburg-10.0.4.zip",
+  "download": "https://github.com/12-Monkeys-Developers/wastburg/releases/download/10.0.4/system.zip",
   "socket": true,
   "license": "LICENSE.txt"
 }

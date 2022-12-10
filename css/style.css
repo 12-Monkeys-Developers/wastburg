@@ -7,6 +7,12 @@
   src: url('../fonts/CaslonAntique.ttf') format("truetype");
 }
 
+.window-app .window-content {
+  background: url(../assets/img/white-paper-texture.webp) repeat;
+}
+.chat-message {
+  background: url(../assets/img/white-paper-texture.webp) repeat;
+}
 .window-resizable-handle {
   display: none;
 }
@@ -15,16 +21,16 @@
   flex-direction: unset;
   flex-wrap: nowrap;
   justify-content: flex-start;
-  background: url(../assets/img/text01.jpg) repeat;
+  background: url(../assets/img/white-paper-texture.webp) repeat;
   padding: 8px;
   color: var(--color-text-dark-primary);
   overflow-y: auto;
   overflow-x: hidden;
   font-family: "CaslonAntique";
-  font-size: 1.0rem;
+  font-size: 0.8rem;
 }
 .sheet-header-personnage {
-  font-size: 14px;
+  font-size: 1.0rem;
 }
 input.namePlayer {
   border: none;
@@ -92,7 +98,7 @@ select.selectreputation {
   color: #422800;
   cursor: pointer;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 1.4rem;
   padding: 0 18px;
   line-height: 50px;
   text-align: center;
@@ -122,7 +128,7 @@ table th {
   border-spacing: 3px;
   color: #422800;
   margin-bottom: 3%;
-  font-size: 12px;
+  font-size: 0.8rem;
 }
 .tableEtats th {
   border: 5px solide #422800;
@@ -138,7 +144,7 @@ table th {
 .infoAubaineReput {
   border: 2px solid #422800;
   font-weight: bold;
-  font-size: 12px;
+  font-size: 0.8rem;
 }
 .infoAubaineReput th {
   border: 5px solide #422800;
@@ -189,7 +195,7 @@ label.label-difficulte-rollInput {
   min-width: 40%;
   padding: 2%;
   font-weight: bold;
-  font-size: 12px;
+  font-size: 0.8rem;
 }
 .sheet nav.sheet-tabs {
   padding: -1px;
@@ -200,7 +206,7 @@ label.label-difficulte-rollInput {
   color: #fbeee0;
   background-color: #422800;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 1.0rem;
   margin-bottom: 2%;
   margin-top: 2%;
 }
@@ -210,19 +216,17 @@ label.label-difficulte-rollInput {
 }
 .items-list {
   background-color: #fbeee0;
+  font-size: 0.8rem;
 }
 .item-name {
-  font-size: 1.0rem;
   text-align: left;
 }
 .item-type {
-  font-size: 1.0rem;
   text-align: left;
   /*text-align: center;
   font-weight: 600;*/
 }
 .item-controls {
-  font-size: 1.0rem;
   /*text-align: center;
   font-weight: 600;*/
 }
@@ -231,18 +235,16 @@ li.item.flexrow.items-header {
   background: #422800;
   min-height: 27px;
   color: #FBEEE0;
-  font-size: 1.0rem;
+  /*font-size: 1.0rem;*/
   align-items: center;
   /*margin-left: -21px;*/
 }
 .item-name-trait {
-  font-size: 1.0rem;
   /*text-align: center;
   margin-left: -21px;*/
   font-weight: bold;
 }
 .item-name-type {
-  font-size: 1.0rem;
   /*text-align: center;*/
   margin-left: 2px;
   font-weight: bold;
@@ -251,12 +253,12 @@ li.item.flexrow.items-header {
 .fas {
   font-family: "Font Awesome 6 Pro";
   font-weight: bold;
-  font-size: 14px;
+  font-size: 1.0rem;
 }
 .textareaTrait {
   background-color: tan;
   font-family: "Signika", serif;
-  font-size: 14px;
+  font-size: 1.0rem;
   border: 1px solid #c9c7b8;
   resize: none;
   margin-top: 5%;
@@ -273,7 +275,7 @@ li.item.flexrow.items-header {
   color: #fbeee0;
   background-color: #422800;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 0.8rem;
   margin-bottom: 5%;
   margin-top: 15%;
   margin-left: -1%;
@@ -498,19 +500,21 @@ div.button-roll {
   margin-left: 23px;
   padding: 0;
 }
-input.inputNameTrait {
-  max-width: 83%;
+input.inputItemName {
+  /*max-width: 83%;*/
+  min-width: 20rem;
   background-color: #fbeee0;
   border: 1px solid #422800;
   border-radius: -1px;
   box-shadow: #422800 4px 4px 0 0;
   color: #422800;
   border-bottom: none;
-  margin-left: 26%;
+  margin-left: 8%;
   margin-top: 7%;
   height: 60px;
   text-align: center;
   font-family: "Chomsky";
+  font-size: 1.4rem;
 }
 img.profile-img-trait {
   float: left;
@@ -572,7 +576,7 @@ div.label-contactName {
   padding: 9px;
   font-weight: bold;
   align-items: baseline;
-  font-size: 16px;
+  font-size: 1.2rem;
   max-width: 60%;
   float: left;
   margin-bottom: 9px;
@@ -635,7 +639,7 @@ h1.charname {
   border-spacing: 3px;
   color: #422800;
   margin-bottom: 3%;
-  font-size: 12px;
+  font-size: 0.8rem;
   margin-top: 5%;
 }
 .tableContact th {
@@ -783,7 +787,7 @@ h2.failure {
   list-style-type: none;
   margin: 7px 0;
   padding: 0;
-  background: url(../assets/img/text01.jpg) repeat;
+  background: url(../assets/img/white-paper-texture.webp) repeat;
   border-width: 0px;
 }
 .chat-button {
@@ -836,3 +840,17 @@ h2.failure {
   font-size: 1.0rem;
   font-style: italic;
 }
+
+.list-item-text-medium {  
+  width: 4rem;
+  min-width: 4rem;
+}
+.list-item-text-medium2 {  
+  width: 10rem;
+  min-width: 10rem;
+}
+.list-item-text-long {  
+  width: 24rem;
+  min-width: 24rem;
+}
+
