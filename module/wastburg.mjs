@@ -95,7 +95,7 @@ Hooks.once("ready", async function () {
   WastburgUtility.registerSettings()
 
   // World count
-  registerUsageCount('bol')
+  registerUsageCount('wastburg')
 
   // Welcome messages
   ChatMessage.create({
