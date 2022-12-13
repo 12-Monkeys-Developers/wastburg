@@ -107,6 +107,13 @@ export class WastburgActor extends Actor {
   }
 
   /* -------------------------------------------- */
+  modifyGelder( value) {
+    let q = this.system.gelder.value + Number(value)
+    q = Math.max(q, 0)
+    this.update( { 'system.gelder.value'  :q } )
+  }
+
+  /* -------------------------------------------- */
   clearInitiative() {
     this.setFlag("world", "last-initiative", -1)
   }

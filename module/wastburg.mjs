@@ -106,7 +106,13 @@ Hooks.once("ready", async function () {
     <br><strong>Wastburg</strong> est un jeu édité par les XII Singes, sur la base d'un roman de Cédric Ferrand. Ce système est publié avec leur autorisation.
     <br>Tout les livres de la <a href="https://www.les12singes.com/9-wastburg">gamme sont disponibles à l'achat via ce lien</a>.
     <br>Support et assistance sur le <a href="https://discord.gg/pPSDNJk">Discord FR de Foundry</a>.
-    <br><strong>Bon courage les Gardoches !</strong>`
+    <br><strong>Bon courage les Gardoches !</strong>
+    <br><strong> Quoi d'neuf dans le quartier (v${game.system.version}) ?</strong>
+    <br>- Gestion des Gelders
+    <br>- Confirmation des suppressions
+    <br>- Description correct dans les traits/contacts
+    <br>- Affichage plus clair des contacts
+    <br>- Dés spéciaux (cf config DiceSoNice)`
   } )
 
 })

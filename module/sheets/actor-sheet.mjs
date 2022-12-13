@@ -98,6 +98,13 @@ import { WastburgUtility } from "../system/utility.mjs";
       item.sheet.render(true);
     });
 
+    html.find('.gelder-plus').click(event => {
+      this.actor.modifyGelder( 1 );
+    } );
+    html.find('.gelder-minus').click(event => {
+      this.actor.modifyGelder( -1 );
+    } );
+
     // -------------------------------------------------------------
     // Everything below here is only needed if the sheet is editable
     if (!this.isEditable) return;
@@ -115,9 +122,7 @@ import { WastburgUtility } from "../system/utility.mjs";
     // Delete Inventory Item
     html.find('.item-delete').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
-      const item = this.actor.items.get(li.data("itemId"));
-      item.delete();
-      li.slideUp(200, () => this.render(false));
+      WastburgUtility.confirmDelete(this, li);
     });
 
     // Active Effect management

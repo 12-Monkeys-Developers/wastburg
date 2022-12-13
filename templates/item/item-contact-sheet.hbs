@@ -1,10 +1,10 @@
 <form class="{{cssClass}}" autocomplete="off">
   <body>
       <header class="sheet-header-contact">
-        <img class="profile-img-contact" src="{{data.img}}" data-edit="img" title="{{data.name}}" />
+        <img class="profile-img-contact" src="{{img}}" data-edit="img" title="{{system.name}}" />
         <div class="header-fields">
             <h1 class="charname">
-                <input class="inputItemName" name="name" type="text" value="{{data.name}}" placeholder="Name" />
+                <input class="inputItemName" name="name" type="text" value="{{name}}" placeholder="Name" />
             </h1>
         </div>
     </header>
@@ -13,8 +13,6 @@
     <tr>
       <th><label class="contact">Niveau</label></th>
       <th><label class="contact-quartier">Quartier</label></th>
-      <th><label class="traitsPremier">Trait Premier</label></th>
-      <th><label class="traitsSecond">Trait Second</label></th>
     </tr>
   </thead>
   <tbody>
@@ -26,15 +24,26 @@
                             {{/select}}
                           </select>  
                           </td>
-      <td><input type="text" name="system.quartier" value="{{system.quartier}}" data-dtype="String" /></td>
-      <td><input type="text" name="system.trait1" value="{{system.trait1}}" data-dtype="String" /></td>
-      <td><input type="text" name="system.trait2" value="{{system.trait2}}" data-dtype="String" /></td>
+        <td><input type="text" name="system.quartier" value="{{system.quartier}}" data-dtype="String" /></td>
+      </tr>
+    <tr>
+      <th colspan="2"><label class="traitsPremier">Trait Premier</label></th>
+    </tr>
+      <tr>
+        <td colspan="2"><input type="text" name="system.trait1" value="{{system.trait1}}" data-dtype="String" /></td>
+      </tr>
+    <tr>
+      <th colspan="2"><label class="traitsSecond">Trait Second</label></th>
+    </tr>
+      <tr>
+        <td  colspan="2"><input type="text" name="system.trait2" value="{{system.trait2}}" data-dtype="String" /></td>
+      </tr>
     </tr>
   </tbody>
 </table>
   <div class="editor-contact">
     <label class="description-contact">Description du contact:</label>
-      {{editor system.description target="system.description" rollData=rollData button=true owner=owner editable=editable}}
+      {{editor description target="system.description" rollData=rollData button=true owner=owner editable=editable}}
     </div>
   </body>
 </form>

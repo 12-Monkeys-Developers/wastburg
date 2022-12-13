@@ -34,15 +34,45 @@ export class WastburgUtility {
       default: false,
       type: Boolean
     })
+
   }
+
+  /* -------------------------------------------- */
+  static addWastburgDice(dice3d) {
+    if (dice3d) {
+      dice3d.addSystem({ id: "wastburg", name: "Wastburg (Set)" });
+      dice3d.addDicePreset({
+        type: "d6",
+        labels: [
+          'systems/wastburg/assets/dices/d6-1.png',
+          'systems/wastburg/assets/dices/d6-2.png',
+          'systems/wastburg/assets/dices/d6-3.png',
+          'systems/wastburg/assets/dices/d6-4.png',
+          'systems/wastburg/assets/dices/d6-5.png',
+          'systems/wastburg/assets/dices/d6-6.png'
+        ],
+        bumpMaps: [
+          'systems/wastburg/assets/dices/d6-1.png',
+          'systems/wastburg/assets/dices/d6-2.png',
+          'systems/wastburg/assets/dices/d6-3.png',
+          'systems/wastburg/assets/dices/d6-4.png',
+          'systems/wastburg/assets/dices/d6-5.png',
+          'systems/wastburg/assets/dices/d6-6.png'
+        ],
+        system: "wastburg"
+      })
+    }
+  }
+
   /* -------------------------------------------- */
   static registerHooks() {
     Hooks.on('renderChatLog', (log, html, data) => WastburgUtility.chatListeners(html))
     Hooks.on('renderChatMessage', (message, html, data) => WastburgUtility.chatMessageHandler(message, html, data))
+    Hooks.once('diceSoNiceReady', (dice3d) => { WastburgUtility.addWastburgDice(dice3d) })
 
     // Game socket 
     game.socket.on("system.wastburg", sockmsg => {
-      WastburgUtility.onSocketMessage(sockmsg);      
+      WastburgUtility.onSocketMessage(sockmsg);
     })
 
   }
@@ -317,22 +347,22 @@ export class WastburgUtility {
     let diceFormula = WastburgUtility.getRollFormula(value)
     const roll = await new Roll(diceFormula).roll({ async: true })
     await this.showDiceSoNice(roll, game.settings.get("core", "rollMode"))
-    
+
     let rollData = this.getCommonRollData(actor)
     rollData.mode = "simple"
     rollData.diceFormula = diceFormula
-    rollData.roll =  roll
+    rollData.roll = roll
     rollData.result = roll.total
     rollData.totalLevel = value
-    
-    this.processRollQuality(rollData, actor)    
+
+    this.processRollQuality(rollData, actor)
     this.outputRollMessage(rollData)
   }
   /* -------------------------------------------- */
-  static async commandWastburgComplexRoll () {
+  static async commandWastburgComplexRoll() {
     let actor = _token?.actor
     if (actor) {
-      return this.manageWastburgComplexRoll(actor)       
+      return this.manageWastburgComplexRoll(actor)
     }
     ui.notifications.warn("Vous devez sélectionner un token pour lancer cette commande.")
   }
@@ -440,6 +470,34 @@ export class WastburgUtility {
     console.log("Hidinng", id)
     $(`#${id}`).hide() // Hide the options roll buttons
     game.socket.emit("system.wastburg", { name: "msg_cleanup_buttons", data: { id: id } })
+  }
+
+  /* -------------------------------------------- */
+  static async confirmDelete(actorSheet, li) {
+    let itemId = li.data("item-id");
+    let msgTxt = "<p>Etes vous certain de vouloir supprimer cet item, vil Wastburgeois ?";
+    let buttons = {
+      delete: {
+        icon: '<i class="fas fa-check"></i>',
+        label: "Oui, écrabouille moi ça",
+        callback: () => {
+          actorSheet.actor.deleteEmbeddedDocuments("Item", [itemId]);
+          li.slideUp(200, () => actorSheet.render(false));
+        }
+      },
+      cancel: {
+        icon: '<i class="fas fa-times"></i>',
+        label: "Non, sans façons"
+      }
+    }
+    msgTxt += "</p>";
+    let d = new Dialog({
+      title: "Confirmes ou Fuis",
+      content: msgTxt,
+      buttons: buttons,
+      default: "cancel"
+    });
+    d.render(true);
   }
 
   /* -------------------------------------------- */

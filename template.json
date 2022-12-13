@@ -60,6 +60,9 @@
         "santemax": 8,
         "santecurrent": 8,
         "initiative": 0
+      },
+      "gelder": {
+        "value": 0
       }
     },
     "prevot": {
