@@ -108,11 +108,8 @@ Hooks.once("ready", async function () {
     <br>Support et assistance sur le <a href="https://discord.gg/pPSDNJk">Discord FR de Foundry</a>.
     <br><strong>Bon courage les Gardoches !</strong>
     <br><strong> Quoi d'neuf dans le quartier (v${game.system.version}) ?</strong>
-    <br>- Gestion des Gelders
-    <br>- Confirmation des suppressions
-    <br>- Description correct dans les traits/contacts
-    <br>- Affichage plus clair des contacts
-    <br>- Dés spéciaux (cf config DiceSoNice)`
+    <br>- Correction sur l'ancienneté
+    <br>- Suppression d'un message erroné sur les aubaines de groupe`
   } )
 
 })
