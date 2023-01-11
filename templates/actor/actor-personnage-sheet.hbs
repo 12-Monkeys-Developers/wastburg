@@ -17,8 +17,8 @@
                         <td> <input class="input-aubaine" type="text" value="{{aubaindeDeGroupe}}" data-dtype="Number" disabled /></td>
                       </tr>
                       <tr>
-                        <td><label class="aubaine">Ancienneté:</label></td>
-                        <td> <input class="input-aubaine" type="text" value="{{system.anciennetereputation.value}}" data-dtype="Number" /></td>
+                        <td><label class="aubaine">{{#if (eq system.persotype "gardoche")}}Ancienneté{{else}}Respect{{/if}}:</label></td>
+                        <td> <input class="input-aubaine" type="text" name="system.anciennetereputation.value" value="{{system.anciennetereputation.value}}" data-dtype="Number" /></td>
                       </tr>
                       <tr>
                         <td><label class="reputation">Réputation:</label></td>

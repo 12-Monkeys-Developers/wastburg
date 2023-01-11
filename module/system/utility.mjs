@@ -83,7 +83,9 @@ export class WastburgUtility {
       $(`#${sockmsg.data.id}`).hide() // Hide the options roll buttons
     }
     if (sockmsg.name == "msg_incdec_aubaine_groupe") {
-      WastburgUtility.processIncDecAubaineGroupe(sockmsg.data.value)
+      if (game.user.isGM) {
+        WastburgUtility.processIncDecAubaineGroupe(sockmsg.data.value)
+      }
     }
   }
 
@@ -124,7 +126,7 @@ export class WastburgUtility {
     let aubainesDeGroupe = game.settings.get("wastburg", "aubaine-de-groupe")
     aubainesDeGroupe += value
     game.settings.set("wastburg", "aubaine-de-groupe", aubainesDeGroupe)
-
+    this.updateAubaineGroupe()
   }
 
   /* -------------------------------------------- */
