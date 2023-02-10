@@ -1,91 +1,247 @@
-<section class="caid-sheet" draggable="true">
-<form class="{{cssClass}} {{actor.type}} flexcol " autocomplete="off" draggable="true">
+<form class="{{cssClass}}" autocomplete="off">
 
   {{!-- Sheet Header --}}
-  <header class="sheet-header-personnage" >
-        <div class="firstColumnHeader"><h1 class="charname-personnage"><input class="namePlayer" name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>     
-        </div>  
+  <header class="sheet-header">
+    <div class="header-fields">
+      <div class="flexrow">
+        <img class="profile-img" src="{{img}}" data-edit="img" title="{{name}}" />
+        <div class="flexcol">
+          <h1 class="charname margin-right"><input name="name" type="text" value="{{name}}" placeholder="Name" /></h1>
 
-    {{> "systems/wastburg/templates/actor/parts/actor-traits-list.hbs"}}
+          <div class="flexrow">
+            
+            <ul>
+              <li class="flexrow item">
+                <label class="item-name-label-long">Confiance</label>
+                <select class="item-field-label-short" type="text" name="system.confiance" value="{{system.confiance}}" data-dtype="String">
+                  {{#select system.confiance}}
+                    {{> systems/wastburg/templates/common/select-levels.hbs}}
+                  {{/select}}
+                </select> 
+              </li>
+              <li class="item flexrow">
+                <select id="selectRollInput" class="top-margin-adjust1 item-field-label-short" name="selectRollInput" data-dtype="Number" data-roll-mode="blindroll">
+                  {{#select selectRollInput}}
+                    {{> systems/wastburg/templates/common/select-levels.hbs}}
+                  {{/select}}
+                </select>
+                <button class="roll-simple-mj chat-card-button button-width1" type="button">Lancer!</button>
+              </li>
+
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </div>
 
   </header>
-<div class="question-prevot">
-<label class="question">Honnêtenement,comment il a éliminé la concurrence, le caïd?</label>
-<input class="reponse" type="text" name="system.reponseCaid01" value="{{system.reponseCaid01}}" data-dtype="String" />
-<label class="question">C'est quel genre de chef?</label>
-<input class="reponse" type="text" name="system.reponseCaid02" value="{{system.reponseCaid02}}" data-dtype="String" />
-<label class="question">Et avec les gros bonnets, il en est où?</label>
-<input class="reponse" type="text" name="system.reponseCaid03" value="{{system.reponseCaid03}}" data-dtype="String" />
-</div>
 
-<div class="tables-prevot-appreciation">
-    <table class="prevot-appreciation">
-<thead>
-  <tr>
-    <th class="titre-appreciation">Score</th>
-    <th class="titre-appreciation">Confiance</th>
-    <th class="titre-appreciation">Popularité</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td class="prevot-appreciation">(++)</td>
-    <td class="prevot-appreciation">"Efficaces.A surveiller"</td>
-    <td class="prevot-appreciation">"Ils iront loin"(++)</td>
-  </tr>
-  <tr>
-    <td class="prevot-appreciation">(+)</td>
-    <td class="prevot-appreciation">"Des durs"</td>
-    <td class="prevot-appreciation">"Un exemple à suivre"(+)</td>
-  </tr>
-  <tr>
-    <td class="prevot-appreciation">(0)</td>
-    <td class="prevot-appreciation">"Le ventre mou"</td>
-    <td class="prevot-appreciation"></td>
-  </tr>
-  <tr>
-    <td class="prevot-appreciation">(-)</td>
-    <td class="prevot-appreciation">"Pas doués"</td>
-    <td class="prevot-appreciation">"Vaut mieux pas traîner avec eux"(-)</td>
-  </tr>
-  <tr>
-    <td class="prevot-appreciation">(--)</td>
-    <td class="prevot-appreciation">"Sacrifiables et inutiles."</td>
-    <td class="prevot-appreciation">"Des minables."(--)</td>
-  </tr>
-</tbody>
-</table>
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="biodata">Biographie</a>
+    <a class="item" data-tab="regles">Règles</a>
+    <a class="item" data-tab="trait">Traits</a>
+  </nav>
 
-    <table class="prevot-renfort">
-<thead>
-  <tr>
-    <th class="titre-renfort">D6</th>
-    <th class="titre-renfort">Réponse</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td class="prevot-appreciation"><i class="fa-regular fa-dice-one"></i></td>
-    <td class="prevot-appreciation">1 Trait(-)et 1 dette(--)</td>
-  </tr>
-  <tr>
-    <td class="prevot-appreciation"><i class="fa-regular fa-dice-two"></i></td>
-    <td class="prevot-appreciation">1 Trait(0) et 1 dette envers le caïd(--)</td>
-  </tr>
-  <tr>
-    <td class="prevot-appreciation"><i class="fa-regular fa-dice-three"></i><i class="fa-regular fa-dice-four"></i></td>
-    <td class="prevot-appreciation">1 Trait(-) et 1 Trait(+) et 1 dette(-)</td>
-  </tr>
-  <tr>
-    <td class="prevot-appreciation"><i class="fa-regular fa-dice-five"></i></td>
-    <td class="prevot-appreciation">1 Trait(+) et 1 dette(-)</td>
-  </tr>
-  <tr>
-    <td class="prevot-appreciation"><i class="fa-regular fa-dice-six"></i></td>
-    <td class="prevot-appreciation">1 Trait(++) et pas de dette</td>
-  </tr>
-</tbody>
-</table>
-</div>
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+
+    <div class="tab biodata" data-group="primary" data-tab="biodata">
+      
+      <div class="flexcol">
+        <h3><label class="item-field-label-medium">Honnêtenement, comment il a éliminé la concurrence, le caïd ?</label></h3>
+        <textarea class="textarea-default" rows="5" name="system.reponseCaid01">{{system.reponsePrevot01}}</textarea>
+      </div>
+      <div class="flexcol">
+        <h3><label class="item-field-label-medium">C'est quel genre de chef ?</label></h3>
+        <textarea class="textarea-default" rows="5" name="system.reponseCaid02">{{system.reponsePrevot02}}</textarea>
+      </div>
+      <div class="flexcol">
+        <h3><label class="item-field-label-medium">Et avec les gros bonnets, il en est où ?</label></h3>
+        <textarea class="textarea-default" rows="5" name="system.reponseCaid03">{{system.reponsePrevot03}}</textarea>
+      </div>
+
+    </div>
+
+    <div class="tab regles" data-group="primary" data-tab="regles">
+      
+      <div class="flexcol">
+
+        <h3><label class="item-field-header-long2">Confiance du Caïd</label></h3>
+        <ul class="item-list alternate-list">
+          <li class="item flexrow list-item items-title-bg">
+            <span class="item-field-label-short">
+              <label class="item-field-label-short">Score</label>
+            </span>
+            <span class="item-field-label-long">
+              <label class="item-field-label-long">Confiance</label>
+            </span>
+            <span class="item-field-label-long3">
+              <label class="item-field-label-long3">Popularité</label>
+            </span>
+            <div class="item-filler">&nbsp;</div>
+          </li>
+          <li class="item flexrow list-item items-title-bg">
+            <span class="item-field-label-short">
+              <label class="item-field-label-short">(++)</label>
+            </span>
+            <span class="item-field-label-long">
+              <label class="item-field-label-long">Efficaces. A surveiller</label>
+            </span>
+            <span class="item-field-label-long3">
+              <label class="item-field-label-long3">Ils iront loin (++)</label>
+            </span>
+            <div class="item-filler">&nbsp;</div>
+          </li>
+          <li class="item flexrow list-item items-title-bg">
+            <span class="item-field-label-short">
+              <label class="item-field-label-short">(+)</label>
+            </span>
+            <span class="item-field-label-long">
+              <label class="item-field-label-long">Des durs</label>
+            </span>
+            <span class="item-field-label-long3">
+              <label class="item-field-label-long3">Un exemple à suivre (+)</label>
+            </span>
+            <div class="item-filler">&nbsp;</div>
+          </li>
+          <li class="item flexrow list-item items-title-bg">
+            <span class="item-field-label-short">
+              <label class="item-field-label-short">(0)</label>
+            </span>
+            <span class="item-field-label-long">
+              <label class="item-field-label-long">Le ventre mou</label>
+            </span>
+            <span class="item-field-label-long3">
+              <label class="item-field-label-long3"></label>
+            </span>
+            <div class="item-filler">&nbsp;</div>
+          </li>
+          <li class="item flexrow list-item items-title-bg">
+            <span class="item-field-label-short">
+              <label class="item-field-label-short">(-)</label>
+            </span>
+            <span class="item-field-label-long">
+              <label class="item-field-label-long">Pas doués</label>
+            </span>
+            <span class="item-field-label-long3">
+              <label class="item-field-label-long3">Vaut mieux pas traîner avec eux (-)</label>
+            </span>
+            <div class="item-filler">&nbsp;</div>
+          </li>
+          <li class="item flexrow list-item items-title-bg">
+            <span class="item-field-label-short">
+              <label class="item-field-label-short">(--)</label>
+            </span>
+            <span class="item-field-label-long">
+              <label class="item-field-label-long">Sacrifiables et inutiles</label>
+            </span>
+            <span class="item-field-label-long3">
+              <label class="item-field-label-long3">Des minables (--)</label>
+            </span>
+            <div class="item-filler">&nbsp;</div>
+          </li>
+        </ul>
+
+        <h3><label class="item-field-header-long2">Jet pour obtenir des Bonus ?</label></h3>
+        <ul class="item-list alternate-list">
+          <li class="item flexrow list-item items-title-bg">
+            <span class="item-field-label-short">
+              <label class="item-field-label-short">D6</label>
+            </span>
+            <span class="item-field-label-long3">
+              <label class="item-field-label-long3">Réponse</label>
+            </span>
+            <div class="item-filler">&nbsp;</div>
+          </li>
+          <li class="item flexrow list-item items-title-bg">
+            <span class="item-field-label-short">
+              <label class="item-field-label-short">1</label>
+            </span>
+            <span class="item-field-label-long3">
+              <label class="item-field-label-long3">Un Trait (-) et une dette (--)</label>
+            </span>
+            <div class="item-filler">&nbsp;</div>
+          </li>
+          <li class="item flexrow list-item items-title-bg">
+            <span class="item-field-label-short">
+              <label class="item-field-label-short">2</label>
+            </span>
+            <span class="item-field-label-long3">
+              <label class="item-field-label-long3">Un Trait (0) et une dette envers le caïd (--)</label>
+            </span>
+            <div class="item-filler">&nbsp;</div>
+          </li>
+          <li class="item flexrow list-item items-title-bg">
+            <span class="item-field-label-short">
+              <label class="item-field-label-short">3 - 4</label>
+            </span>
+            <span class="item-field-label-long3">
+              <label class="item-field-label-long3">Un Trait (-) et un trait (+) et une dette (-)</label>
+            </span>
+            <div class="item-filler">&nbsp;</div>
+          </li>
+          <li class="item flexrow list-item items-title-bg">
+            <span class="item-field-label-short">
+              <label class="item-field-label-short">5</label>
+            </span>
+            <span class="item-field-label-long3">
+              <label class="item-field-label-long3">Un Trait (+) et une dette (-)</label>
+            </span>
+            <div class="item-filler">&nbsp;</div>
+          </li>
+          <li class="item flexrow list-item items-title-bg">
+            <span class="item-field-label-short">
+              <label class="item-field-label-short">6</label>
+            </span>
+            <span class="item-field-label-long3">
+              <label class="item-field-label-long3">Un Trait (++) et pas de dette</label>
+            </span>
+            <div class="item-filler">&nbsp;</div>
+          </li>
+        </ul>
+
+
+      </div>
+
+    </div>
+
+    {{!-- Trait Tab --}}
+    <div class="tab trait" data-group="primary" data-tab="trait">
+      
+      <div class="flexcol">
+        <ul class="item-list alternate-list">
+          <li class="item flexrow list-item items-title-bg">
+            <span class="item-field-header-long2">
+              <h3><label class="item-field-header-long2">Traits</label></h3>
+            </span>
+            <span class="item-field-label-short">&nbsp;</span>
+            <span class="item-field-label-medium">
+              <label class="item-field-label-medium">Origine</label>
+            </span>
+            <div class="item-filler">&nbsp;</div>
+            <div class="item-controls item-controls-fixed">
+              <a class="item-control item-add" data-type="trait" title="Créer un trait"><i class="fas fa-plus"></i></a>
+            </div>
+          </li>
+          {{#each traits as |trait key|}}
+          <li class="item flexrow list-item list-item-shadow" data-item-id="{{trait._id}}">
+            <a class="item-edit item-name-img" title="Edit Item"><img class="sheet-competence-img"
+                src="{{trait.img}}" /></a>
+            <span class="item-field-label-long2">{{trait.name}}</span>
+            <span class="item-field-label-short">&nbsp;</span>
+            <span class="item-field-label-medium"><label>{{getTraitType trait.system.type}}</label></span>
+            <div class="item-filler">&nbsp;</div>
+            <div class="item-controls item-controls-fixed">
+              <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+            </div>
+          </li>
+          {{/each}}
+        </ul>
+      </div>
+    
+    </div>
+
+  </section>
 </form>
-</section>

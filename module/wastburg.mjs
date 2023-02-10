@@ -96,6 +96,12 @@ Hooks.once("ready", async function () {
 
   // World count
   registerUsageCount('wastburg')
+  
+  // CSS patch for v9
+  if (game.version) {
+    let sidebar = document.getElementById("sidebar");
+    sidebar.style.width = "min-content";
+  }
 
   // Welcome messages
   ChatMessage.create({

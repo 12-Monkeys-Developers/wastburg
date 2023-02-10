@@ -310,7 +310,7 @@ export class WastburgUtility {
   static processRollQuality(rollData, actor) {
     rollData.rollQuality = this.getRollQuality(rollData.roll.total)
     rollData.cssQuality = this.getClassQuality(rollData.roll.total)
-    if (rollData.roll.total < 6) {
+    if (rollData.roll.total < 6 && actor == "personnage" ) {
       rollData.aubainesPerso = actor.system.aubaine.value
       rollData.aubainesDeGroupe = game.settings.get("wastburg", "aubaine-de-groupe")
     }
@@ -339,16 +339,17 @@ export class WastburgUtility {
       applySocial: false,
       totalLevel: 0,
       selectRollInput: 3,
-      rerollMode: "none"
+      rerollMode: "none",
+      rollGM: game.user.isGM
     }
   }
 
   /* -------------------------------------------- */
-  static async manageWastburgSimpleRoll(actor, value) {
+  static async manageWastburgSimpleRoll(actor, value, rollMode) {
 
     let diceFormula = WastburgUtility.getRollFormula(value)
     const roll = await new Roll(diceFormula).roll({ async: true })
-    await this.showDiceSoNice(roll, game.settings.get("core", "rollMode"))
+    await this.showDiceSoNice(roll, rollMode )
 
     let rollData = this.getCommonRollData(actor)
     rollData.mode = "simple"
@@ -356,7 +357,8 @@ export class WastburgUtility {
     rollData.roll = roll
     rollData.result = roll.total
     rollData.totalLevel = value
-
+    rollData.rollMode = rollMode
+    
     this.processRollQuality(rollData, actor)
     this.outputRollMessage(rollData)
   }
@@ -374,6 +376,7 @@ export class WastburgUtility {
 
     let rollData = this.getCommonRollData(actor)
     rollData.mode = "complex"
+    rollData.title = "Jet de " + actor.name
     rollData.traits = actor.items.filter(item => item.type == "trait")
     rollData.contacts = actor.items.filter(item => item.type == "contact")
     rollData.santeValue = actor.system.sante.value
@@ -455,6 +458,7 @@ export class WastburgUtility {
   static async outputRollMessage(rollData) {
     let msg = await ChatMessage.create({
       alias: rollData.actorName,
+      rollMode: rollData.rollMode,
       content: await renderTemplate('systems/wastburg/templates/chat/rolls/roll-summary-card.hbs', rollData)
     })
     console.log("Rolldata", rollData)

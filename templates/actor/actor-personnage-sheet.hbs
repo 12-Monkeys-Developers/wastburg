@@ -1,95 +1,314 @@
-<form class="{{cssClass}} {{actor.type}} flexcol " autocomplete="off" draggable="true">
+<form class="{{cssClass}}" autocomplete="off">
 
   {{!-- Sheet Header --}}
-  <header class="sheet-header-personnage">
-        <div class="firstColumnHeader"><h1 class="charname-personnage">
-          <input class="namePlayer" name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>     
-           <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
-              <div class="infoFirstColumnHeader">                                      
-                <table class="infoAubaineReput">
-                      <tbody>
-                      <tr>
-                        <td><label class="aubaine">Aubaine:</label></td>
-                        <td><input class="input-aubaine" type="text" name="system.aubaine.value" value="{{system.aubaine.value}}" data-dtype="Number" />   </td>
-                      </tr>
-                      <tr>
-                        <td><label class="aubaine">Aubaine de groupe:</label></td>
-                        <td> <input class="input-aubaine" type="text" value="{{aubaindeDeGroupe}}" data-dtype="Number" disabled /></td>
-                      </tr>
-                      <tr>
-                        <td><label class="aubaine">{{#if (eq system.persotype "gardoche")}}Ancienneté{{else}}Respect{{/if}}:</label></td>
-                        <td> <input class="input-aubaine" type="text" name="system.anciennetereputation.value" value="{{system.anciennetereputation.value}}" data-dtype="Number" /></td>
-                      </tr>
-                      <tr>
-                        <td><label class="reputation">Réputation:</label></td>
-                        <td>  <select class="selectreputation" name="system.reputation.value" data-dtype="String">
-                        {{#select system.reputation.value}}
-                          {{> systems/wastburg/templates/common/select-levels.hbs}}
-                        {{/select}}
-                        </select>
-                        </td>
-                      </tr>
-                      <tbody>
-                  </table>
-                </div>
-        </div>
-       
-        <div class="difficulte-rollInput">
-          <div class="flexrow">
-            <select  id="selectRollInput" class="select-roll" name="selectRollInput" data-dtype="Number">
-              {{#select selectRollInput}}
-                {{> systems/wastburg/templates/common/select-levels.hbs}}
-              {{/select}}
-            </select>
-            <button class="roll-simple chat-button" type="button">Lancer!</button>
-          </div>          
-          <div class="flexrow">
-            <button class="roll-complex chat-button" type="button">Test Avancé</button>
-          </div>          
-        </div>
+  <header class="sheet-header">
+    <div class="header-fields">
+      <div class="flexrow">
+        <img class="profile-img" src="{{img}}" data-edit="img" title="{{name}}" />
+        <div class="flexcol">
+          <h1 class="charname margin-right"><input name="name" type="text" value="{{name}}" placeholder="Name" /></h1>
 
-        {{#if combatRules}}
-        <div class="sante-block">
-          <div class="flexrow">            
-            <label class="reputation">Santé Max:</label></td>
-            <input type="text" name="system.combat.santemax" value="{{system.combat.santemax}}" data-dtype="Number" /></td>
-            <label class="reputation">Santé Actuelle:</label></td>
-            <input type="text" name="system.combat.santecurrent" value="{{system.combat.santecurrent}}" data-dtype="Number" /></td>
-          </div>          
-          <div class="flexrow">            
-            <label class="reputation">Initiative : {{initiative}}</label></td>
-            <button class="roll-initiative chat-button" type="button">Relancer</button>
+        <div class="flexrow">
+          <div class="flexrow">
+            <ul>
+
+              <li class="flexrow item">
+                <label class="item-name-label-long">Aubaines</label>
+                <input type="text" class="item-field-label-short" name="system.aubaine.value" value="{{system.aubaine.value}}" data-dtype="Number" />
+              </li>
+              <li class="item flexrow">
+                <label class="item-name-label-long">Aubaines de groupe</label>
+                <input type="text" class="item-field-label-short" value="{{aubaindeDeGroupe}}" data-dtype="Number" disabled/>
+              </li>
+              <li class="item flexrow">
+                <select id="selectRollInput" class="top-margin-adjust1 item-field-label-short" name="selectRollInput" data-dtype="Number">
+                  {{#select selectRollInput}}
+                    {{> systems/wastburg/templates/common/select-levels.hbs}}
+                  {{/select}}
+                </select>
+                <button class="roll-simple chat-card-button button-width1" type="button">Lancer!</button>
+              </li>
+
+            </ul>
+
+            <ul>
+              <li class="flexrow item">
+                <label class="item-name-label-long">{{#if (eq system.persotype "gardoche")}}Ancienneté{{else}}Respect{{/if}}</label>
+                <input type="text" class="item-field-label-short" name="system.anciennetereputation.value" value="{{system.anciennetereputation.value}}" data-dtype="Number" />
+              </li>
+              <li class="item flexrow">
+                <label class="item-name-label-long">Réputation</label>
+                <select class="item-field-label-short" type="text" name="system.reputation.value" value="{{system.reputation.value}}" data-dtype="String">
+                  {{#select system.reputation.value}}
+                    {{> systems/wastburg/templates/common/select-levels.hbs}}
+                  {{/select}}
+                </select> 
+              </li>
+              <li class="item flexrow">
+                <button class="roll-complex chat-card-button button-width2" type="button">Test Avancé</button>
+              </li>
+
+            </ul>
+            
+
+          </div>
+
           </div>
         </div>
-        {{/if}}
+      </div>
+    </div>
 
   </header>
 
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="etat">Etat</a>
+    <a class="item" data-tab="trait">Traits</a>
+    <a class="item" data-tab="contact">Contacts</a>
+    <a class="item" data-tab="equipements">Equipement</a>
+    <a class="item" data-tab="biodata">Biographie</a>
+  </nav>
+
   {{!-- Sheet Body --}}
   <section class="sheet-body">
-        <nav class="sheet-tabs tabs" data-group="primary">
-          <a class="item tab-header-title" data-tab="etats-list">Etats</a>
-          <a class="item tab-header-title" data-tab="traits-list">Traits</a>
-          <a class="item tab-header-title" data-tab="contact-list">Contacts</a>
-          <a class="item tab-header-title" data-tab="actor-inventaire">Inventaire</a>
-          <a class="item tab-header-title" data-tab="actor-biography">Biographie</a>
-          </nav>
 
-      <section class="section-etats">
-          {{> "systems/wastburg/templates/actor/parts/actor-etats.hbs"}}
-      </section>     
-      <section class="section-traits">
-          {{> "systems/wastburg/templates/actor/parts/actor-traits.hbs"}}
-      </section>
-      <section class="section-contact">
-           {{> "systems/wastburg/templates/actor/parts/actor-contact.hbs"}}
-      </section>
-      <section class="section-inventaire">
-           {{~> "systems/wastburg/templates/actor/parts/actor-inventaire.hbs"}}
-      </section> 
-      <section class="section-biography">
-           {{~> "systems/wastburg/templates/actor/parts/actor-biography.hbs"}}
-      </section> 
-    </section> 
+    <div class="tab etat" data-group="primary" data-tab="etat">
+      
+      <div class="flexcol">
+
+        <h3><label class="item-field-header-long2">Santé</label></h3>
+
+        <ul>
+          <li class="flexrow item">
+            <label class="item-name-label-medium">Santé</label>
+            <input type="text" class="item-field-label-vlong" name="system.sante.santeText" value="{{system.sante.santeText}}" data-dtype="String" />
+            <select class="item-field-label-short" type="text" name="system.sante.value" value="{{system.sante.value}}" data-dtype="String">
+              {{#select system.sante.value}}
+                {{> systems/wastburg/templates/common/select-levels.hbs}}
+              {{/select}}
+            </select> 
+          </li>
+          <li class="flexrow item">
+            <label class="item-name-label-medium">Mental</label>
+            <input type="text" class="item-field-label-vlong" name="system.mental.mentalText" value="{{system.mental.mentalText}}" data-dtype="String" />
+            <select class="item-field-label-short" type="text" name="system.mental.value" value="{{system.mental.value}}" data-dtype="String">
+              {{#select system.mental.value}}
+                {{> systems/wastburg/templates/common/select-levels.hbs}}
+              {{/select}}
+            </select> 
+          </li>
+          <li class="flexrow item">
+            <label class="item-name-label-medium">Social</label>
+            <input type="text" class="item-field-label-vlong" name="system.social.socialText" value="{{system.social.socialText}}" data-dtype="String" />
+            <select class="item-field-label-short" type="text" name="system.social.value" value="{{system.social.value}}" data-dtype="String">
+              {{#select system.social.value}}
+                {{> systems/wastburg/templates/common/select-levels.hbs}}
+              {{/select}}
+            </select> 
+          </li>
+        </ul>
+
+        {{#if combatRules}}
+        <h3><label class="item-field-header-long2">Combat</label></h3>
+
+        <ul>
+          <li class="flexrow item">
+            <label class="item-name-label-medium">Santé Actuelle:</label>
+            <input type="text" class="item-field-label-short" name="system.combat.santecurrent" value="{{system.combat.santecurrent}}" data-dtype="Number" />
+          </li>
+          <li class="flexrow item">
+            <label class="item-name-label-medium">Santé Max:</label>
+            <input type="text" class="item-field-label-short" name="system.combat.santemax" value="{{system.combat.santemax}}" data-dtype="Number" />
+          </li>
+          <li class="flexrow item">
+            <label class="item-name-label-medium">Initiative : {{initiative}}</label>
+            <button class="roll-initiative chat-card-button button-width1" type="button">Relancer</button>
+          </li>
+        </ul>
+        {{/if}}
+
+      </div>
+
+    </div>
+
+    {{!-- Trait Tab --}}
+    <div class="tab trait" data-group="primary" data-tab="trait">
+      
+      <div class="flexcol">
+        <ul class="item-list alternate-list">
+          <li class="item flexrow list-item items-title-bg">
+            <span class="item-field-header-long2">
+              <h3><label class="item-field-header-long2">Traits</label></h3>
+            </span>
+            <span class="item-field-label-short">&nbsp;</span>
+            <span class="item-field-label-medium">
+              <label class="item-field-label-medium">Origine</label>
+            </span>
+            <div class="item-filler">&nbsp;</div>
+            <div class="item-controls item-controls-fixed">
+              <a class="item-control item-add" data-type="trait" title="Créer un trait"><i class="fas fa-plus"></i></a>
+            </div>
+          </li>
+          {{#each traits as |trait key|}}
+          <li class="item flexrow list-item list-item-shadow" data-item-id="{{trait._id}}">
+            <a class="item-edit item-name-img" title="Edit Item"><img class="sheet-competence-img"
+                src="{{trait.img}}" /></a>
+            <span class="item-field-label-long2">{{trait.name}}</span>
+            <span class="item-field-label-short">&nbsp;</span>
+            <span class="item-field-label-medium"><label>{{getTraitType trait.system.type}}</label></span>
+            <div class="item-filler">&nbsp;</div>
+            <div class="item-controls item-controls-fixed">
+              <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+            </div>
+          </li>
+          {{/each}}
+        </ul>
+      </div>
+    
+    </div>
+
+    {{!-- Contacts Tab --}}
+    <div class="tab contact" data-group="primary" data-tab="contact">
+      
+      <div class="flexcol">
+        <ul class="item-list alternate-list">
+          <li class="item flexrow list-item items-title-bg">
+            <span class="item-field-header-long2">
+              <h3><label class="item-field-header-long2">Contacts</label></h3>
+            </span>
+            <span class="item-field-label-short">&nbsp;</span>
+            <span class="item-field-label-medium">
+              <label class="item-field-label-medium">Quartier</label>
+            </span>
+            <div class="item-filler">&nbsp;</div>
+            <div class="item-controls item-controls-fixed">
+              <a class="item-control item-add" data-type="trait" title="Créer un trait"><i class="fas fa-plus"></i></a>
+            </div>
+          </li>
+          {{#each contacts as |contact key|}}
+          <li class="item flexrow list-item list-item-shadow" data-item-id="{{contact._id}}">
+            <a class="item-edit item-name-img" title="Edit Item"><img class="sheet-competence-img"
+                src="{{contact.img}}" /></a>
+            <span class="item-field-label-long2">{{contact.name}}</span>
+            <span class="item-field-label-short">&nbsp;</span>
+            <span class="item-field-label-medium"><label>{{contact.system.quartier}}</label></span>
+            <div class="item-filler">&nbsp;</div>
+            <div class="item-controls item-controls-fixed">
+              <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+            </div>
+          </li>
+          {{/each}}
+        </ul>
+      </div>
+    
+    </div>
+
+    {{!-- Equipement Tab --}}
+    <div class="tab equipements" data-group="primary" data-tab="equipements">
+
+      <div class="flexcol">
+        <ul class="item-list alternate-list">
+          <li class="item flexrow list-item items-title-bg">
+            <span class="item-field-label-medium">
+              <h3><label class="item-field-label-medium">Gelder</label></h3>
+            </span>
+            <div  class="flexrow item-field-label-medium">
+              <span class=""><a class="gelder-minus"><i class="button-plus-minus fas fa-minus-square"></i></a></span>
+              <input class="item-field-label-short" name="system.gelder.value" type="text" data-dtype="Number" value="{{system.gelder.value}}" />
+              <span class=""><a class="gelder-plus"><i class="button-plus-minus fas fa-plus-square"></i></a></span>
+            </div>
+            <div class="item-filler">&nbsp;</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="flexcol">
+        <h3><label class="item-field-label-medium">Armes</label></h3>
+        <textarea class="textarea-default" rows="5" name="system.arme">{{system.arme}}</textarea>
+      </div>
+
+      <div class="flexcol">
+        <h3><label class="item-field-label-medium">Protections</label></h3>
+        <textarea class="textarea-default" rows="5" name="system.protection">{{system.protection}}</textarea>
+      </div>
+
+      <div class="flexcol">
+        <h3><label class="item-field-label-medium">Equipements & Divers</label></h3>
+        <textarea class="textarea-default" rows="5" name="system.materiel">{{system.materiel}}</textarea>
+      </div>
+
+      <div class="flexcol">
+        <h3><label class="item-field-label-medium">Fortune</label></h3>
+        <textarea class="textarea-default" rows="5" name="system.fortune">{{system.fortune}}</textarea>
+      </div>
+
+      <div class="flexcol">
+        <h3><label class="item-field-label-medium">Dettes</label></h3>
+        <textarea class="textarea-default" rows="5" name="system.dettes">{{system.dettes}}</textarea>
+      </div>
+
+    </div>
+
+    {{!-- Biography Tab --}}
+    <div class="tab biodata" data-group="primary" data-tab="biodata">
+
+      <div class="grid grid-2col">
+        <div>
+          <ul class="item-list alternate-list">
+            <li class="item flexrow">
+              <label class="item-name-label-long">Personnage</label>
+              <select class="item-field-label-medium" type="text" name="system.persotype" value="{{system.persotype}}" data-dtype="String">
+              {{#select system.persotype}}
+                {{#each config.persoType as |name key|}}
+                  <option value="{{key}}">{{name}}</option>
+                {{/each}}
+              {{/select}}
+              </select> 
+            </li>
+            <li class="item flexrow">
+              <label class="item-name-label-long">Lieu de naissance</label>
+              <input type="text" class="name-label-long" name="system.lieunaissance" value="{{system.lieunaissance}}"
+                data-dtype="String" />
+            </li>
+            <li class="item flexrow">
+              <label class="item-name-label-long">Signes Distinctifs</label>
+              <input type="text" class="item-name-label-long" name="system.signes" value="{{system.signes}}" data-dtype="String" />
+            </li>
+          </ul>
+        </div>
+       <div>
+          <ul>
+            <li class="item flexrow">
+              <label class="item-name-label-medium">Age</label>
+              <input type="text" class="item-name-label-medium" name="system.age" value="{{system.age}}" data-dtype="String" />
+            </li>
+            <li class="item flexrow">
+              <label class="item-name-label-medium">Résidence</label>
+              <input type="text" class="item-name-label-medium" name="system.residence" value="{{system.residence}}" data-dtype="String" />
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <h3><label class="item-field-header-long2">       
+          {{#if (eq system.persotype "gardoche")}}
+            Pourquoi je suis devenu gardoche : 
+          {{else}}
+            Pourquoi je suis entré dans la bande :
+          {{/if}}
+        </label></h3>
+        <div class="small-editor">
+          {{editor note target="system.note" button=true owner=owner editable=editable}}  
+        </div>  
+      </div>
+
+      <div>
+        <h3><label class="item-field-header-long2">Description & Notes</label></h3>
+        {{editor biography target="system.biography" button=true owner=owner editable=editable}}    
+      </div>
+
+  </div>
+
+  </section>
 </form>
-

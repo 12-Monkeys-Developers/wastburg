@@ -37,6 +37,8 @@ import { WastburgUtility } from "../system/utility.mjs";
     const actorData = this.actor.toObject(false);
 
     // Add the actor's data to context.data for easier access, as well as flags.
+    context.name = this.actor.name
+    context.img = this.actor.img
     context.system = actorData.system
     context.flags = actorData.flags
     context.aubaindeDeGroupe = game.settings.get("wastburg", "aubaine-de-groupe") // Roll armor or not
@@ -44,6 +46,7 @@ import { WastburgUtility } from "../system/utility.mjs";
     context.combatRules = game.settings.get("wastburg", "house-combat-rules")
     context.initiative = this.actor.getInitiative()
     context.biography = await TextEditor.enrichHTML(this.object.system.biography, { async: true })
+    context.note = await TextEditor.enrichHTML(this.object.system.note, { async: true })
     context.config = CONFIG.WASTBURG
 
     // Prepare character data and items.
@@ -111,6 +114,7 @@ import { WastburgUtility } from "../system/utility.mjs";
 
     // Add Button Rooll
     html.find('.roll-simple').click(this._onButtonSimpleRoll.bind(this))
+    html.find('.roll-simple-mj').click(this._onButtonSimpleRollMJ.bind(this))
     html.find('.roll-complex').click(this._onButtonComplexRoll.bind(this))
     html.find('.roll-initiative').click(this._onButtonInitiative.bind(this))
     html.find('.fas fa-dice-d6').click(this._onButtonSimpleRoll.bind(this))
@@ -204,9 +208,15 @@ import { WastburgUtility } from "../system/utility.mjs";
   }
 
   /* -------------------------------------------- */
-  async _onButtonSimpleRoll () {    
-    let formula = document.getElementById("selectRollInput")    
-    WastburgUtility.manageWastburgSimpleRoll( this.actor, Number(formula.value) )
+  async _onButtonSimpleRoll( ){ 
+    let rollMode = game.settings.get('core', 'rollMode')
+    let formula = document.getElementById("selectRollInput")   
+    WastburgUtility.manageWastburgSimpleRoll( this.actor, Number(formula.value), rollMode )
+  }
+  /* -------------------------------------------- */
+  async _onButtonSimpleRollMJ(){ 
+    let formula = document.getElementById("selectRollInput")   
+    WastburgUtility.manageWastburgSimpleRoll( this.actor, Number(formula.value), "blindroll" )
   }
 
   /* -------------------------------------------- */

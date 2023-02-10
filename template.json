@@ -8,6 +8,10 @@
     "templates": {
       "base": {
         "biography": "",
+        "lieunaissance":"",
+        "age": "",
+        "residence":"",
+        "signes": "",
         "persotype": "gardoche",
         "note": "",
         "arme": "",
@@ -71,7 +75,8 @@
       ],
       "reponsePrevot01": "",
       "reponsePrevot02": "",
-      "reponsePrevot03": ""
+      "reponsePrevot03": "",
+      "appreciation": "0"
     },
     "caid": {
       "templates": [
@@ -79,7 +84,8 @@
       ],
       "reponseCaid01": "",
       "reponseCaid02": "",
-      "reponseCaid03": ""
+      "reponseCaid03": "",
+      "confiance": "0"
     }
   },
   "Item": {
