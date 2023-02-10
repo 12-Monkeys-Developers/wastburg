@@ -114,8 +114,8 @@ Hooks.once("ready", async function () {
     <br>Support et assistance sur le <a href="https://discord.gg/pPSDNJk">Discord FR de Foundry</a>.
     <br><strong>Bon courage les Gardoches !</strong>
     <br><strong> Quoi d'neuf dans le quartier (v${game.system.version}) ?</strong>
-    <br>- Correction sur l'ancienneté
-    <br>- Suppression d'un message erroné sur les aubaines de groupe`
+    <br>- Refonte des fiches de perso et de traits/contact,
+    <br>- Gestion des aubaines enlevées sur les jets du MJ`
   } )
 
 })
