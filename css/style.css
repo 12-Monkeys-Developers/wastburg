@@ -56,6 +56,7 @@
 } /* For title, sidebar character and scene */
 .sheet nav.sheet-tabs {
   font-size: 0.8rem;
+  color: #e4e2e2;
 } /* For nav and title */
 .window-app input, .wastburg .item-form, .sheet header.sheet-header .flex-group-center.flex-compteurs, .sheet header.sheet-header .flex-group-center.flex-fatigue, select, button, .item-checkbox, #sidebar, #players, #navigation #nav-toggle {
   font-size: 0.8rem;
@@ -326,7 +327,7 @@ table {border: 1px solid #7a7971;}
 }
 
 .wastburg .tox .tox-editor-container {
-  background: #fff;
+  background: #e4e2e2;
 }
 
 .wastburg .tox .tox-edit-area {
@@ -408,12 +409,12 @@ li.folder > .folder-header h3 {
 }
 
 input[type="text"],  select[type="text"] {
-  background:white;
+  background:#e4e2e2;
   color: #494e6b;
 }
 
 select {
-  background:white;
+  background:#e4e2e2;
   color: #494e6b;
 }
 /*  background: #011d33 url("../images/ui/fond1.webp") repeat left top;*/
@@ -441,7 +442,7 @@ select {
 
 .window-app.sheet .window-content .sheet-body select, .window-app.sheet .window-content .sheet-header select {
   color: rgba(19, 18, 18, 0.95);
-  background: #fff;
+  background: #e4e2e2;
   border: 1 none;
   /*margin-bottom: 0.25rem;*/
   /*margin-left: 2px;*/
@@ -977,6 +978,7 @@ ul, li {
   border-image: url(img/ui/footer-button.png) 10 repeat;
   border-image-width: 4px;
   border-image-outset: 0px;
+  color: #e4e2e2;
 }
 
 #controls .scene-control.active, #controls .control-tool.active, #controls .scene-control:hover, #controls .control-tool:hover {
@@ -985,6 +987,7 @@ ul, li {
   border-image: url(img/ui/footer-button.png) 10 repeat;
   border-image-width: 4px;
   border-image-outset: 0px;
+  color: #e4e2e2;
   box-shadow: 0 0 3px #ff6400;
 }
 
@@ -1087,7 +1090,7 @@ ul, li {
   border: 1px ridge #846109;
   display: inline-block;
   cursor: pointer;
-  color: #ffffff;
+  color: #e4e2e2;
   font-size: 0.8rem;
   /*padding: 2px 2px 0px 2px;*/
   text-decoration: none;
@@ -1119,7 +1122,7 @@ ul, li {
   border: 1px ridge #846109;
   display: inline-block;
   cursor: pointer;
-  color: #ffffff;
+  color: #e4e2e2;
   margin: 2px 2px 2px 2px;
   padding: 2px 2px 2px 2px;
   text-decoration: none;
@@ -1160,15 +1163,15 @@ ul, li {
   color: #CCC
 }
 #pause > img {
-  content: url(../images/ui/logo_pause.webp);
-  height: 200px;
+  content: url(../assets/img/wastburg_logo.webp);
+  height: 90px;
   width: 200px;
   top: -100px;
   left: calc(50% - 132px);
 }
 
 #logo {
-  content : url(../images/ui/logo_pause.webp);
+  content: url(../assets/img/wastburg_logo.webp);
   width: 100px;
   height: 60px;
 }
