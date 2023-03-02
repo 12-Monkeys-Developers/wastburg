@@ -8,7 +8,7 @@ Ceci est un programme qui permet de jouer à au jeu de rôle "Wastburg" sur la p
 
 Le système Wastburg est un système de jeu de rôle édité par Les XII Singes. Les auteurs du système sont Maxime Plasse, Philippe Fenot, Cédric Ferrand, Loris Gianadda, Steve Jakoubovitch, Guylène Le Mignot, Tristan Lhomme, Gauthier Lion et Côme Martin.
 
-The "Clé en Main" system is a role-playing game edited by Les XII Singes. The authors are Maxime Plasse, Philippe Fenot, Cédric Ferrand, Loris Gianadda, Steve Jakoubovitch, Guylène Le Mignot, Tristan Lhomme, Gauthier Lion et Côme Martin
+The Wastburg system is a role-playing game edited by Les XII Singes. The authors are Maxime Plasse, Philippe Fenot, Cédric Ferrand, Loris Gianadda, Steve Jakoubovitch, Guylène Le Mignot, Tristan Lhomme, Gauthier Lion et Côme Martin
 
 # Contributors
 
