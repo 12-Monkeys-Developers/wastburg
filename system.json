@@ -40,6 +40,15 @@
       "system": "wastburg",
       "private": false,
       "flags": {}
+    },
+    {
+      "label": "Scènes",
+      "type": "Scene",
+      "name": "wastburg-scenes",
+      "path": "packs/wastburg-scenes.db",
+      "system": "wastburg",
+      "private": false,
+      "flags": {}
     }
   ],
   "gridDistance": 5,

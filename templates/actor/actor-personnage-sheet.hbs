@@ -173,13 +173,13 @@
       <div class="flexcol">
         <ul class="item-list alternate-list">
           <li class="item flexrow list-item items-title-bg">
-            <span class="item-field-header-long2">
-              <h3><label class="item-field-header-long2">Contacts</label></h3>
+            <span class="item-field-header-medium">
+              <h3><label class="item-field-header-medium">Contacts</label></h3>
             </span>
-            <span class="item-field-label-short">&nbsp;</span>
-            <span class="item-field-label-medium">
-              <label class="item-field-label-medium">Quartier</label>
+            
+            <span class="">
             </span>
+
             <div class="item-filler">&nbsp;</div>
             <div class="item-controls item-controls-fixed">
               <a class="item-control item-add" data-type="trait" title="Créer un trait"><i class="fas fa-plus"></i></a>
@@ -189,9 +189,22 @@
           <li class="item flexrow list-item list-item-shadow" data-item-id="{{contact._id}}">
             <a class="item-edit item-name-img" title="Edit Item"><img class="sheet-competence-img"
                 src="{{contact.img}}" /></a>
-            <span class="item-field-label-long2">{{contact.name}}</span>
-            <span class="item-field-label-short">&nbsp;</span>
-            <span class="item-field-label-medium"><label>{{contact.system.quartier}}</label></span>
+            <span class="item-field-label-medium">{{contact.name}}</span>
+
+            <ul class="item-field-label-medium-long3">
+              <li class="item flexrow list-item ">
+                <span>Quartier:</span>
+                <span class="item-field-label-long3"><label>{{contact.system.quartier}}</label></span>
+              </li>
+              <li class="item flexrow list-item ">
+                <span>Trait 1:</span>
+                <span class="item-field-label-long3"><label>{{contact.system.trait1}}</label></span>
+              </li>
+              <li class="item flexrow list-item ">
+                <span >Trait 2:</span>
+                <span class="item-field-label-long3"><label>{{contact.system.trait2}}</label></span>
+              </li>
+            </ul>
             <div class="item-filler">&nbsp;</div>
             <div class="item-controls item-controls-fixed">
               <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
