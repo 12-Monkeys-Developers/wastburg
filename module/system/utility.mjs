@@ -340,6 +340,8 @@ export class WastburgUtility {
       totalLevel: 0,
       selectRollInput: 3,
       rerollMode: "none",
+      aubainesPerso: actor.system.aubaine.value,
+      aubainesDeGroupe: game.settings.get("wastburg", "aubaine-de-groupe"),
       rollGM: game.user.isGM
     }
   }
