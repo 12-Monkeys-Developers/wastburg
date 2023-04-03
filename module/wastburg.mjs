@@ -114,8 +114,9 @@ Hooks.once("ready", async function () {
     <br>Support et assistance sur le <a href="https://discord.gg/pPSDNJk">Discord FR de Foundry</a>.
     <br><strong>Bon courage les Gardoches !</strong>
     <br><strong> Quoi d'neuf dans le quartier (v${game.system.version}) ?</strong>
-    <br>- Utilisation de certains graphismes officiels du jeu (merci les 12 Singes et Gary Chalk),
-    <br>- Amélioration de l'affichage des contacts`
+    <br>- Amélioration entête des fiches de PJ/Caid/Prevot,
+    <br>- Amélioration de l'affichage des contacts, traits et équipements,
+    <br>- Harmonisation des boutons`
   } )
 
 })

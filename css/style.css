@@ -62,6 +62,11 @@
   font-size: 0.8rem;
 }
 
+textarea {
+  font-family: ACaslonPro-Regular;
+  font-size: 0.8rem;
+}
+
 .window-header{
   background: rgba(0,0,0,0.75);
 }
@@ -236,10 +241,17 @@ table {border: 1px solid #7a7971;}
   height: auto;
   max-height:128px;
   margin-top: 0px;
+  margin-left: 0px;
   margin-right: 10px;
   object-fit: cover;
   object-position: 50% 0;
-  border-width: 0px;
+  border-width: 8px;
+  border-style:ridge;
+}
+.profile-img-div {
+  max-width: 140px;
+  margin-right: 8px;
+  margin-top: 4px;
 }
 
 .button-img {
@@ -249,6 +261,12 @@ table {border: 1px solid #7a7971;}
   max-height: 48px;
   border-width: 0px;
 	border: 1px solid rgba(0, 0, 0, 0);
+}
+.gelder-buttons {
+  font-size: 1.8rem;
+}
+.gelder-plus {
+  margin-left: 4px;
 }
 
 .button-img:hover {
@@ -368,10 +386,10 @@ table {border: 1px solid #7a7971;}
 }
 
 .wastburg .items-list .item {
-  height: 30px;
+  /*height: 30px;
   line-height: 24px;
   padding: 1px 0;
-  border-bottom: 1px solid #BBB;
+  border-bottom: 1px solid #BBB;*/
 }
 
 .wastburg .items-list .item .item-image {
@@ -404,7 +422,8 @@ li.folder > .folder-header h3 {
 /* Sheet  */
 .window-app.sheet .window-content .sheet-header{
   color: rgba(19, 18, 18, 0.95);
-  background: url("../assets/illustrations/fond_page_lateral_01.webp");
+  background:url("../assets/illustrations/Rue.webp");
+  /*background: url("../assets/illustrations/fond_page_lateral_01.webp");*/
   /*background: url("../assets/illustrations/fond_page_t1.webp");*/
   /*background: url("../assets/img/white-paper-texture.webp");*/
   /*background: #494e6b;*/
@@ -465,7 +484,7 @@ section.sheet-body{padding: 0.25rem 0.5rem;}
 .sheet header.sheet-header .profile-img {
   object-fit: cover;
   object-position: 50% 0;
-  margin: 0.5rem 0 0.5rem  0.5rem;
+  /*margin: 0.5rem 0 0.5rem  0.5rem;*/
   padding: 0;
 }
 
@@ -552,7 +571,7 @@ ul, li {
 }
 
 .sheet li {
-  margin: 0.010rem;
+  /*margin: 0.2rem;*/
   padding: 0.25rem;
 }
 .header-fields li {
@@ -580,22 +599,15 @@ ul, li {
 }
 
 .list-item {
-  margin: 0.125rem;
-  /*box-shadow: inset 0px 0px 1px #00000096;
-  border-radius: 0.25rem;*/
+  margin: 0.3rem;
+  /*box-shadow: inset 0px 0px 1px #00000096;*/
+  border-radius: 0.4rem;
   padding: 0.125rem;
   flex: 1 1 5rem;
-  display: flex !important;
   color: rgba(19, 18, 18, 0.95);
 }
 .list-item-shadow {
   background:rgba(87, 60, 32, 0.35);
-  flex-grow: 0;
-  flex-wrap: nowrap;
-  justify-content: flex-start;
-}
-.list-item-shadow2 {
-  background:rgba(87, 60, 32, 0.25);
   flex-grow: 0;
   flex-wrap: nowrap;
   justify-content: flex-start;
