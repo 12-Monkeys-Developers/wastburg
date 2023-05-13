@@ -356,7 +356,7 @@ export class WastburgUtility {
     let rollData = this.getCommonRollData(actor)
     rollData.mode = "simple"
     rollData.diceFormula = diceFormula
-    rollData.roll = roll
+    rollData.roll = duplicate(roll)
     rollData.result = roll.total
     rollData.totalLevel = value
     rollData.rollMode = rollMode
@@ -397,9 +397,8 @@ export class WastburgUtility {
     const roll = await new Roll(diceFormula).roll({ async: true })
     await this.showDiceSoNice(roll, game.settings.get("core", "rollMode"))
 
-    rollData.roll = roll
+    rollData.roll = duplicate(roll)
     rollData.diceFormula = diceFormula
-    rollData.roll = roll
     rollData.result = roll.total
 
     let actor = WastburgUtility.getActorFromRollData(rollData)
@@ -446,7 +445,7 @@ export class WastburgUtility {
       this.incDecAubaineGroupe(-1)
       const roll = await new Roll(rollData.diceFormula).roll({ async: true })
       await this.showDiceSoNice(roll, game.settings.get("core", "rollMode"))
-      rollData.roll = roll
+      rollData.roll = duplicate(roll)
       rollData.result = roll.total
     }
     rollData.rollQuality = this.getRollQuality(rollData.result)

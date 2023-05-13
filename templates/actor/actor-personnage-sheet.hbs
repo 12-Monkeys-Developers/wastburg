@@ -31,13 +31,13 @@
 
             </ul>
 
-            <ul>
+            <ul class="middle-header-sheet">
               <li class="flexrow item">
-                <label class="item-name-label-long">{{#if (eq system.persotype "gardoche")}}Ancienneté{{else}}Respect{{/if}}</label>
+                <label class="item-name-label-8rem">{{#if (eq system.persotype "gardoche")}}Ancienneté{{else}}Respect{{/if}}</label>
                 <input type="text" class="item-field-label-short" name="system.anciennetereputation.value" value="{{system.anciennetereputation.value}}" data-dtype="Number" />
               </li>
-              <li class="item flexrow">
-                <label class="item-name-label-long">Réputation</label>
+              <li class="flexrow item">
+                <label class="item-name-label-8rem">Réputation</label>
                 <select class="item-field-label-short" type="text" name="system.reputation.value" value="{{system.reputation.value}}" data-dtype="String">
                   {{#select system.reputation.value}}
                     {{> systems/wastburg/templates/common/select-levels.hbs}}
@@ -119,11 +119,16 @@
         <ul>
           <li class="flexrow item">
             <label class="item-name-label-medium">Santé Actuelle:</label>
-            <input type="text" class="item-field-label-short" name="system.combat.santecurrent" value="{{system.combat.santecurrent}}" data-dtype="Number" />
+            <div  class="flexrow item-field-label-medium">
+              <span class=""><a class="gelder-buttons sante-minus"><i class="button-plus-minus fas fa-minus-square"></i></a></span>
+              <input type="text" class="item-field-label-short" name="system.combat.santecurrent" value="{{system.combat.santecurrent}}" data-dtype="Number" />
+              <span class=""><a class="gelder-buttons sante-plus"><i class="button-plus-minus fas fa-plus-square"></i></a></span>
+            </div>
+            <div class="item-filler">&nbsp;</div>
           </li>
           <li class="flexrow item">
             <label class="item-name-label-medium">Santé Max:</label>
-            <input type="text" class="item-field-label-short" name="system.combat.santemax" value="{{system.combat.santemax}}" data-dtype="Number" />
+            <input type="text" class="item-field-label-short" name="system.combat.santemax" value="{{system.combat.santemax}}" data-dtype="Number" {{#if (not isGM)}}disabled{{/if}}/>
           </li>
           <li class="flexrow item">
             <label class="item-name-label-medium">Initiative : {{initiative}}</label>
@@ -187,7 +192,7 @@
 
             <div class="item-filler">&nbsp;</div>
             <div class="item-controls item-controls-fixed">
-              <a class="item-control item-add" data-type="trait" title="Créer un trait"><i class="fas fa-plus"></i></a>
+              <a class="item-control item-add" data-type="contact" title="Créer un contact"><i class="fas fa-plus"></i></a>
             </div>
           </li>
           {{#each contacts as |contact key|}}

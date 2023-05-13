@@ -29,8 +29,6 @@ export class WastburgActor extends Actor {
      */
   prepareDerivedData() {
     const actorData = this;
-    const systemData = actorData.system;
-    const flags = actorData.flags.wastburg || {};
 
     // Make separate methods for each Actor type (character, npc, etc.) to keep
     // things organized.
@@ -50,14 +48,14 @@ export class WastburgActor extends Actor {
 
 
   /**
-   * Override getRollData() that's supplied to rolls.
+   * Override getData() that's supplied to rolls.
    */
-  getRollData() {
+  getData() {
     const data = super.getRollData();
 
     // Prepare character roll data.
-    this._getCharacterRollData(data);
-    this._getNpcRollData(data);
+    this._getCharacterData(data);
+    this._getNpcData(data);
 
     return data;
   }
@@ -65,7 +63,7 @@ export class WastburgActor extends Actor {
   /**
    * Prepare character roll data.
    */
-  _getCharacterRollData(data) {
+  _getCharacterData(data) {
     if (this.type !== 'personnage') return;
 
     // Copy the ability scores to the top level, so that rolls can use
@@ -80,7 +78,7 @@ export class WastburgActor extends Actor {
   /**
    * Prepare NPC roll data.
    */
-  _getNpcRollData(data) {
+  _getNpcData(data) {
     if (this.type !== 'npc') return;
 
     // Process additional NPC data here.
@@ -105,7 +103,12 @@ export class WastburgActor extends Actor {
     aubaine.value = Math.max(aubaine.value, 0)
     await this.update({ 'system.aubaine': aubaine })
   }
-
+  /* -------------------------------------------- */
+  modifySante(value) {
+    let q = this.system.combat.santecurrent + Number(value)
+    q = Math.max(q, 0)
+    this.update( { 'system.combat.santecurrent'  : q } )
+  }
   /* -------------------------------------------- */
   modifyGelder( value) {
     let q = this.system.gelder.value + Number(value)

@@ -7,13 +7,13 @@
   return loadTemplates([
 
     // Actor partials.
-    "systems/wastburg/templates/actor/parts/actor-etats.hbs",
-    "systems/wastburg/templates/actor/parts/actor-traits.hbs",
-    "systems/wastburg/templates/actor/parts/actor-contact.hbs",
-    "systems/wastburg/templates/actor/parts/actor-inventaire.hbs",
-    "systems/wastburg/templates/actor/parts/actor-biography.hbs",
+    //"systems/wastburg/templates/actor/parts/actor-etats.hbs",
+    //"systems/wastburg/templates/actor/parts/actor-traits.hbs",
+    //"systems/wastburg/templates/actor/parts/actor-contact.hbs",
+    //"systems/wastburg/templates/actor/parts/actor-inventaire.hbs",
+    //"systems/wastburg/templates/actor/parts/actor-biography.hbs",
     "systems/wastburg/templates/common/select-levels.hbs",
-    "systems/wastburg/templates/actor/parts/actor-traits-list.hbs",
+    //"systems/wastburg/templates/actor/parts/actor-traits-list.hbs",
     'systems/wastburg/templates/item/partial-item-nav.hbs',
     'systems/wastburg/templates/item/partial-item-description.hbs'
 

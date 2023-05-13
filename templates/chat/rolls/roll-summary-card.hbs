@@ -51,7 +51,7 @@
 
     {{else}}
       {{#if (eq rerollMode "aubaine-perso")}}
-        <li>Jet relancé gâce à une aubaine personnelle !</li>
+        <li>Jet augmenté gâce à une aubaine personnelle !</li>
       {{else}}
         {{#if (eq rerollMode "aubaine-groupe")}}
           <li>Jet relancé grâce à une aubaine de groupe !</li>
@@ -61,12 +61,12 @@
 
             {{#if aubainesPerso}}
             <li>
-              <button class="chat-card-button apply-aubaine-perso">Utiliser une aubaine perso ({{aubainesPerso}})</button>
+              <button class="chat-card-button apply-aubaine-perso">+1 avec une aubaine perso ({{aubainesPerso}})</button>
             </li>
             {{/if}}
             {{#if aubainesDeGroupe}}
             <li>
-              <button class="chat-card-button apply-aubaine-groupe">Utiliser une aubaine de groupe ({{aubainesDeGroupe}})</button>
+              <button class="chat-card-button apply-aubaine-groupe">Relancer avec une aubaine de groupe ({{aubainesDeGroupe}})</button>
             </li>
             {{/if}}
             {{#if nbOne}}

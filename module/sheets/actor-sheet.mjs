@@ -48,6 +48,7 @@ import { WastburgUtility } from "../system/utility.mjs";
     context.biography = await TextEditor.enrichHTML(this.object.system.biography, { async: true })
     context.note = await TextEditor.enrichHTML(this.object.system.note, { async: true })
     context.config = CONFIG.WASTBURG
+    context.isGM = game.user.isGM
 
     // Prepare character data and items.
     if (actorData.type == 'personnage' || actorData.type == 'prevot' || actorData.type == 'caid') {
@@ -57,8 +58,10 @@ import { WastburgUtility } from "../system/utility.mjs";
       this._prepareItems(context);
     }
 
-    // Add roll data for TinyMCE editors.
-    context.rollData = context.actor.getRollData();
+    // Add data for TinyMCE editors.
+    context.data = context.actor.getData()
+    console.log("Actor", context, this.actor)
+
     return context;
   }
   
@@ -108,6 +111,13 @@ import { WastburgUtility } from "../system/utility.mjs";
       this.actor.modifyGelder( -1 );
     } );
 
+    html.find('.sante-plus').click(event => {
+      this.actor.modifySante( 1 );
+    } );
+    html.find('.sante-minus').click(event => {
+      this.actor.modifySante( -1 );
+    } );
+
     // -------------------------------------------------------------
     // Everything below here is only needed if the sheet is editable
     if (!this.isEditable) return;
@@ -127,7 +137,12 @@ import { WastburgUtility } from "../system/utility.mjs";
     html.find('.item-delete').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
       WastburgUtility.confirmDelete(this, li);
-    });
+    })
+    // Crée un item
+    html.find('.item-add').click(ev => {
+      let dataType = $(ev.currentTarget).data("type")
+      this.actor.createEmbeddedDocuments('Item', [{ name: "Nouveau " + dataType, type: dataType }], { renderSheet: true })
+    })
 
     // Active Effect management
     html.find(".effect-control").click(ev => onManageActiveEffect(ev, this.actor));
@@ -197,7 +212,7 @@ import { WastburgUtility } from "../system/utility.mjs";
     // Handle rolls that supply the formula directly.
     if (dataset.roll) {
       let label = dataset.label ? `[ability] ${dataset.label}` : '';
-      let roll = new Roll(dataset.roll, this.actor.getRollData());
+      let roll = new Roll(dataset.roll, this.actor.getData());
       roll.toMessage({
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
         flavor: label,

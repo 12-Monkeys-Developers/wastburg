@@ -7,9 +7,9 @@ export class WastburgItemSheet extends ItemSheet {
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ["wastburg", "sheet", "item" ,"trait","contact"],
-      width: 520,
-      height: 500,
+      classes: ["wastburg", "sheet", "item", "trait", "contact"],
+      width: 860,
+      height: 420,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
     });
   }
@@ -36,14 +36,14 @@ export class WastburgItemSheet extends ItemSheet {
     const itemData = context.item;
 
     // Retrieve the roll data for TinyMCE editors.
-    context.rollData = {};
-    context.name = itemData.name
-    context.img  = itemData.img
+    context.name = itemData.name,
+    context.img = itemData.img,
+    context.isGM = game.user.isGM
     let actor = this.object?.parent ?? null;
     if (actor) {
-      context.rollData = actor.getRollData();
+      context.rollData = actor.getData();
     }
-    context.description = await TextEditor.enrichHTML(this.object.system.description, {async: true})
+    context.description = await TextEditor.enrichHTML(this.object.system.description, { async: true })
 
     // Add the actor's data to context.data for easier access, as well as flags.
     context.system = itemData.system;
@@ -51,7 +51,7 @@ export class WastburgItemSheet extends ItemSheet {
 
     return context;
   }
-  
+
 
   /* -------------------------------------------- */
 

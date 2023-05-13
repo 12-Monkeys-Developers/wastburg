@@ -95,7 +95,7 @@ Hooks.once("ready", async function () {
   WastburgUtility.registerSettings()
 
   // World count
-  registerUsageCount('wastburg')
+  registerUsageCount(game.system.id)
   
   /*// CSS patch for v9
   if (game.version) {

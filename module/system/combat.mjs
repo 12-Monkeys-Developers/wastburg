@@ -4,7 +4,7 @@ export class WastburgCombatManager extends Combat {
 
   /************************************************************************************/
   async rollInitiative(ids, formula = undefined, messageOptions = {}) {
-    console.log(`${game.system.title} | Combat.rollInitiative()`, ids, formula, messageOptions);
+    //console.log(`${game.system.title} | Combat.rollInitiative()`, ids, formula, messageOptions);
     // Structure input data
     ids = typeof ids === "string" ? [ids] : ids;
     //const currentId = this.combatant.id;
@@ -20,12 +20,13 @@ export class WastburgCombatManager extends Combat {
 
   /************************************************************************************/
   _onDelete() {
-    let combatants = this.combatants.contents
-    for (let c of combatants) {
-      let actor = game.actors.get(c.data.actorId)
-      actor.clearInitiative()
+    if ( game.user.isGM) {
+      let combatants = this.combatants.contents
+      for (let c of combatants) {
+        let actor = game.actors.get(c.actorId)
+        actor.clearInitiative()
+      }  
     }
     super._onDelete()
   }
-  
 }

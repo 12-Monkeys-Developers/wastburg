@@ -472,7 +472,7 @@ select {
 .window-app .window-content, .window-app.sheet .window-content .sheet-body{
   font-size: 0.8rem;
   /*background: url("../images/ui/pc_sheet_bg.webp") repeat left top;*/
-  background: url("../assets/illustrations/fond_page_lateral_02.webp");
+  background: url("../assets/illustrations/fond_page_lateral_03.webp");
   /*background: url("../assets/img/white-paper-texture.webp");*/
   color: rgba(19, 18, 18, 0.95);
 }
@@ -716,6 +716,9 @@ ul, li {
 .padd-left {
   margin-left: 8px;
 }
+.middle-header-sheet {
+  margin-left: 3.5rem;
+}
 .stack-left {
   align-items:center;
   flex-shrink: 1;
@@ -811,7 +814,7 @@ ul, li {
   background-color:#f5f5f5;
   background-position: 0px 35px;
   background-repeat: no-repeat;
-  background: url("../assets/illustrations/fond_page_lateral_02.webp");
+  background: url("../assets/illustrations/fond_page_lateral_03.webp");
   /*background: url("../assets/img/white-paper-texture.webp");*/
   color: rgba(19, 18, 18, 0.95);
 }
@@ -1253,6 +1256,12 @@ ul, li {
   flex-grow:2;
   max-width: 10rem;
   min-width: 10rem;
+}
+.item-name-label-8rem {
+  margin-top: 4px;
+  flex-grow:2;
+  max-width: 8rem;
+  min-width: 8rem;
 }
 .item-name-label-long {
   margin-top: 4px;
