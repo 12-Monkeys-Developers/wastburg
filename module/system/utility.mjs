@@ -184,7 +184,7 @@ export class WastburgUtility {
       // If the user is the message author or the actor owner, proceed
       const actor = game.actors.get(data.message.speaker.actor)
       //console.log("FOUND 1!!! ", actor)
-      if (actor && actor.isOwner) return
+      if (actor?.isOwner) return
       else if (game.user.isGM || data.author.id === game.user.id) return
 
       const divButtons = chatCard.find('.actions-section')
@@ -339,7 +339,6 @@ export class WastburgUtility {
       applySocial: false,
       totalLevel: 0,
       selectRollInput: 3,
-      rerollMode: "none",
       aubainesPerso: actor.system.aubaine.value,
       aubainesDeGroupe: game.settings.get("wastburg", "aubaine-de-groupe"),
       rollGM: game.user.isGM

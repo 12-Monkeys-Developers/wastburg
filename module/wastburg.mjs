@@ -11,6 +11,7 @@ import { WastburgUtility } from "./system/utility.mjs";
 import { WastburgCombatManager } from "./system/combat.mjs";
 import { WastburgCommands} from "./system/commands.mjs"
 import { WASTBURG } from "./helpers/config.mjs"
+import { ClassCounter} from "https://www.uberwald.me/fvtt_appcount/count-class-ready.js"
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -60,32 +61,6 @@ Hooks.once('init', async function () {
 /* -------------------------------------------- */
 
 /* -------------------------------------------- */
-// Register world usage statistics
-function registerUsageCount( registerKey ) {
-  if ( game.user.isGM ) {
-    game.settings.register(registerKey, "world-key", {
-      name: "Unique world key",
-      scope: "world",
-      config: false,
-      default: "",
-      type: String
-    });
-
-    let worldKey = game.settings.get(registerKey, "world-key")
-    if ( worldKey == undefined || worldKey == "" ) {
-      worldKey = randomID(32)
-      game.settings.set(registerKey, "world-key", worldKey )
-    }
-    // Simple API counter
-    let regURL = `https://www.uberwald.me/fvtt_appcount/count.php?name="${registerKey}"&worldKey="${worldKey}"&version="${game.release.generation}.${game.release.build}"&system="${game.system.id}"&systemversion="${game.system.version}"`
-    //$.ajaxSetup({
-      //headers: { 'Access-Control-Allow-Origin': '*' }
-    //})
-    $.ajax(regURL)
-  }
-}
-
-/* -------------------------------------------- */
 /*  Ready Hook                                  */
 /* -------------------------------------------- */
 Hooks.once("ready", async function () {
@@ -95,7 +70,7 @@ Hooks.once("ready", async function () {
   WastburgUtility.registerSettings()
 
   // World count
-  registerUsageCount(game.system.id)
+  ClassCounter.registerUsageCount("MyApp")
   
   /*// CSS patch for v9
   if (game.version) {
