@@ -22,9 +22,7 @@
           <li class="flexrow">
             <label class="item-field-label-long">Niveau</label>
             <select class="item-field-label-long" type="text" name="system.value" value="{{system.value}}" data-dtype="String">
-              {{#select system.value}}
-                {{> systems/wastburg/templates/common/select-levels.hbs}}
-              {{/select}}
+              {{selectOptions config.levelsList selected=system.value valueAttr="value" nameAttr="value" labelAttr="label"}}
             </select> 
           </li>
 

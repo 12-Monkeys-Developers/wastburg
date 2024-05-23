@@ -98,7 +98,7 @@ export class WastburgActor extends Actor {
 
   /* -------------------------------------------- */
   async incDecAubainePerso(value) {
-    let aubaine = duplicate(this.system.aubaine)
+    let aubaine = foundry.utils.duplicate(this.system.aubaine)
     aubaine.value += value
     aubaine.value = Math.max(aubaine.value, 0)
     await this.update({ 'system.aubaine': aubaine })
@@ -126,7 +126,7 @@ export class WastburgActor extends Actor {
     this.setFlag("world", "last-initiative", value)
   }
   /* -------------------------------------------- */
-  getInitiative(fromCombat = false) {
+  async getInitiative(fromCombat = false) {
     if ( game.settings.get("wastburg", "house-combat-rules") ) {
       let value = this.getFlag("world", "last-initiative")
       if ( fromCombat && (!value || value == -1) ) {
@@ -134,7 +134,7 @@ export class WastburgActor extends Actor {
       }
       return value || -1  
     } else {
-      let r = new Roll("1d6").roll({async: false})
+      let r = await new Roll("1d6").roll()
       return r.total
     }
   }  

@@ -170,7 +170,7 @@ export class WastburgUtility {
 
   /* -------------------------------------------- */
   static blindMessageToGM(chatOptions) {
-    let chatGM = duplicate(chatOptions);
+    let chatGM = foundry.utils.duplicate(chatOptions);
     chatGM.whisper = this.getUsers(user => user.isGM);
     chatGM.content = "Blind message of " + game.user.name + "<br>" + chatOptions.content;
     console.log("blindMessageToGM", chatGM);
@@ -323,8 +323,8 @@ export class WastburgUtility {
   /* -------------------------------------------- */
   static getCommonRollData(actor) {
     return {
-      rollDataId: randomID(16),
-      aubaineButtonId: randomID(16),
+      rollDataId: foundry.utils.randomID(16),
+      aubaineButtonId: foundry.utils.randomID(16),
       actorId: actor.id,
       tokenId: actor.token?.id,
       actorImg: actor.img,
@@ -341,7 +341,8 @@ export class WastburgUtility {
       selectRollInput: 3,
       aubainesPerso: actor.system.aubaine.value,
       aubainesDeGroupe: game.settings.get("wastburg", "aubaine-de-groupe"),
-      rollGM: game.user.isGM
+      rollGM: game.user.isGM,
+      config : CONFIG.WASTBURG
     }
   }
 
@@ -349,13 +350,13 @@ export class WastburgUtility {
   static async manageWastburgSimpleRoll(actor, value, rollMode) {
 
     let diceFormula = WastburgUtility.getRollFormula(value)
-    const roll = await new Roll(diceFormula).roll({ async: true })
+    const roll = await new Roll(diceFormula).roll()
     await this.showDiceSoNice(roll, rollMode )
 
     let rollData = this.getCommonRollData(actor)
     rollData.mode = "simple"
     rollData.diceFormula = diceFormula
-    rollData.roll = duplicate(roll)
+    rollData.roll = foundry.utils.duplicate(roll)
     rollData.result = roll.total
     rollData.totalLevel = value
     rollData.rollMode = rollMode
@@ -393,10 +394,10 @@ export class WastburgUtility {
   static async performRollComplex(rollData) {
     let diceFormula = WastburgUtility.getRollFormula(rollData.totalLevel)
 
-    const roll = await new Roll(diceFormula).roll({ async: true })
+    const roll = await new Roll(diceFormula).roll()
     await this.showDiceSoNice(roll, game.settings.get("core", "rollMode"))
 
-    rollData.roll = duplicate(roll)
+    rollData.roll = foundry.utils.duplicate(roll)
     rollData.diceFormula = diceFormula
     rollData.result = roll.total
 
@@ -442,14 +443,14 @@ export class WastburgUtility {
       rollData.result += 1
     } else {
       this.incDecAubaineGroupe(-1)
-      const roll = await new Roll(rollData.diceFormula).roll({ async: true })
+      const roll = await new Roll(rollData.diceFormula).roll()
       await this.showDiceSoNice(roll, game.settings.get("core", "rollMode"))
-      rollData.roll = duplicate(roll)
+      rollData.roll = foundry.utils.duplicate(roll)
       rollData.result = roll.total
     }
     rollData.rollQuality = this.getRollQuality(rollData.result)
     rollData.cssQuality = this.getClassQuality(rollData.result)
-    rollData.rollDataId = randomID(16)
+    rollData.rollDataId = foundry.utils.randomID(16)
 
     this.outputRollMessage(rollData)
   }

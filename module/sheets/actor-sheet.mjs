@@ -8,7 +8,7 @@ import { WastburgUtility } from "../system/utility.mjs";
 
   /** @override */
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["wastburg", "sheet", "actor", "personnage", "trait","prevot","caid"],
       template: "systems/wastburg/templates/actor/actor-sheet.hbs",
       width: 620,
@@ -174,7 +174,7 @@ import { WastburgUtility } from "../system/utility.mjs";
     // Get the type of item to create.
     const type = header.dataset.type;
     // Grab any data associated with this control.
-    const data = duplicate(header.dataset);
+    const data = foundry.utils.duplicate(header.dataset);
     // Initialize a default name.
     const name = `New ${type.capitalize()}`;
     // Prepare the item object.

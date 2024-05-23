@@ -22,11 +22,7 @@
           <li class="flexrow">
             <label class="item-field-label-long">Type</label>
             <select class="item-field-label-long" type="text" name="system.type" value="{{system.type}}" data-dtype="String">
-              {{#select system.type}}
-              <option value="jeunesse">Jeunesse</option>
-              <option value="passe">Passé</option>
-              <option value="present">Présent</option>
-              {{/select}}
+              {{selectOptions config.traitTypes selected=system.type}}
             </select> 
           </li>
 

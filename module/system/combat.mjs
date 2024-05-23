@@ -12,7 +12,7 @@ export class WastburgCombatManager extends Combat {
     // calculate initiative
     for (let cId = 0; cId < ids.length; cId++) {
       const combatant = this.combatants.get(ids[cId])
-      let fvttInit = combatant.actor.getInitiative(true)
+      let fvttInit = await combatant.actor.getInitiative(true)
       fvttInit += (cId / 100)
       await this.updateEmbeddedDocuments("Combatant", [{ _id: ids[cId], initiative: fvttInit }]);
     }

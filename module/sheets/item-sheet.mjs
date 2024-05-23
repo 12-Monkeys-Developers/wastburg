@@ -6,7 +6,7 @@ export class WastburgItemSheet extends ItemSheet {
 
   /** @override */
   static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["wastburg", "sheet", "item", "trait", "contact"],
       width: 860,
       height: 420,
@@ -39,6 +39,7 @@ export class WastburgItemSheet extends ItemSheet {
     context.name = itemData.name,
     context.img = itemData.img,
     context.isGM = game.user.isGM
+    context.config = CONFIG.WASTBURG
     let actor = this.object?.parent ?? null;
     if (actor) {
       context.rollData = actor.getData();

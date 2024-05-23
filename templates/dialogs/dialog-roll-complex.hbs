@@ -11,45 +11,31 @@
     <div class="flexrow roll-dialog-list">
       <span class="roll-dialog-label">Trait (Bonus)</span>
         <select class="status-small-label color-class-common" id ="select-trait-bonus" type="text" name="attrKey" value="selectedTraitBonus" data-dtype="string" >
-          {{#select selectedTraitBonus}}
           <option value="none">Aucun</option>
-          {{#each traits as |trait id|}}
-            <option value="{{trait.id}}">{{trait.name}}</option>
-          {{/each}}
-          {{/select}}
-      </select>      
+          {{selectOptions traits selected=selectedTraitBonus valueAttr="id" nameAttr="id" labelAttr="name"}}
+      </select>
     </div>
 
     <div class="flexrow roll-dialog-list">
       <span class="roll-dialog-label">Trait (Malus)</span>
         <select class="status-small-label color-class-common" id ="select-trait-malus" type="text" name="attrKey" value="selectedTraitMalus" data-dtype="string" >
-          {{#select selectedTraitMalus}}
           <option value="none">Aucun</option>
-          {{#each traits as |trait id|}}
-            <option value="{{trait.id}}">{{trait.name}}</option>
-          {{/each}}
-          {{/select}}
+          {{selectOptions traits selected=selectedTraitMalus valueAttr="id" nameAttr="id" labelAttr="name"}}
       </select>      
     </div>
 
     <div class="flexrow roll-dialog-list">
       <span class="roll-dialog-label">Contact</span>
         <select class="status-small-label color-class-common" id ="select-contact" type="text" name="attrKey" value="selectedContact" data-dtype="string" >
-          {{#select selectedContact}}
           <option value="none">Aucun</option>
-          {{#each contacts as |contact id|}}
-            <option value="{{contact.id}}">{{contact.name}} ({{getLevel contact.system.value}})</option>
-          {{/each}}
-          {{/select}}
+          {{selectOptions contacts selected=selectedContact valueAttr="id" nameAttr="id" labelAttr="name"}}
       </select>      
     </div>
 
     <div class="flexrow roll-dialog-list">
       <span class="roll-dialog-label">Bonus/Malus </span>
         <select class="status-small-label color-class-common"  id="select-bonusmalus" value="selectedBonusMalus" data-dtype="Number">
-        {{#select selectedBonusMalus}}
-            {{> systems/wastburg/templates/common/select-levels.hbs}}
-        {{/select}}
+        {{selectOptions config.levelsList selected=selectedBonusMalus valueAttr="value" nameAttr="value" labelAttr="label"}}
         </select>  
     </div>
 

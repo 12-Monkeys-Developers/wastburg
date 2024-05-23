@@ -5,7 +5,7 @@
     <div class="header-fields">
       <div class="flexrow">
 
-        <div class="flexcol padd-left>
+        <div class="flexcol padd-left">
           <h1 class="charname margin-right"><input name="name" type="text" value="{{name}}" placeholder="Name" /></h1>
 
           <div class="flexrow">
@@ -14,16 +14,12 @@
               <li class="flexrow item">
                 <label class="item-name-label-long">Confiance</label>
                 <select class="item-field-label-short" type="text" name="system.confiance" value="{{system.confiance}}" data-dtype="String">
-                  {{#select system.confiance}}
-                    {{> systems/wastburg/templates/common/select-levels.hbs}}
-                  {{/select}}
+                  {{selectOptions config.levelsList selected=system.confiance valueAttr="value" nameAttr="value" labelAttr="label"}}
                 </select> 
               </li>
               <li class="item flexrow">
                 <select id="selectRollInput" class="top-margin-adjust1 item-field-label-short" name="selectRollInput" data-dtype="Number" data-roll-mode="blindroll">
-                  {{#select selectRollInput}}
-                    {{> systems/wastburg/templates/common/select-levels.hbs}}
-                  {{/select}}
+                  {{selectOptions config.levelsList selected=selectRollInput valueAttr="value" nameAttr="value" labelAttr="label"}}
                 </select>
                 <button class="roll-simple-mj chat-card-button button-width1" type="button">Lancer!</button>
               </li>

@@ -22,9 +22,7 @@
               </li>
               <li class="item flexrow">
                 <select id="selectRollInput" class="top-margin-adjust1 item-field-label-short" name="selectRollInput" data-dtype="Number">
-                  {{#select selectRollInput}}
-                    {{> systems/wastburg/templates/common/select-levels.hbs}}
-                  {{/select}}
+                  {{selectOptions config.levelsList selected=selectRollInput valueAttr="value" nameAttr="value" labelAttr="label"}}
                 </select>
                 <button class="roll-simple chat-card-button button-width1" type="button">Lancer!</button>
               </li>
@@ -39,9 +37,7 @@
               <li class="flexrow item">
                 <label class="item-name-label-8rem">Réputation</label>
                 <select class="item-field-label-short" type="text" name="system.reputation.value" value="{{system.reputation.value}}" data-dtype="String">
-                  {{#select system.reputation.value}}
-                    {{> systems/wastburg/templates/common/select-levels.hbs}}
-                  {{/select}}
+                  {{selectOptions config.levelsList selected=system.reputation.value valueAttr="value" nameAttr="value" labelAttr="label"}}
                 </select> 
               </li>
               <li class="item flexrow">
@@ -88,27 +84,21 @@
             <label class="item-name-label-medium">Santé</label>
             <input type="text" class="item-field-label-vlong" name="system.sante.santeText" value="{{system.sante.santeText}}" data-dtype="String" />
             <select class="item-field-label-short" type="text" name="system.sante.value" value="{{system.sante.value}}" data-dtype="String">
-              {{#select system.sante.value}}
-                {{> systems/wastburg/templates/common/select-levels.hbs}}
-              {{/select}}
+              {{selectOptions config.levelsList selected=system.sante.value valueAttr="value" nameAttr="value" labelAttr="label"}}
             </select> 
           </li>
           <li class="flexrow item">
             <label class="item-name-label-medium">Mental</label>
             <input type="text" class="item-field-label-vlong" name="system.mental.mentalText" value="{{system.mental.mentalText}}" data-dtype="String" />
             <select class="item-field-label-short" type="text" name="system.mental.value" value="{{system.mental.value}}" data-dtype="String">
-              {{#select system.mental.value}}
-                {{> systems/wastburg/templates/common/select-levels.hbs}}
-              {{/select}}
+              {{selectOptions config.levelsList selected=system.mental.value valueAttr="value" nameAttr="value" labelAttr="label"}}
             </select> 
           </li>
           <li class="flexrow item">
             <label class="item-name-label-medium">Social</label>
             <input type="text" class="item-field-label-vlong" name="system.social.socialText" value="{{system.social.socialText}}" data-dtype="String" />
             <select class="item-field-label-short" type="text" name="system.social.value" value="{{system.social.value}}" data-dtype="String">
-              {{#select system.social.value}}
-                {{> systems/wastburg/templates/common/select-levels.hbs}}
-              {{/select}}
+              {{selectOptions config.levelsList selected=system.social.value valueAttr="value" nameAttr="value" labelAttr="label"}}
             </select> 
           </li>
         </ul>
@@ -286,11 +276,7 @@
             <li class="item flexrow">
               <label class="item-name-label-long">Personnage</label>
               <select class="item-field-label-medium" type="text" name="system.persotype" value="{{system.persotype}}" data-dtype="String">
-              {{#select system.persotype}}
-                {{#each config.persoType as |name key|}}
-                  <option value="{{key}}">{{name}}</option>
-                {{/each}}
-              {{/select}}
+                {{selectOptions config.persoType selected=system.persotype}}
               </select> 
             </li>
             <li class="item flexrow">

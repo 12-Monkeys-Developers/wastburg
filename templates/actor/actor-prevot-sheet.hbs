@@ -14,16 +14,12 @@
               <li class="flexrow item">
                 <label class="item-name-label-long">Appréciation</label>
                 <select class="item-field-label-short" type="text" name="system.appreciation" value="{{system.appreciation}}" data-dtype="String">
-                  {{#select system.appreciation}}
-                    {{> systems/wastburg/templates/common/select-levels.hbs}}
-                  {{/select}}
+                  {{selectOptions config.levelsList selected=system.appreciation valueAttr="value" nameAttr="value" labelAttr="label"}}
                 </select> 
               </li>
               <li class="item flexrow">
                 <select id="selectRollInput" class="top-margin-adjust1 item-field-label-short" name="selectRollInput" data-dtype="Number" data-roll-mode="blindroll">
-                  {{#select selectRollInput}}
-                    {{> systems/wastburg/templates/common/select-levels.hbs}}
-                  {{/select}}
+                  {{selectOptions config.levelsList selected=selectRollInput valueAttr="value" nameAttr="value" labelAttr="label"}}
                 </select>
                 <button class="roll-simple-mj chat-card-button button-width1" type="button">Lancer!</button>
               </li>
