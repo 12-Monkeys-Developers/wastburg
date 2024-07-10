@@ -44,7 +44,7 @@ import { WastburgUtility } from "../system/utility.mjs";
     context.aubaindeDeGroupe = game.settings.get("wastburg", "aubaine-de-groupe") // Roll armor or not
     context.selectRollInput = 0 // Per default level 0
     context.combatRules = game.settings.get("wastburg", "house-combat-rules")
-    context.initiative = this.actor.getInitiative()
+    context.initiative = await this.actor.getInitiative()
     context.biography = await TextEditor.enrichHTML(this.object.system.biography, { async: true })
     context.note = await TextEditor.enrichHTML(this.object.system.note, { async: true })
     context.config = CONFIG.WASTBURG

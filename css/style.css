@@ -41,6 +41,17 @@
     --debug-box-shadow-green: inset 0 0 2px green;
   }
 
+  ::-webkit-scrollbar-thumb {
+    border-color: #242323;
+  }
+
+  @-moz-document url-prefix() {
+    * {
+      scrollbar-color: #969392 transparent;
+      scrollbar-width: thin;
+    }
+  }
+
 /*@import url("https://fonts.googleapis.com/css2?family=Martel:wght@400;800&family=Roboto:wght@300;400;500&display=swap");*/
 /* Global styles & Font */
 .window-app {
