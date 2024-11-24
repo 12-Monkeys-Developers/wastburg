@@ -78,6 +78,17 @@ export class WastburgUtility {
   }
 
   /* -------------------------------------------- */
+  static setupBanner() {
+    CONFIG.Actor.compendiumBanner = "systems/wastburg/assets/illustrations/wastburg_banner.webp"
+    CONFIG.Item.compendiumBanner = "systems/wastburg/assets/illustrations/wastburg_banner.webp"
+    CONFIG.JournalEntry.compendiumBanner = "systems/wastburg/assets/illustrations/wastburg_banner.webp"
+    CONFIG.RollTable.compendiumBanner = "systems/wastburg/assets/illustrations/wastburg_banner.webp"
+    CONFIG.Scene.compendiumBanner = "systems/wastburg/assets/illustrations/wastburg_banner.webp"
+    CONFIG.Macro.compendiumBanner = "systems/wastburg/assets/illustrations/wastburg_banner.webp"
+  }
+
+
+  /* -------------------------------------------- */
   static onSocketMessage(sockmsg) {
     if (sockmsg.name == "msg_cleanup_buttons") {
       $(`#${sockmsg.data.id}`).hide() // Hide the options roll buttons

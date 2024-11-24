@@ -49,6 +49,7 @@ Hooks.once('init', async function () {
   Items.registerSheet("wastburg", WastburgItemSheet, { makeDefault: true });
 
   WastburgUtility.registerHooks()
+  WastburgUtility.setupBanner()
   WastburgCommands.init()
 
   // Preload Handlebars templates.
@@ -89,9 +90,9 @@ Hooks.once("ready", async function () {
     <br>Support et assistance sur le <a href="https://discord.gg/pPSDNJk">Discord FR de Foundry</a>.
     <br><strong>Bon courage les Gardoches !</strong>
     <br><strong> Quoi d'neuf dans le quartier (v${game.system.version}) ?</strong>
-    <br>- Amélioration entête des fiches de PJ/Caid/Prevot,
-    <br>- Amélioration de l'affichage des contacts, traits et équipements,
-    <br>- Harmonisation des boutons`
+    <br>- Augmentation de la taille des zones d'équipement,
+    <br>- Bannières des compendiums,
+    <br>- Correction des styles CSS pour les compendiums`
   } )
 
 })

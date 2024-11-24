@@ -51,8 +51,10 @@
       "flags": {}
     }
   ],
-  "gridDistance": 5,
-  "gridUnits": "m",
+  "grid":{
+    "distance": 5,
+    "units": "m"
+  },
   "primaryTokenAttribute": "health",
   "secondaryTokenAttribute": "power",
   "manifest": "https://github.com/12-Monkeys-Developers/wastburg/releases/latest/download/system.json",
