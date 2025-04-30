@@ -400,7 +400,7 @@ export class WastburgUtility {
     rollData.socialValue = actor.system.social.value
     rollData.isInit = isInit
 
-    let options = { classes: ["WastburgDialog"], width: 340, height: 'fit-content', 'z-index': 99999 }
+    let options = { classes: ["WastburgDialog"], width: 440, height: 'fit-content', 'z-index': 99999 }
     let html = await foundry.applications.handlebars.renderTemplate('systems/wastburg/templates/dialogs/dialog-roll-complex.hbs', rollData)
 
     let result = await WastburgRollDialog2.wait({

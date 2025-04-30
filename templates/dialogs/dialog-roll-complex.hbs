@@ -21,7 +21,7 @@
         <select class="status-small-label color-class-common" id ="select-trait-malus" type="text" name="attrKey" value="selectedTraitMalus" data-dtype="string" >
           <option value="none">Aucun</option>
           {{selectOptions traits selected=selectedTraitMalus valueAttr="id" nameAttr="id" labelAttr="name"}}
-      </select>      
+      </select>
     </div>
 
     <div class="flexrow roll-dialog-list">
@@ -29,34 +29,34 @@
         <select class="status-small-label color-class-common" id ="select-contact" type="text" name="attrKey" value="selectedContact" data-dtype="string" >
           <option value="none">Aucun</option>
           {{selectOptions contacts selected=selectedContact valueAttr="id" nameAttr="id" labelAttr="name"}}
-      </select>      
+      </select>
     </div>
 
     <div class="flexrow roll-dialog-list">
       <span class="roll-dialog-label">Bonus/Malus </span>
         <select class="status-small-label color-class-common"  id="select-bonusmalus" value="selectedBonusMalus" data-dtype="Number">
         {{selectOptions config.levelsList selected=selectedBonusMalus valueAttr="value" nameAttr="value" labelAttr="label"}}
-        </select>  
+        </select>
     </div>
 
     <div class="flexrow roll-dialog-list">
-      <label class="generic-label">Appliquer la santé ( {{getLevel santeValue}} ) ? </label>
+      <label class="roll-dialog-status-label">Appliquer la santé ( {{getLevel santeValue}} ) ? </label>
       <input type="checkbox" id="applySante" name="applySante" {{checked applySante}}/>
     </div>
 
     <div class="flexrow roll-dialog-list">
-      <label class="generic-label">Appliquer le mental ( {{getLevel mentalValue}} ) ? </label>
+      <label class="roll-dialog-status-label">Appliquer le mental ( {{getLevel mentalValue}} ) ? </label>
       <input type="checkbox" id="applyMental" name="applyMental" {{checked applyMental}}/>
     </div>
 
     <div class="flexrow roll-dialog-list">
-      <label class="generic-label">Appliquer le social ( {{getLevel socialValue}} ) ? </label>
+      <label class="roll-dialog-status-label">Appliquer le social ( {{getLevel socialValue}} ) ? </label>
       <input type="checkbox" id="applySocial" name="applySocial" {{checked applySocial}}/>
     </div>
 
     <div class="flexrow roll-dialog-list dialog-result">
-      <label class="generic-label">Niveau final : </label>
-      <label id="total-level">(0)</label>
+      <strong><label class="roll-dialog-status-label">Niveau final : </label>
+      <label id="total-level">(0)</label></strong>
     </div>
 
   </div>

@@ -720,6 +720,10 @@
     margin-left: 2px;
   }
 
+  .roll-dialog-status-label {
+    min-width: 12rem;
+  }
+
   .roll-dialog-label {
     margin: 4px 0;
     min-width: 96px;

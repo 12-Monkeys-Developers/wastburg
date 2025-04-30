@@ -49,54 +49,55 @@
       {{/each}}
     </li>
 
-    {{#if rollGM2}}
+    {{#if rollGM}}
 
     {{else}}
-    {{#if (eq rerollMode "aubaine-perso")}}
-    <li>Jet augmenté gâce à une aubaine personnelle !</li>
-    {{else}}
-    {{#if (eq rerollMode "aubaine-groupe")}}
-    <li>Jet relancé grâce à une aubaine de groupe !</li>
-    {{else}}
-    {{#if (eq rerollMode "anciennete")}}
-    <li>Jet relancé grâce à 1 Point d'Ancienneté !</li>
-    {{else}}
-    <div id={{aubaineButtonId}}>
+      {{#if (eq rerollMode "aubaine-perso")}}
+      <li>Jet augmenté gâce à une aubaine personnelle !</li>
+      {{else}}
+      {{#if (eq rerollMode "aubaine-groupe")}}
+      <li>Jet relancé grâce à une aubaine de groupe !</li>
+      {{else}}
+      {{#if (eq rerollMode "anciennete")}}
+      <li>Jet relancé grâce à 1 Point d'Ancienneté !</li>
+      {{else}}
+      <div id={{aubaineButtonId}}>
 
-      {{#if aubainesPerso}}
-      <li>
-        <button class="chat-card-button apply-aubaine-perso">+1 (1 Aubaine perso, {{aubainesPerso}})</button>
-      </li>
-      {{/if}}
-      {{#if anciennete}}
-      <li>
-        <button class="chat-card-button apply-anciennete">Relancer (1 P. d'Ancienneté, {{anciennete}})</button>
-      </li>
-      {{/if}}
-      {{#if aubainesDeGroupe}}
-      <li>
-        <button class="chat-card-button apply-aubaine-groupe">Relancer (1 Aubaine de groupe, {{aubainesDeGroupe}})</button>
-      </li>
-      {{/if}}
-      {{#if nbOne}}
-      <li>
-        <label>Vous pouvez récupérer {{nbOne}} aubaines !</label>
-      </li>
+        {{#if aubainesPerso}}
+        <li>
+          <button class="chat-card-button apply-aubaine-perso">+1 (1 Aubaine perso, {{aubainesPerso}})</button>
+        </li>
+        {{/if}}
+        {{#if anciennete}}
+        <li>
+          <button class="chat-card-button apply-anciennete">Relancer (1 P. d'Ancienneté, {{anciennete}})</button>
+        </li>
+        {{/if}}
+        {{#if aubainesDeGroupe}}
+        <li>
+          <button class="chat-card-button apply-aubaine-groupe">Relancer (1 Aubaine de groupe, {{aubainesDeGroupe}})</button>
+        </li>
+        {{/if}}
+        {{#if nbOne}}
+        <li>
+          <label>Vous pouvez récupérer {{nbOne}} aubaines !</label>
+        </li>
 
-      {{#if (ne selectedTrait "none")}}
-      <li>
-        <button class="chat-card-button receive-aubaine-perso">Recevoir une aubaine perso</button>
-      </li>
+        {{#if (ne selectedTrait "none")}}
+        <li>
+          <button class="chat-card-button receive-aubaine-perso">Recevoir une aubaine perso</button>
+        </li>
+        {{/if}}
+        <li>
+          <button class="chat-card-button receive-aubaine-groupe">Recevoir une aubaine de groupe</button>
+        </li>
+        {{/if}}
+        {{/if}}
+        {{/if}}
+      </div>
       {{/if}}
-      <li>
-        <button class="chat-card-button receive-aubaine-groupe">Recevoir une aubaine de groupe</button>
-      </li>
-      {{/if}}
-      {{/if}}
-      {{/if}}
-    </div>
     {{/if}}
-    {{/if}}
+
   </ol>
 
   <h2 class="{{cssQuality}} roll-quality"><strong>Résultat : {{result}}</strong></h2>
