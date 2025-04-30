@@ -2,10 +2,10 @@
   "id": "wastburg",
   "title": "Wastburg",
   "description": "The Wastburg system for FoundryVTT!",
-  "version": "12.0.2",
+  "version": "13.0.0",
   "compatibility": {
-    "minimum": "11",
-    "verified": "12"
+    "minimum": "13",
+    "verified": "13"
   },
   "authors": [
     {
@@ -58,7 +58,7 @@
   "primaryTokenAttribute": "health",
   "secondaryTokenAttribute": "power",
   "manifest": "https://github.com/12-Monkeys-Developers/wastburg/releases/latest/download/system.json",
-  "download": "https://github.com/12-Monkeys-Developers/wastburg/releases/download/12.0.2/system.zip",
+  "download": "https://github.com/12-Monkeys-Developers/wastburg/releases/download/13.0.0/system.zip",
   "socket": true,
   "license": "LICENSE.txt"
 }

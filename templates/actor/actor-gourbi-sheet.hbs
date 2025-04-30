@@ -1,0 +1,60 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+  {{!-- Sheet Header --}}
+  <header class="sheet-header">
+    <div class="header-fields">
+      <div class="flexrow">
+
+        <div class="flexcol padd-left">
+          <h1 class="charname margin-right"><input name="name" type="text" value="{{name}}" placeholder="Name" /></h1>
+          <div class="flexrow">
+            <h3><label class="">Emplacement : </label></h3>
+            <textarea class="textarea-default" rows="5" name="system.emplacement">{{system.emplacement}}</textarea>
+          </div>
+        </div>
+
+        <div class="profile-img-div padd-left">
+          <img class="profile-img" src="{{img}}" data-edit="img" title="{{name}}" />
+        </div>
+
+      </div>
+    </div>
+
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="description">Description</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+
+    <div class="tab description" data-group="primary" data-tab="description">
+
+      <div class="flexcol">
+        <ul class="item-list alternate-list">
+          <li class="item flexrow list-item items-title-bg">
+            <span class="item-field-label-medium">
+              <h3><label class="item-field-label-medium">Gelders</label></h3>
+            </span>
+            <div  class="flexrow item-field-label-medium">
+              <span class=""><a class="gelder-buttons gelder-minus"><i class="button-plus-minus fas fa-minus-square"></i></a></span>
+              <input class="item-field-label-short" name="system.gelder.value" type="text" data-dtype="Number" value="{{system.gelder.value}}" />
+              <span class=""><a class="gelder-buttons gelder-plus"><i class="button-plus-minus fas fa-plus-square"></i></a></span>
+            </div>
+            <div class="item-filler">&nbsp;</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="flexcol">
+        <h3><label class="item-field-label-medium">Equipements & Divers</label></h3>
+        <textarea class="textarea-default" rows="15" name="system.materiel">{{system.materiel}}</textarea>
+      </div>
+
+    </div>
+
+
+  </section>
+</form>

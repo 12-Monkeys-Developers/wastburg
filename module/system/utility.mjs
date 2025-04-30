@@ -1,5 +1,5 @@
 /* -------------------------------------------- */
-import { WastburgRollDialog } from "../dialogs/dialog-roll-complex.mjs"
+import { WastburgRollDialog2 } from "../dialogs/dialog-roll-complex.mjs"
 
 /* -------------------------------------------- */
 const __wastburgRollFormula = {
@@ -66,11 +66,12 @@ export class WastburgUtility {
 
   /* -------------------------------------------- */
   static registerHooks() {
-    Hooks.on('renderChatLog', (log, html, data) => WastburgUtility.chatListeners(html))
-    Hooks.on('renderChatMessage', (message, html, data) => WastburgUtility.chatMessageHandler(message, html, data))
+    //Hooks.on('renderChatLog', (log, html, data) => WastburgUtility.chatListeners(html))
+    Hooks.on('renderChatMessageHTML', (log, html, data) => WastburgUtility.chatListeners(html))
+    Hooks.on('renderChatMessageHTML', (message, html, data) => WastburgUtility.chatMessageHandler(message, html, data))
     Hooks.once('diceSoNiceReady', (dice3d) => { WastburgUtility.addWastburgDice(dice3d) })
 
-    // Game socket 
+    // Game socket
     game.socket.on("system.wastburg", sockmsg => {
       WastburgUtility.onSocketMessage(sockmsg);
     })
@@ -190,6 +191,7 @@ export class WastburgUtility {
 
   /* -------------------------------------------- */
   static async chatMessageHandler(message, html, data) {
+    html = $(html);
     const chatCard = html.find('.flavor-text')
     if (chatCard.length > 0) {
       // If the user is the message author or the actor owner, proceed
@@ -303,7 +305,7 @@ export class WastburgUtility {
     if (result == "5") {
       return "Oui"
     }
-    if (result == "6") {
+    if (result >= "6") { // Possible sur aubaine personnelle sur 1 6 !
       return "Oui, et..."
     }
     return "ERROR!!"
@@ -321,7 +323,7 @@ export class WastburgUtility {
   static processRollQuality(rollData, actor) {
     rollData.rollQuality = this.getRollQuality(rollData.roll.total)
     rollData.cssQuality = this.getClassQuality(rollData.roll.total)
-    if (rollData.roll.total < 6 && actor == "personnage" ) {
+    if (rollData.roll.total < 6 && actor == "personnage") {
       rollData.aubainesPerso = actor.system.aubaine.value
       rollData.aubainesDeGroupe = game.settings.get("wastburg", "aubaine-de-groupe")
     }
@@ -350,10 +352,11 @@ export class WastburgUtility {
       applySocial: false,
       totalLevel: 0,
       selectRollInput: 3,
-      aubainesPerso: actor.system.aubaine.value,
-      aubainesDeGroupe: game.settings.get("wastburg", "aubaine-de-groupe"),
+      aubainesPerso: Number(actor.system.aubaine.value),
+      aubainesDeGroupe: Number(game.settings.get("wastburg", "aubaine-de-groupe")),
+      anciennete: Number(actor.system.anciennetereputation.value),
       rollGM: game.user.isGM,
-      config : CONFIG.WASTBURG
+      config: CONFIG.WASTBURG
     }
   }
 
@@ -362,7 +365,7 @@ export class WastburgUtility {
 
     let diceFormula = WastburgUtility.getRollFormula(value)
     const roll = await new Roll(diceFormula).roll()
-    await this.showDiceSoNice(roll, rollMode )
+    await this.showDiceSoNice(roll, rollMode)
 
     let rollData = this.getCommonRollData(actor)
     rollData.mode = "simple"
@@ -371,7 +374,7 @@ export class WastburgUtility {
     rollData.result = roll.total
     rollData.totalLevel = value
     rollData.rollMode = rollMode
-    
+
     this.processRollQuality(rollData, actor)
     this.outputRollMessage(rollData)
   }
@@ -397,8 +400,70 @@ export class WastburgUtility {
     rollData.socialValue = actor.system.social.value
     rollData.isInit = isInit
 
-    let rollDialog = await WastburgRollDialog.create(rollData)
-    rollDialog.render(true)
+    let options = { classes: ["WastburgDialog"], width: 340, height: 'fit-content', 'z-index': 99999 }
+    let html = await foundry.applications.handlebars.renderTemplate('systems/wastburg/templates/dialogs/dialog-roll-complex.hbs', rollData)
+
+    let result = await WastburgRollDialog2.wait({
+      window: { title: "Jet complet" },
+      content: html,
+      rollData: rollData,
+      buttons: [
+        {
+          action: "roll",
+          icon: 'fas fa-check',
+          label: 'Lancer',
+          callback: () => { WastburgUtility.performRollComplex(rollData) }
+        },
+        {
+          action: "close",
+          icon: 'fas fa-times',
+          label: 'Annuler',
+          callback: () => { this.close() }
+        }
+      ],
+      render: (event, dialog) => {
+        $("#select-trait-bonus").change(changeEvent => {
+          rollData.selectedTraitBonus = changeEvent.target.value;
+          rollData.traitBonus = rollData.traits.find((it) => it.id == changeEvent.target.value);
+          WastburgUtility.computeFinalLevel(rollData);
+          $("#total-level").html(WastburgUtility.getLevelFullFromValue(rollData.totalLevel));
+        });
+        $('#select-trait-malus').change(changeEvent => {
+          rollData.selectedTraitMalus = changeEvent.target.value;
+          rollData.traitMalus =  rollData.traits.find(it => it.id == changeEvent.target.value);
+          WastburgUtility.computeFinalLevel(rollData)
+          $('#total-level').html( WastburgUtility.getLevelFullFromValue( rollData.totalLevel))
+        })
+        $('#select-contact').change(changeEvent => {
+          rollData.selectedContact = changeEvent.target.value;
+          rollData.contact =  rollData.contacts.find(it => it.id == changeEvent.target.value);
+          WastburgUtility.computeFinalLevel(rollData)
+          $('#total-level').html( WastburgUtility.getLevelFullFromValue(rollData.totalLevel))
+        })
+        $('#select-bonusmalus').change(changeEvent => {
+          rollData.selectedBonusMalus = changeEvent.target.value;
+          WastburgUtility.computeFinalLevel(rollData)
+          $('#total-level').html( WastburgUtility.getLevelFullFromValue(rollData.totalLevel))
+        })
+        $('#applySante').change(changeEvent => {
+          rollData.applySante = changeEvent.target.checked;
+          WastburgUtility.computeFinalLevel(rollData)
+          $('#total-level').html( WastburgUtility.getLevelFullFromValue(rollData.totalLevel))
+        })
+        $('#applyMental').change(changeEvent => {
+          rollData.applyMental = changeEvent.target.checked;
+          WastburgUtility.computeFinalLevel(rollData)
+          $('#total-level').html( WastburgUtility.getLevelFullFromValue(rollData.totalLevel))
+        })
+        $('#applySocial').change(changeEvent => {
+          rollData.applySocial = changeEvent.target.checked;
+          WastburgUtility.computeFinalLevel(rollData)
+          $('#total-level').html( WastburgUtility.getLevelFullFromValue(rollData.totalLevel))
+        })
+
+      },
+      rejectClose: false,
+    })
   }
 
   /* -------------------------------------------- */
@@ -452,7 +517,17 @@ export class WastburgUtility {
       let actor = WastburgUtility.getActorFromRollData(rollData)
       actor.incDecAubainePerso(-1)
       rollData.result += 1
+      rollData.aubainesPerso -= 1
+    } else if (rollData.rerollMode == "anciennete") {
+      let actor = WastburgUtility.getActorFromRollData(rollData)
+      actor.incDecAnciennete(-1)
+      rollData.anciennete -= 1
+      const roll = await new Roll(rollData.diceFormula).roll()
+      await this.showDiceSoNice(roll, game.settings.get("core", "rollMode"))
+      rollData.roll = foundry.utils.duplicate(roll)
+      rollData.result = roll.total
     } else {
+      rollData.aubainesDeGroupe -= 1
       this.incDecAubaineGroupe(-1)
       const roll = await new Roll(rollData.diceFormula).roll()
       await this.showDiceSoNice(roll, game.settings.get("core", "rollMode"))
@@ -471,23 +546,16 @@ export class WastburgUtility {
     let msg = await ChatMessage.create({
       alias: rollData.actorName,
       rollMode: rollData.rollMode,
-      content: await renderTemplate('systems/wastburg/templates/chat/rolls/roll-summary-card.hbs', rollData)
+      content: await foundry.applications.handlebars.renderTemplate('systems/wastburg/templates/chat/rolls/roll-summary-card.hbs', rollData)
     })
     console.log("Rolldata", rollData)
-    // Save rollData in the message 
+    // Save rollData in the message
     msg.setFlag("world", "wastburg-roll-data", rollData)
-    // Save init 
+    // Save init
     if (rollData.isInit) {
       let actor = WastburgUtility.getActorFromRollData(rollData)
       actor.setInitiative(rollData.result)
     }
-  }
-
-  /* -------------------------------------------- */
-  static cleanupButtons(id) {
-    console.log("Hidinng", id)
-    $(`#${id}`).hide() // Hide the options roll buttons
-    game.socket.emit("system.wastburg", { name: "msg_cleanup_buttons", data: { id: id } })
   }
 
   /* -------------------------------------------- */
@@ -520,6 +588,7 @@ export class WastburgUtility {
 
   /* -------------------------------------------- */
   static async chatListeners(html) {
+    html = $(html);
 
     html.on("click", '.apply-aubaine-perso', event => {
       let rollData = this.getRollDataFromMessage(event)
@@ -532,6 +601,13 @@ export class WastburgUtility {
       let rollData = this.getRollDataFromMessage(event)
       this.cleanupButtons(rollData.aubaineButtonId)
       rollData.rerollMode = "aubaine-groupe"
+      this.manageWastburgReroll(rollData)
+    })
+
+    html.on("click", '.apply-anciennete', event => {
+      let rollData = this.getRollDataFromMessage(event)
+      this.cleanupButtons(rollData.aubaineButtonId)
+      rollData.rerollMode = "anciennete"
       this.manageWastburgReroll(rollData)
     })
 
@@ -550,4 +626,3 @@ export class WastburgUtility {
 
   }
 }
-

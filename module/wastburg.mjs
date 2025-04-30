@@ -23,7 +23,7 @@ Hooks.once('init', async function () {
   // accessible in global contexts.
   game.wastburg = {
     WastburgActor,
-    WastburgItem, 
+    WastburgItem,
     WastburgUtility
   };
 
@@ -31,7 +31,7 @@ Hooks.once('init', async function () {
   CONFIG.WASTBURG = WASTBURG;
 
     /* -------------------------------------------- */
-  // Set an initiative formula for the system 
+  // Set an initiative formula for the system
   CONFIG.Combat.initiative = {
     formula: "1d6",
     decimals: 0
@@ -43,10 +43,10 @@ Hooks.once('init', async function () {
   CONFIG.Combat.documentClass = WastburgCombatManager;
 
   // Register sheet application classes
-  Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("wastburg", WastburgActorSheet, { makeDefault: true });
-  Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("wastburg", WastburgItemSheet, { makeDefault: true });
+  foundry.documents.collections.Actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);
+  foundry.documents.collections.Actors.registerSheet("wastburg", WastburgActorSheet, { makeDefault: true });
+  foundry.documents.collections.Items.unregisterSheet("core", foundry.appv1.sheets.ItemSheet);
+  foundry.documents.collections.Items.registerSheet("wastburg", WastburgItemSheet, { makeDefault: true });
 
   WastburgUtility.registerHooks()
   WastburgUtility.setupBanner()
@@ -72,12 +72,6 @@ Hooks.once("ready", async function () {
 
   // World count
   ClassCounter.registerUsageCount("MyApp")
-  
-  /*// CSS patch for v9
-  if (game.version) {
-    let sidebar = document.getElementById("sidebar");
-    sidebar.style.width = "min-content";
-  }*/
 
   // Welcome messages
   ChatMessage.create({
@@ -96,4 +90,3 @@ Hooks.once("ready", async function () {
   } )
 
 })
-

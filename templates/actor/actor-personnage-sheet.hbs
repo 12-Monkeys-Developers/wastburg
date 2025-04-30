@@ -5,7 +5,7 @@
     <div class="header-fields">
 
       <div class="flexrow">
-                
+
         <div class="flexcol padd-left">
           <h1 class="charname margin-right"><input name="name" type="text" value="{{name}}" placeholder="Name" /></h1>
           <div class="flexrow">
@@ -21,10 +21,11 @@
                 <input type="text" class="item-field-label-short" value="{{aubaindeDeGroupe}}" data-dtype="Number" disabled/>
               </li>
               <li class="item flexrow">
-                <select id="selectRollInput" class="top-margin-adjust1 item-field-label-short" name="selectRollInput" data-dtype="Number">
-                  {{selectOptions config.levelsList selected=selectRollInput valueAttr="value" nameAttr="value" labelAttr="label"}}
-                </select>
-                <button class="roll-simple chat-card-button button-width1" type="button">Lancer!</button>
+                <button class="roll-simple chat-card-button button-width1" type="button" data-roll-mode="-2">(--)</button>
+                <button class="roll-simple chat-card-button button-width1" type="button" data-roll-mode="-1">(-)</button>
+                <button class="roll-simple chat-card-button button-width1" type="button" data-roll-mode="0">(0)</button>
+                <button class="roll-simple chat-card-button button-width1" type="button" data-roll-mode="1">(+)</button>
+                <button class="roll-simple chat-card-button button-width1" type="button" data-roll-mode="2">(++)</button>
               </li>
 
             </ul>
@@ -38,14 +39,14 @@
                 <label class="item-name-label-8rem">Réputation</label>
                 <select class="item-field-label-short" type="text" name="system.reputation.value" value="{{system.reputation.value}}" data-dtype="String">
                   {{selectOptions config.levelsList selected=system.reputation.value valueAttr="value" nameAttr="value" labelAttr="label"}}
-                </select> 
+                </select>
               </li>
               <li class="item flexrow">
                 <button class="roll-complex chat-card-button button-width2" type="button">Test Avancé</button>
               </li>
 
             </ul>
-            
+
 
           </div>
 
@@ -63,18 +64,18 @@
 
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item" data-tab="etat">Etat</a>
-    <a class="item" data-tab="trait">Traits</a>
-    <a class="item" data-tab="contact">Contacts</a>
-    <a class="item" data-tab="equipements">Equipement</a>
-    <a class="item" data-tab="biodata">Biographie</a>
+    <a class="item tab-title" data-tab="etat">Etat</a>
+    <a class="item tab-title" data-tab="trait">Traits</a>
+    <a class="item tab-title" data-tab="contact">Contacts</a>
+    <a class="item tab-title" data-tab="equipements">Equipement</a>
+    <a class="item tab-title" data-tab="biodata">Biographie</a>
   </nav>
 
   {{!-- Sheet Body --}}
   <section class="sheet-body">
 
     <div class="tab etat" data-group="primary" data-tab="etat">
-      
+
       <div class="flexcol">
 
         <h3><label class="item-field-header-long2">Santé</label></h3>
@@ -85,21 +86,21 @@
             <input type="text" class="item-field-label-vlong" name="system.sante.santeText" value="{{system.sante.santeText}}" data-dtype="String" />
             <select class="item-field-label-short" type="text" name="system.sante.value" value="{{system.sante.value}}" data-dtype="String">
               {{selectOptions config.levelsList selected=system.sante.value valueAttr="value" nameAttr="value" labelAttr="label"}}
-            </select> 
+            </select>
           </li>
           <li class="flexrow item">
             <label class="item-name-label-medium">Mental</label>
             <input type="text" class="item-field-label-vlong" name="system.mental.mentalText" value="{{system.mental.mentalText}}" data-dtype="String" />
             <select class="item-field-label-short" type="text" name="system.mental.value" value="{{system.mental.value}}" data-dtype="String">
               {{selectOptions config.levelsList selected=system.mental.value valueAttr="value" nameAttr="value" labelAttr="label"}}
-            </select> 
+            </select>
           </li>
           <li class="flexrow item">
             <label class="item-name-label-medium">Social</label>
             <input type="text" class="item-field-label-vlong" name="system.social.socialText" value="{{system.social.socialText}}" data-dtype="String" />
             <select class="item-field-label-short" type="text" name="system.social.value" value="{{system.social.value}}" data-dtype="String">
               {{selectOptions config.levelsList selected=system.social.value valueAttr="value" nameAttr="value" labelAttr="label"}}
-            </select> 
+            </select>
           </li>
         </ul>
 
@@ -133,7 +134,7 @@
 
     {{!-- Trait Tab --}}
     <div class="tab trait" data-group="primary" data-tab="trait">
-      
+
       <div class="flexcol">
         <ul class="item-list alternate-list">
           <li class="item flexrow list-item items-title-bg">
@@ -164,19 +165,19 @@
           {{/each}}
         </ul>
       </div>
-    
+
     </div>
 
     {{!-- Contacts Tab --}}
     <div class="tab contact" data-group="primary" data-tab="contact">
-      
+
       <div class="flexcol">
         <ul class="item-list alternate-list">
           <li class="item flexrow list-item items-title-bg">
             <span class="item-field-header-medium">
               <h3><label class="item-field-header-medium">Contacts</label></h3>
             </span>
-            
+
             <span class="">
             </span>
 
@@ -218,7 +219,7 @@
           {{/each}}
         </ul>
       </div>
-    
+
     </div>
 
     {{!-- Equipement Tab --}}
@@ -277,7 +278,7 @@
               <label class="item-name-label-long">Personnage</label>
               <select class="item-field-label-medium" type="text" name="system.persotype" value="{{system.persotype}}" data-dtype="String">
                 {{selectOptions config.persoType selected=system.persotype}}
-              </select> 
+              </select>
             </li>
             <li class="item flexrow">
               <label class="item-name-label-long">Lieu de naissance</label>
@@ -305,21 +306,21 @@
       </div>
 
       <div>
-        <h3><label class="item-field-header-long2">       
+        <h3><label class="item-field-header-long2">
           {{#if (eq system.persotype "gardoche")}}
-            Pourquoi je suis devenu gardoche : 
+            Pourquoi je suis devenu gardoche :
           {{else}}
             Pourquoi je suis entré dans la bande :
           {{/if}}
         </label></h3>
         <div class="small-editor">
-          {{editor note target="system.note" button=true owner=owner editable=editable}}  
-        </div>  
+          {{editor note target="system.note" button=true owner=owner editable=editable}}
+        </div>
       </div>
 
       <div>
         <h3><label class="item-field-header-long2">Description & Notes</label></h3>
-        {{editor biography target="system.biography" button=true owner=owner editable=editable}}    
+        {{editor biography target="system.biography" button=true owner=owner editable=editable}}
       </div>
 
   </div>

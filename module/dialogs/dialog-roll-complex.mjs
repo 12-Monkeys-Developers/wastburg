@@ -1,5 +1,13 @@
 import { WastburgUtility } from "../system/utility.mjs";
 
+export class WastburgRollDialog2 extends foundry.applications.api.DialogV2 {
+
+  static DEFAULT_OPTIONS = {
+    classes: ["dice-roll"],
+  }
+
+}
+
 export class WastburgRollDialog extends Dialog {
 
   /* -------------------------------------------- */
@@ -16,9 +24,9 @@ export class WastburgRollDialog extends Dialog {
     let conf = {
       title: "Jet avancé",
       content: html,
-      buttons: { 
+      buttons: {
         roll: {
-            icon: '<i class="fas fa-check"></i>',
+            icon: 'fas fa-check',
             label: "Lancer",
             callback: () => { this.performRoll() }
           },
@@ -44,11 +52,10 @@ export class WastburgRollDialog extends Dialog {
   activateListeners(html) {
     super.activateListeners(html);
 
-    var dialog = this;
     function onLoad() {
     }
     $(function () { onLoad(); });
-    
+
     html.find('#select-trait-bonus').change(async (event) =>  {
       this.rollData.selectedTraitBonus = event.currentTarget.value
       this.rollData.traitBonus =  this.rollData.traits.find(it => it.id == event.currentTarget.value)
@@ -71,22 +78,22 @@ export class WastburgRollDialog extends Dialog {
       this.rollData.selectedBonusMalus = event.currentTarget.value
       WastburgUtility.computeFinalLevel(this.rollData)
       $('#total-level').html( WastburgUtility.getLevelFullFromValue(this.rollData.totalLevel))
-    })  
+    })
     html.find('#applySante').change(async (event) =>  {
       this.rollData.applySante = event.currentTarget.checked
       WastburgUtility.computeFinalLevel(this.rollData)
       $('#total-level').html( WastburgUtility.getLevelFullFromValue(this.rollData.totalLevel))
-    })         
+    })
     html.find('#applyMental').change(async (event) =>  {
       this.rollData.applyMental = event.currentTarget.checked
       WastburgUtility.computeFinalLevel(this.rollData)
       $('#total-level').html( WastburgUtility.getLevelFullFromValue(this.rollData.totalLevel))
-    })         
+    })
     html.find('#applySocial').change(async (event) =>  {
       this.rollData.applySocial = event.currentTarget.checked
       WastburgUtility.computeFinalLevel(this.rollData)
       $('#total-level').html( WastburgUtility.getLevelFullFromValue(this.rollData.totalLevel))
-    })         
+    })
 
   }
 }

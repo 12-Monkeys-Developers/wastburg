@@ -1,15 +1,16 @@
 {
-  "ACTOR": {
-    "TypePersonnage": "Personnage",
-    "TypePrevot": "Prévôt",
-    "TypeCaid": "Caïd"
+  "TYPES": {
+    "Actor":{
+      "personnage": "Personnage",
+      "prevot": "Prévôt",
+      "caid": "Caïd",
+      "gourbi"  : "Gourbi"
+    },  
+    "Item": {
+      "trait": "Trait",
+      "contact": "Contact"
+    }
   },
-
-  "ITEM": {
-    "TypeTrait": "Trait",
-    "TypeContact": "Contact"
-  },
-
   "WASTBURG": {
     "ui": {
       "editContact": "Modifier le contact",

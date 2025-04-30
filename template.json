@@ -3,7 +3,8 @@
     "types": [
       "personnage",
       "prevot",
-      "caid"
+      "caid",
+      "gourbi"
     ],
     "templates": {
       "base": {
@@ -20,6 +21,15 @@
         "fortune": "",
         "dettes": "",
         "anciennete": ""
+      }
+    },
+    "gourbi": {
+      "templates": [
+        "base"
+      ],
+      "emplacement": "",
+      "gelder": {
+        "value": 0
       }
     },
     "personnage": {

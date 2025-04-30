@@ -4,12 +4,12 @@ import { WastburgUtility } from "../system/utility.mjs";
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
  */
- export class WastburgActorSheet extends ActorSheet {
+ export class WastburgActorSheet extends foundry.appv1.sheets.ActorSheet {
 
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["wastburg", "sheet", "actor", "personnage", "trait","prevot","caid"],
+      classes: ["wastburg", "sheet", "actor", "personnage", "trait","prevot", "caid", "gourbi"],
       template: "systems/wastburg/templates/actor/actor-sheet.hbs",
       width: 620,
       height: 740,
@@ -31,7 +31,7 @@ import { WastburgUtility } from "../system/utility.mjs";
     // sheets are the actor object, the data object, whether or not it's
     // editable, the items array, and the effects array.
     const context = super.getData()
-    
+
 
     // Use a safe clone of the actor data for further operations.
     const actorData = this.actor.toObject(false);
@@ -45,15 +45,15 @@ import { WastburgUtility } from "../system/utility.mjs";
     context.selectRollInput = 0 // Per default level 0
     context.combatRules = game.settings.get("wastburg", "house-combat-rules")
     context.initiative = await this.actor.getInitiative()
-    context.biography = await TextEditor.enrichHTML(this.object.system.biography, { async: true })
-    context.note = await TextEditor.enrichHTML(this.object.system.note, { async: true })
+    context.biography = await foundry.applications.ux.TextEditor.implementation.enrichHTML(this.object.system.biography, { async: true })
+    context.note = await foundry.applications.ux.TextEditor.implementation.enrichHTML(this.object.system.note, { async: true })
     context.config = CONFIG.WASTBURG
     context.isGM = game.user.isGM
 
     // Prepare character data and items.
     if (actorData.type == 'personnage' || actorData.type == 'prevot' || actorData.type == 'caid') {
       this._prepareItems(context);
-      this._prepareCharacterData(context);     
+      this._prepareCharacterData(context);
     } else if (actorData.type == 'npc') { // NPC stuff
       this._prepareItems(context);
     }
@@ -64,7 +64,7 @@ import { WastburgUtility } from "../system/utility.mjs";
 
     return context;
   }
-  
+
   /**
    * Organize and classify Items for Character sheets.
    *
@@ -75,7 +75,7 @@ import { WastburgUtility } from "../system/utility.mjs";
   _prepareCharacterData(context) {
     // Handle ability scores.
   }
-  
+
   /**
    * Organize and classify Items for Character sheets.
    *
@@ -85,9 +85,9 @@ import { WastburgUtility } from "../system/utility.mjs";
    */
   _prepareItems(context) {
     // Assign and return
-    context.item = context.items.filter( item => item.type == "item") 
-    context.traits = context.items.filter( item => item.type == "trait") 
-    context.contacts = context.items.filter( item => item.type == "contact") 
+    context.item = context.items.filter( item => item.type == "item")
+    context.traits = context.items.filter( item => item.type == "trait")
+    context.contacts = context.items.filter( item => item.type == "contact")
    }
 
 
@@ -128,7 +128,7 @@ import { WastburgUtility } from "../system/utility.mjs";
     html.find('.roll-complex').click(this._onButtonComplexRoll.bind(this))
     html.find('.roll-initiative').click(this._onButtonInitiative.bind(this))
     html.find('.fas fa-dice-d6').click(this._onButtonSimpleRoll.bind(this))
-    
+
 
     // Add Inventory Item
     html.find('.item-create').click(this._onItemCreate.bind(this));
@@ -146,7 +146,7 @@ import { WastburgUtility } from "../system/utility.mjs";
 
     // Active Effect management
     html.find(".effect-control").click(ev => onManageActiveEffect(ev, this.actor));
-    
+
     // Rollable abilities.
     html.find('.rollable').click(this._onRoll.bind(this));
 
@@ -223,22 +223,24 @@ import { WastburgUtility } from "../system/utility.mjs";
   }
 
   /* -------------------------------------------- */
-  async _onButtonSimpleRoll( ){ 
+  async _onButtonSimpleRoll( event){
     let rollMode = game.settings.get('core', 'rollMode')
-    let formula = document.getElementById("selectRollInput")   
-    WastburgUtility.manageWastburgSimpleRoll( this.actor, Number(formula.value), rollMode )
+    //let formula = document.getElementById("selectRollInput")
+    let formula = event.currentTarget.dataset.rollMode
+    console.log("formula", event, formula)
+    WastburgUtility.manageWastburgSimpleRoll( this.actor, Number(formula), rollMode )
   }
   /* -------------------------------------------- */
-  async _onButtonSimpleRollMJ(){ 
-    let formula = document.getElementById("selectRollInput")   
+  async _onButtonSimpleRollMJ(){
+    let formula = document.getElementById("selectRollInput")
     WastburgUtility.manageWastburgSimpleRoll( this.actor, Number(formula.value), "blindroll" )
   }
 
   /* -------------------------------------------- */
-  async _onButtonComplexRoll () {    
+  async _onButtonComplexRoll () {
     WastburgUtility.manageWastburgComplexRoll( this.actor, false )
   }
   async _onButtonInitiative() {
     WastburgUtility.manageWastburgComplexRoll( this.actor, true )
   }
-}  
+}

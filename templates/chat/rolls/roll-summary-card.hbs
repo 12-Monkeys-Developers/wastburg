@@ -1,97 +1,104 @@
 <div>
   <h2 class="{{cssQuality}} roll-quality">{{rollQuality}}
-  <img class="chat-icon" src="{{actorImg}}" alt="{{actor.name}}"/>
+    <img class="chat-icon" src="{{actorImg}}" alt="{{actor.name}}" />
   </h2>
 </div>
 
-<h3><strong>{{description}}</strong></h3> 
+{{#if description}}
+  <h3><strong>{{description}}</strong></h3>
+{{/if}}
 
 <div class="actions-section">
   <ol class="items-list" id="{{rollDataId}}">
-    
+
     {{#if (ne selectedTraitBonus "none")}}
     <li>Trait Bonus : {{traitBonus.name}}
-    </li>    
+    </li>
     {{/if}}
     {{#if (ne selectedTraitMalus "none")}}
     <li>Trait Malus : {{traitMalus.name}}
-    </li>    
+    </li>
     {{/if}}
     {{#if (ne selectedContact "none")}}
     <li>Contact : {{contact.name}} {{levelText contact.system.value}}
-    </li>    
+    </li>
     {{/if}}
     {{#if selectedBonusMalus}}
     <li>Bonus/Malus : {{levelText selectedBonusMalus}}
-    </li>    
+    </li>
     {{/if}}
     {{#if applySante}}
     <li>La Santé a été appliquée : {{levelText santeValue}}
-    </li>    
+    </li>
     {{/if}}
     {{#if applyMental}}
     <li>Le Mental a été appliquée : {{levelText mentalValue}}
-    </li>    
+    </li>
     {{/if}}
     {{#if applySocial}}
     <li>Le Social a été appliquée : {{levelText socialValue}}
-    </li>    
+    </li>
     {{/if}}
 
     <li>Modificateur final : {{levelText totalLevel}}
-    </li>    
-    
-    <li>Dés  :
+    </li>
+
+    <li>Dés :
       {{#each roll.terms.0.results as |result key|}}
-        {{result.result}}
+      {{result.result}}
       {{/each}}
     </li>
-    
-    {{#if rollGM}}
+
+    {{#if rollGM2}}
 
     {{else}}
-      {{#if (eq rerollMode "aubaine-perso")}}
-        <li>Jet augmenté gâce à une aubaine personnelle !</li>
-      {{else}}
-        {{#if (eq rerollMode "aubaine-groupe")}}
-          <li>Jet relancé grâce à une aubaine de groupe !</li>
-        {{else}}
-          
-          <div id={{aubaineButtonId}}>
+    {{#if (eq rerollMode "aubaine-perso")}}
+    <li>Jet augmenté gâce à une aubaine personnelle !</li>
+    {{else}}
+    {{#if (eq rerollMode "aubaine-groupe")}}
+    <li>Jet relancé grâce à une aubaine de groupe !</li>
+    {{else}}
+    {{#if (eq rerollMode "anciennete")}}
+    <li>Jet relancé grâce à 1 Point d'Ancienneté !</li>
+    {{else}}
+    <div id={{aubaineButtonId}}>
 
-            {{#if aubainesPerso}}
-            <li>
-              <button class="chat-card-button apply-aubaine-perso">+1 avec une aubaine perso ({{aubainesPerso}})</button>
-            </li>
-            {{/if}}
-            {{#if aubainesDeGroupe}}
-            <li>
-              <button class="chat-card-button apply-aubaine-groupe">Relancer avec une aubaine de groupe ({{aubainesDeGroupe}})</button>
-            </li>
-            {{/if}}
-            {{#if nbOne}}
-                <li>
-                  <label>Vous pouvez récupérer {{nbOne}} aubaines !</label>
-                </li> 
-                
-                {{#if (ne selectedTrait "none")}}
-                <li>
-                  <button class="chat-card-button receive-aubaine-perso">Recevoir une aubaine perso</button>
-                </li>
-                {{/if}}
-                
-                <li>
-                  <button class="chat-card-button receive-aubaine-groupe">Recevoir une aubaine de groupe</button>
-                </li>
-              {{/if}}
-            {{/if}}
-          </div>
+      {{#if aubainesPerso}}
+      <li>
+        <button class="chat-card-button apply-aubaine-perso">+1 (1 Aubaine perso, {{aubainesPerso}})</button>
+      </li>
       {{/if}}
+      {{#if anciennete}}
+      <li>
+        <button class="chat-card-button apply-anciennete">Relancer (1 P. d'Ancienneté, {{anciennete}})</button>
+      </li>
+      {{/if}}
+      {{#if aubainesDeGroupe}}
+      <li>
+        <button class="chat-card-button apply-aubaine-groupe">Relancer (1 Aubaine de groupe, {{aubainesDeGroupe}})</button>
+      </li>
+      {{/if}}
+      {{#if nbOne}}
+      <li>
+        <label>Vous pouvez récupérer {{nbOne}} aubaines !</label>
+      </li>
+
+      {{#if (ne selectedTrait "none")}}
+      <li>
+        <button class="chat-card-button receive-aubaine-perso">Recevoir une aubaine perso</button>
+      </li>
+      {{/if}}
+      <li>
+        <button class="chat-card-button receive-aubaine-groupe">Recevoir une aubaine de groupe</button>
+      </li>
+      {{/if}}
+      {{/if}}
+      {{/if}}
+    </div>
+    {{/if}}
     {{/if}}
   </ol>
-  
+
   <h2 class="{{cssQuality}} roll-quality"><strong>Résultat : {{result}}</strong></h2>
 
 </div>
-
-

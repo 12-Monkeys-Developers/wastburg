@@ -92,7 +92,7 @@ export class WastburgActor extends Actor {
       aubaine.value = Math.max(aubaine.value, 0)
       if ( this.sheet.rendered) {
         this.sheet.render(true)
-      } 
+      }
     }
   }
 
@@ -103,6 +103,15 @@ export class WastburgActor extends Actor {
     aubaine.value = Math.max(aubaine.value, 0)
     await this.update({ 'system.aubaine': aubaine })
   }
+
+  /* -------------------------------------------- */
+  async incDecAnciennete(value) {
+    let anciennete = foundry.utils.duplicate(this.system.anciennetereputation)
+    anciennete.value += value
+    anciennete.value = Math.max(anciennete.value, 0)
+    await this.update({ 'system.anciennetereputation': anciennete })
+  }
+
   /* -------------------------------------------- */
   modifySante(value) {
     let q = this.system.combat.santecurrent + Number(value)
@@ -111,9 +120,10 @@ export class WastburgActor extends Actor {
   }
   /* -------------------------------------------- */
   modifyGelder( value) {
-    let q = this.system.gelder.value + Number(value)
+    let baseVal = Number(this.system.gelder.value) || 0
+    let q = baseVal + Number(value)
     q = Math.max(q, 0)
-    this.update( { 'system.gelder.value'  :q } )
+    this.update( { 'system.gelder.value'  : q } )
   }
 
   /* -------------------------------------------- */
@@ -132,10 +142,10 @@ export class WastburgActor extends Actor {
       if ( fromCombat && (!value || value == -1) ) {
         ui.notifications.warn("Votre Initiative n'a pas été initialisée pour ce combat. Faites un jet depuis votre fiche de personnage.")
       }
-      return value || -1  
+      return value || -1
     } else {
       let r = await new Roll("1d6").roll()
       return r.total
     }
-  }  
+  }
 }
