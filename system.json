@@ -4,7 +4,7 @@
   "description": "The Wastburg system for FoundryVTT!",
   "version": "13.0.0",
   "compatibility": {
-    "minimum": "13",
+    "minimum": "11",
     "verified": "13"
   },
   "authors": [
@@ -36,22 +36,28 @@
       "label": "Aides de Jeu",
       "type": "JournalEntry",
       "name": "aides-de-jeu",
-      "path": "packs/aides-de-jeu.db",
+      "path": "packs/aides-de-jeu",
       "system": "wastburg",
-      "private": false,
-      "flags": {}
+      "flags": {},
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
     },
     {
       "label": "Scènes",
       "type": "Scene",
       "name": "wastburg-scenes",
-      "path": "packs/wastburg-scenes.db",
+      "path": "packs/wastburg-scenes",
       "system": "wastburg",
-      "private": false,
-      "flags": {}
+      "flags": {},
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
     }
   ],
-  "grid":{
+  "grid": {
     "distance": 5,
     "units": "m"
   },
