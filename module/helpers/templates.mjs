@@ -13,8 +13,6 @@
     //"systems/wastburg/templates/actor/parts/actor-inventaire.hbs",
     //"systems/wastburg/templates/actor/parts/actor-biography.hbs",
     //"systems/wastburg/templates/actor/parts/actor-traits-list.hbs",
-    'systems/wastburg/templates/item/partial-item-nav.hbs',
-    'systems/wastburg/templates/item/partial-item-description.hbs'
 
   ]);
 };

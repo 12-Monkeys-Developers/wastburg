@@ -1,0 +1,111 @@
+/* ==================== Roll Complex Dialog ==================== */
+
+.wastburg-dialog-roll-complex {
+  background: url("../assets/img/white-paper-texture.webp");
+  font-family: "Helvetica", sans-serif;
+  
+  .dialog-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-bottom: 2px solid #6b4423;
+    margin-bottom: 12px;
+    
+    .actor-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid #8b6239;
+      object-fit: cover;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+    
+    .dialog-title {
+      font-family: "RequiemforA", serif;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #2c2416;
+      margin: 0;
+    }
+  }
+  
+  .dialog-body {
+    padding: 0 12px 12px 12px;
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 10px;
+      
+      label {
+        font-weight: bold;
+        color: #6b4423;
+        font-size: 0.855rem;
+      }
+      
+      select {
+        padding: 6px 8px;
+        border: 1px solid #999;
+        border-radius: 3px;
+        background: white;
+        color: #2c2416;
+        font-size: 0.81rem;
+        cursor: pointer;
+        
+        &:focus {
+          outline: none;
+          border-color: #6b4423;
+          box-shadow: 0 0 0 2px rgba(107, 68, 35, 0.2);
+        }
+      }
+      
+      &.checkbox-group {
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        
+        label {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin: 0;
+          cursor: pointer;
+          font-weight: normal;
+          font-size: 0.81rem;
+          
+          input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+          }
+          
+          span {
+            color: #2c2416;
+          }
+        }
+      }
+    }
+    
+    .dialog-result {
+      margin-top: 16px;
+      padding: 12px;
+      background: linear-gradient(135deg, rgba(212, 165, 116, 0.3), rgba(212, 165, 116, 0.2));
+      border: 2px solid #d4a574;
+      border-radius: 6px;
+      text-align: center;
+      
+      strong {
+        font-family: "RequiemforA", serif;
+        font-size: 1.08rem;
+        color: #6b4423;
+        
+        #total-level {
+          color: #2c2416;
+          font-size: 1.17rem;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,299 @@
+<section class="{{cssClass}} sheet-form-layout" autocomplete="off">
+
+  {{!-- Sheet Header --}}
+  <header class="sheet-header">
+    <div class="header-fields">
+      <div class="flexrow">
+
+        <div class="profile-img-div padd-left">
+          <img class="profile-img" src="{{actor.img}}" data-action="editImage" title="{{actor.name}}" />
+        </div>
+
+        <div class="dice-buttons">
+          <button type="button" data-action="rollDice" data-mode="-2">(--)</button>
+          <button type="button" data-action="rollDice" data-mode="-1">(-)</button>
+          <button type="button" data-action="rollDice" data-mode="0">(0)</button>
+          <button type="button" data-action="rollDice" data-mode="1">(+)</button>
+          <button type="button" data-action="rollDice" data-mode="2">(++)</button>
+        </div>
+
+        <div class="flexcol main-info padd-left">
+          <h1 class="charname margin-right">
+            <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'WASTBURG.ActorName'}}"  />
+          </h1>
+
+          <div class="stats-grid">
+            <div class="stat-item">
+              <label>Aubaines</label>
+              <input type="text" name="system.aubaine.value" value="{{system.aubaine.value}}"  />
+            </div>
+
+            <div class="stat-item">
+              <label>Aubaines de groupe</label>
+              <input type="text" name="system.aubainegroupe.value" value="{{system.aubainegroupe.value}}"  />
+            </div>
+
+            <div class="stat-item">
+              <label>{{#if (eq system.persotype "gardoche")}}Ancienneté{{else}}Respect{{/if}}</label>
+              <input type="text" name="system.anciennetereputation.value" value="{{system.anciennetereputation.value}}"  />
+            </div>
+
+            <div class="stat-item">
+              <label>Réputation</label>
+              <select name="system.reputation.value" >
+                {{selectOptions config.levelsList selected=system.reputation.value valueAttr="value" labelAttr="label"}}
+              </select>
+            </div>
+
+            <div class="stat-item advanced-test-button">
+              <button class="roll-complex" type="button" data-action="rollComplex">Test Avancé</button>
+            </div>
+
+          </div>
+        </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Navigation --}}
+  <nav class="tabs" data-group="primary">
+    <a class="item" data-tab="etats">Etats</a>
+    <a class="item" data-tab="traits">Traits</a>
+    <a class="item" data-tab="contacts">Contacts</a>
+    <a class="item" data-tab="equipements">Equipements</a>
+    <a class="item" data-tab="biographie">Biographie</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+    <div class="tab" data-group="primary" data-tab="etats">
+
+      <div class="flexcol">
+        <h3>Santé</h3>
+
+        <ul>
+          <li class="flexrow item">
+            <label class="item-name-label-medium">Santé</label>
+            <input type="text" class="item-field-label-vlong" name="system.sante.santeText" value="{{system.sante.santeText}}" />
+            <select class="item-field-label-short" name="system.sante.value" value="{{system.sante.value}}">
+              {{selectOptions config.levelsList selected=system.sante.value valueAttr="value" labelAttr="label"}}
+            </select>
+          </li>
+          <li class="flexrow item">
+            <label class="item-name-label-medium">Mental</label>
+            <input type="text" class="item-field-label-vlong" name="system.mental.mentalText" value="{{system.mental.mentalText}}" />
+            <select class="item-field-label-short" name="system.mental.value" value="{{system.mental.value}}">
+              {{selectOptions config.levelsList selected=system.mental.value valueAttr="value" labelAttr="label"}}
+            </select>
+          </li>
+          <li class="flexrow item">
+            <label class="item-name-label-medium">Social</label>
+            <input type="text" class="item-field-label-vlong" name="system.social.socialText" value="{{system.social.socialText}}" />
+            <select class="item-field-label-short" name="system.social.value" value="{{system.social.value}}">
+              {{selectOptions config.levelsList selected=system.social.value valueAttr="value" labelAttr="label"}}
+            </select>
+          </li>
+        </ul>
+
+        {{#if combatRules}}
+        <h3>Combat</h3>
+
+        <ul>
+          <li class="flexrow item">
+            <label class="item-name-label-medium">Santé Actuelle:</label>
+            <div class="flexrow item-field-label-medium">
+              <button type="button" data-action="santeMinus"><i class="fas fa-minus-square"></i></button>
+              <input type="text" class="item-field-label-short" name="system.combat.santecurrent" value="{{system.combat.santecurrent}}" />
+              <button type="button" data-action="santePlus"><i class="fas fa-plus-square"></i></button>
+            </div>
+            <div class="item-filler">&nbsp;</div>
+          </li>
+          <li class="flexrow item">
+            <label class="item-name-label-medium">Santé Max:</label>
+            <input type="text" class="item-field-label-short" name="system.combat.santemax" value="{{system.combat.santemax}}" {{#if (not isGM)}}disabled{{/if}} />
+          </li>
+          <li class="flexrow item">
+            <label class="item-name-label-medium">Initiative : {{initiative}}</label>
+            <button class="roll-initiative chat-card-button button-width1" type="button">Relancer</button>
+          </li>
+        </ul>
+        {{/if}}
+
+      </div>
+
+    </div>
+
+    <div class="tab" data-group="primary" data-tab="traits">
+      <div class="flexcol">
+
+        <div class="section-header">
+          <h3>Traits</h3>
+          <button type="button" class="item-create" data-action="createItem" data-type="trait">
+            <i class="fas fa-plus"></i> Créer un trait
+          </button>
+        </div>
+
+        <ul class="items-list">
+          {{#each traits as |trait|}}
+          <li class="item" data-item-id="{{trait._id}}">
+            <img class="item-img" src="{{trait.img}}" data-action="editItem" title="{{trait.name}}" />
+            <div class="item-name" data-action="editItem">{{trait.name}}</div>
+            <div class="item-type">
+              {{#if trait.system.type}}
+                {{#if (eq trait.system.type "jeunesse")}}Jeunesse{{/if}}
+                {{#if (eq trait.system.type "passe")}}Passé{{/if}}
+                {{#if (eq trait.system.type "present")}}Présent{{/if}}
+              {{else}}-{{/if}}
+            </div>
+            <div class="item-controls">
+              <a class="item-control" data-action="editItem" title="Éditer"><i class="fas fa-edit"></i></a>
+              <a class="item-control item-delete" data-action="deleteItem" title="Supprimer"><i class="fas fa-trash"></i></a>
+            </div>
+          </li>
+          {{/each}}
+        </ul>
+
+      </div>
+    </div>
+
+    <div class="tab" data-group="primary" data-tab="contacts">
+      <div class="flexcol">
+
+        <div class="section-header">
+          <h3>Contacts</h3>
+          <button type="button" class="item-create" data-action="createItem" data-type="contact">
+            <i class="fas fa-plus"></i> Créer un contact
+          </button>
+        </div>
+
+        <ul class="items-list">
+          {{#each contacts as |contact|}}
+          <li class="item" data-item-id="{{contact._id}}">
+            <img class="item-img" src="{{contact.img}}" data-action="editItem" title="{{contact.name}}" />
+            <div class="item-details">
+              <div class="item-name" data-action="editItem">
+                {{contact.name}}
+                <span class="contact-level">({{getLevel contact.system.value}})</span>
+              </div>
+              <div class="contact-info">
+                <span class="contact-field">{{#if contact.system.quartier}}{{contact.system.quartier}}{{else}}-{{/if}}</span>
+                <span class="contact-field"><strong>T1:</strong> {{#if contact.system.trait1}}{{contact.system.trait1}}{{else}}-{{/if}}</span>
+                <span class="contact-field"><strong>T2:</strong> {{#if contact.system.trait2}}{{contact.system.trait2}}{{else}}-{{/if}}</span>
+              </div>
+            </div>
+            <div class="item-controls">
+              <a class="item-control" data-action="editItem" title="Éditer"><i class="fas fa-edit"></i></a>
+              <a class="item-control item-delete" data-action="deleteItem" title="Supprimer"><i class="fas fa-trash"></i></a>
+            </div>
+          </li>
+          {{/each}}
+        </ul>
+
+      </div>
+    </div>
+
+    <div class="tab" data-group="primary" data-tab="equipements">
+      <div class="flexcol">
+
+        <div class="flexrow item" style="align-items: center; gap: 1rem;">
+          <h3 style="margin: 0;">Gelders</h3>
+          <div class="flexrow" style="align-items: center; gap: 0.5rem;">
+            <button type="button" data-action="gelderMinus" style="padding: 0.25rem 0.5rem;">
+              <i class="fas fa-minus-square"></i>
+            </button>
+            <input class="item-field-label-short" name="system.gelder.value" type="text" value="{{system.gelder.value}}" style="text-align: center; width: 60px;" />
+            <button type="button" data-action="gelderPlus" style="padding: 0.25rem 0.5rem;">
+              <i class="fas fa-plus-square"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="flexcol">
+          <h3>Armes</h3>
+          <textarea class="textarea-default" rows="5" name="system.arme">{{system.arme}}</textarea>
+        </div>
+
+        <div class="flexcol">
+          <h3>Protections</h3>
+          <textarea class="textarea-default" rows="5" name="system.protection">{{system.protection}}</textarea>
+        </div>
+
+        <div class="flexcol">
+          <h3>Equipements & Divers</h3>
+          <textarea class="textarea-default" rows="15" name="system.materiel">{{system.materiel}}</textarea>
+        </div>
+
+        <div class="flexcol">
+          <h3>Fortune</h3>
+          <textarea class="textarea-default" rows="10" name="system.fortune">{{system.fortune}}</textarea>
+        </div>
+
+        <div class="flexcol">
+          <h3>Dettes</h3>
+          <textarea class="textarea-default" rows="5" name="system.dettes">{{system.dettes}}</textarea>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="tab" data-group="primary" data-tab="biographie">
+      <div class="flexcol">
+
+        <div class="grid grid-2col">
+          <div>
+            <ul class="item-list alternate-list">
+              <li class="item flexrow">
+                <label class="item-name-label-long">Personnage</label>
+                <select class="item-field-label-medium" name="system.persotype" value="{{system.persotype}}">
+                  {{selectOptions config.persoType selected=system.persotype}}
+                </select>
+              </li>
+              <li class="item flexrow">
+                <label class="item-name-label-long">Lieu de naissance</label>
+                <input type="text" class="name-label-long" name="system.lieunaissance" value="{{system.lieunaissance}}" />
+              </li>
+              <li class="item flexrow">
+                <label class="item-name-label-long">Signes Distinctifs</label>
+                <input type="text" class="item-name-label-long" name="system.signes" value="{{system.signes}}" />
+              </li>
+            </ul>
+          </div>
+          <div>
+            <ul>
+              <li class="item flexrow">
+                <label class="item-name-label-medium">Age</label>
+                <input type="text" class="item-name-label-medium" name="system.age" value="{{system.age}}" />
+              </li>
+              <li class="item flexrow">
+                <label class="item-name-label-medium">Résidence</label>
+                <input type="text" class="item-name-label-medium" name="system.residence" value="{{system.residence}}" />
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div>
+          <h3>
+            {{#if (eq system.persotype "gardoche")}}
+              Pourquoi je suis devenu gardoche :
+            {{else}}
+              Pourquoi je suis entré dans la bande :
+            {{/if}}
+          </h3>
+          <div class="small-editor">
+            {{formInput systemFields.note enriched=enrichedNote value=system.note name="system.note" toggled=true}}
+          </div>
+        </div>
+
+        <div>
+          <h3>Description & Notes</h3>
+          {{formInput systemFields.biography enriched=enrichedBiography value=system.biography name="system.biography" toggled=true}}
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</section>

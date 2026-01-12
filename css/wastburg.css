@@ -1,0 +1,2280 @@
+/* ==================== Wastburg System Styles ==================== */
+/* Main LESS entry point - imports all other style files */
+/* ==================== Fonts ==================== */
+@font-face {
+  font-family: "RequiemforA";
+  src: url('../assets/fonts/RequiemforA.woff') format("woff");
+}
+@font-face {
+  font-family: "ACaslonPro-Regular";
+  src: url('../assets/fonts/ACaslonPro-Regular.woff') format("woff");
+}
+/* ==================== CSS Variables ==================== */
+:root {
+  /* =================== 1. ACTOR SHEET FONT STYLES =========== */
+  --window-header-title-font-size: 1.3rem;
+  --window-header-title-font-weight: normal;
+  --window-header-title-color: #f5f5f5;
+  --major-button-font-size: 1.05rem;
+  --major-button-font-weight: normal;
+  --major-button-color: #dadada;
+  --tab-header-font-size: 1rem;
+  --tab-header-font-weight: 700;
+  --tab-header-color: #403f3e;
+  --tab-header-color-active: #4a0404;
+  --actor-input-font-size: 0.8rem;
+  --actor-input-font-weight: 500;
+  --actor-input-color: black;
+  --actor-label-font-size: 0.8rem;
+  --actor-label-font-weight: 700;
+  --actor-label-color: #464331c4;
+  /* =================== 2. DEBUGGING HIGHLIGHTERS ============ */
+  --debug-background-color-red: #ff000054;
+  --debug-background-color-blue: #1d00ff54;
+  --debug-background-color-green: #54ff0054;
+  --debug-box-shadow-red: inset 0 0 2px red;
+  --debug-box-shadow-blue: inset 0 0 2px blue;
+  --debug-box-shadow-green: inset 0 0 2px green;
+}
+/* ==================== Mixins ==================== */
+/* ==================== Global Styles ==================== */
+::-webkit-scrollbar-thumb {
+  border-color: #242323;
+}
+@-moz-document url-prefix() {
+  * {
+    scrollbar-color: #969392 transparent;
+    scrollbar-width: thin;
+  }
+}
+/* Global window styles */
+.window-app {
+  text-align: justify;
+  font-size: 16px;
+  letter-spacing: 1px;
+  font-family: "ACaslonPro-Regular";
+}
+/* Font sizes */
+.sheet header.sheet-header h1 input,
+.window-app .window-header,
+#actors .directory-list,
+#navigation #scene-list .scene.nav-item {
+  font-size: 1rem;
+}
+.window-app input,
+.wastburg .item-form,
+.sheet header.sheet-header .flex-group-center.flex-compteurs,
+.sheet header.sheet-header .flex-group-center.flex-fatigue,
+select,
+button,
+.item-checkbox,
+#sidebar,
+#players,
+#navigation #nav-toggle {
+  font-size: 0.8rem;
+}
+.sheet .tab-title {
+  color: #e4e2e2;
+}
+textarea {
+  font-family: ACaslonPro-Regular;
+  font-size: 0.8rem;
+}
+.window-header {
+  background: rgba(0, 0, 0, 0.75);
+}
+/* ==================== Item Sheets ==================== */
+.wastburg.item .window-header {
+  background: transparent;
+}
+.wastburg.item .window-content {
+  background: url("../assets/illustrations/fond_page_lateral_03.webp");
+  background-position: 0px 0px;
+  background-repeat: no-repeat;
+  overflow-y: auto;
+}
+.wastburg.item .sheet-header {
+  display: flex;
+  flex-direction: row;
+  padding: 5px 10px;
+  border-bottom: 2px solid #999;
+  gap: 10px;
+  align-items: center;
+}
+.wastburg.item .sheet-header .profile-img,
+.wastburg.item .sheet-header .item-sheet-img {
+  flex: 0 0 60px;
+  width: 60px;
+  height: 60px;
+  border: 2px solid #999;
+  cursor: pointer;
+  object-fit: cover;
+}
+.wastburg.item .sheet-header .profile-img:hover,
+.wastburg.item .sheet-header .item-sheet-img:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.wastburg.item .sheet-header h1 {
+  margin: 0;
+}
+.wastburg.item .sheet-header h1 input {
+  font-size: 1.4rem;
+  font-weight: bold;
+  border: none;
+  width: 20rem;
+  color: #d5caca;
+}
+.wastburg.item .sheet-body {
+  padding: 15px;
+  color: #000;
+}
+.wastburg.item .sheet-body ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.wastburg.item .sheet-body ul li.flexrow {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 10px 0;
+  gap: 10px;
+}
+.wastburg.item .sheet-body ul li.flexrow label {
+  font-weight: bold;
+  color: var(--actor-label-color);
+}
+.wastburg.item .sheet-body ul li.flexrow input,
+.wastburg.item .sheet-body ul li.flexrow select {
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 2px 4px;
+  font-size: var(--actor-input-font-size);
+  color: var(--actor-input-color);
+  background: url("../assets/img/white-paper-texture.webp");
+}
+.wastburg.item .sheet-body .tab.description {
+  padding: 10px;
+}
+.wastburg.item .sheet-body .tab.description span {
+  color: #000;
+}
+.wastburg.item .sheet-body .form-group {
+  margin: 15px 0;
+}
+.wastburg.item .sheet-body .form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: var(--actor-label-color);
+}
+.wastburg.item .sheet-body .form-group input[type="text"],
+.wastburg.item .sheet-body .form-group input[type="number"],
+.wastburg.item .sheet-body .form-group select,
+.wastburg.item .sheet-body .form-group textarea {
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 2px 4px;
+  font-size: var(--actor-input-font-size);
+  color: var(--actor-input-color);
+  background: url("../assets/img/white-paper-texture.webp");
+  width: 100%;
+}
+.wastburg.item .sheet-body .form-group textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+.wastburg.trait .sheet-body ul li.flexrow label {
+  min-width: 100px;
+}
+.wastburg.trait .sheet-body ul li.flexrow select.item-field-label-long {
+  flex: 1;
+  min-width: 200px;
+}
+.wastburg.trait .sheet-body .form-group:first-child {
+  margin-top: 0;
+}
+.wastburg.contact .sheet-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 15px;
+}
+.wastburg.contact .sheet-body ul li.flexrow label {
+  min-width: 120px;
+}
+.wastburg.contact .sheet-body ul li.flexrow select.item-field-label-long,
+.wastburg.contact .sheet-body ul li.flexrow input.item-field-label-long {
+  flex: 1;
+  min-width: 200px;
+}
+.wastburg.contact .sheet-body ul li.flexrow input.item-field-label-long3 {
+  flex: 1;
+  min-width: 200px;
+}
+.wastburg.contact .sheet-body .form-group {
+  margin: 0;
+}
+.wastburg.contact .sheet-body .form-group:nth-child(1),
+.wastburg.contact .sheet-body .form-group:nth-child(2),
+.wastburg.contact .sheet-body .form-group:nth-child(4),
+.wastburg.contact .sheet-body .form-group:nth-child(5) {
+  grid-column: span 2;
+}
+.wastburg.contact .sheet-body .form-group.full-width {
+  grid-column: span 2;
+}
+/* ==================== Personnage Sheet Specific ==================== */
+.wastburg.personnage .window-content {
+  background: url("../assets/illustrations/fond_page_lateral_03.webp");
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.wastburg.personnage .sheet-form-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+.wastburg.personnage .window-header {
+  background: transparent;
+  flex-shrink: 0;
+}
+.wastburg.personnage .sheet-header {
+  padding: 10px;
+  flex-shrink: 0;
+}
+.wastburg.personnage .sheet-header .header-fields .flexrow {
+  gap: 15px;
+  align-items: center;
+}
+.wastburg.personnage .sheet-header .header-fields .flexrow .profile-img-div {
+  flex-shrink: 0;
+  max-width: 164px;
+}
+.wastburg.personnage .sheet-header .header-fields .flexrow .profile-img-div .profile-img {
+  width: 160px;
+  height: 160px;
+  border: 2px solid #999;
+  cursor: pointer;
+  object-fit: cover;
+}
+.wastburg.personnage .sheet-header .header-fields .flexrow .profile-img-div .profile-img:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.wastburg.personnage .sheet-header .header-fields .flexrow .dice-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex-shrink: 0;
+  max-width: 64px;
+}
+.wastburg.personnage .sheet-header .header-fields .flexrow .dice-buttons button {
+  padding: 4px 8px;
+  margin: 2px;
+  border: 1px solid #999;
+  border-radius: 3px;
+  background: linear-gradient(to bottom, #f0f0f0, #d0d0d0);
+  cursor: pointer;
+  padding: 4px 6px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  min-width: 50px;
+  max-width: 50px;
+  background: linear-gradient(to bottom, #4a4a4a, #2a2a2a);
+  border: 1px solid #666;
+  color: #fff;
+}
+.wastburg.personnage .sheet-header .header-fields .flexrow .dice-buttons button:hover {
+  background: linear-gradient(to bottom, #f5f5f5, #d5d5d5);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+.wastburg.personnage .sheet-header .header-fields .flexrow .dice-buttons button:active {
+  background: linear-gradient(to bottom, #d0d0d0, #f0f0f0);
+}
+.wastburg.personnage .sheet-header .header-fields .flexrow .dice-buttons button:hover {
+  background: linear-gradient(to bottom, #5a5a5a, #3a3a3a);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+.wastburg.personnage .sheet-header .header-fields .flexrow .dice-buttons button:active {
+  background: linear-gradient(to bottom, #2a2a2a, #1a1a1a);
+}
+.wastburg.personnage .sheet-header .header-fields .flexrow .main-info {
+  flex: 1;
+}
+.wastburg.personnage .sheet-header .header-fields .flexrow .main-info h1.charname {
+  margin: 0 0 10px 0;
+}
+.wastburg.personnage .sheet-header .header-fields .flexrow .main-info h1.charname input {
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: "RequiemforA", serif;
+  border: none;
+  background: transparent;
+  width: 100%;
+  padding: 5px 0;
+  color: #2a2a2a;
+}
+.wastburg.personnage .sheet-header .header-fields .flexrow .main-info .stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 15px;
+}
+.wastburg.personnage .sheet-header .header-fields .flexrow .main-info .stats-grid .stat-item {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+}
+.wastburg.personnage .sheet-header .header-fields .flexrow .main-info .stats-grid .stat-item label {
+  font-size: var(--actor-label-font-size);
+  font-weight: var(--actor-label-font-weight);
+  color: var(--actor-label-color);
+  margin: 0;
+  min-width: 4rem;
+  max-width: 4rem;
+}
+.wastburg.personnage .sheet-header .header-fields .flexrow .main-info .stats-grid .stat-item input,
+.wastburg.personnage .sheet-header .header-fields .flexrow .main-info .stats-grid .stat-item select {
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 2px 4px;
+  color: var(--actor-input-color);
+  background: url("../assets/img/white-paper-texture.webp");
+  padding: 4px 8px;
+  max-width: 3.5rem;
+  font-size: var(--actor-input-font-size);
+  font-weight: var(--actor-input-font-weight);
+}
+.wastburg.personnage .sheet-header .header-fields .flexrow .main-info .stats-grid .stat-item.advanced-test-button {
+  grid-column: span 2;
+}
+.wastburg.personnage .sheet-header .header-fields .flexrow .main-info .stats-grid .stat-item.advanced-test-button button.roll-complex {
+  padding: 4px 8px;
+  margin: 2px;
+  border: 1px solid #999;
+  border-radius: 3px;
+  background: linear-gradient(to bottom, #f0f0f0, #d0d0d0);
+  cursor: pointer;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  width: 100%;
+  background: linear-gradient(to bottom, #6b4423, #4a2f18);
+  border: 1px solid #8b6239;
+  color: #fff;
+}
+.wastburg.personnage .sheet-header .header-fields .flexrow .main-info .stats-grid .stat-item.advanced-test-button button.roll-complex:hover {
+  background: linear-gradient(to bottom, #f5f5f5, #d5d5d5);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+.wastburg.personnage .sheet-header .header-fields .flexrow .main-info .stats-grid .stat-item.advanced-test-button button.roll-complex:active {
+  background: linear-gradient(to bottom, #d0d0d0, #f0f0f0);
+}
+.wastburg.personnage .sheet-header .header-fields .flexrow .main-info .stats-grid .stat-item.advanced-test-button button.roll-complex:hover {
+  background: linear-gradient(to bottom, #7b5433, #5a3f28);
+  box-shadow: 0 0 10px rgba(139, 98, 57, 0.5);
+}
+.wastburg.personnage .sheet-header .header-fields .flexrow .main-info .stats-grid .stat-item.advanced-test-button button.roll-complex:active {
+  background: linear-gradient(to bottom, #5a3f28, #3a1f08);
+}
+.wastburg.personnage.sheet.actor nav.tabs {
+  display: flex;
+  border-bottom: 4px solid #999;
+  border-top: 0px;
+  background: transparent;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.wastburg.personnage.sheet.actor nav.tabs .item {
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2rem;
+  font-family: "RequiemforA", serif;
+  background: linear-gradient(to bottom, #3a3a3a, #2a2a2a);
+  border: 1px solid #555;
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  color: #ffffff;
+  transition: all 0.2s ease;
+  position: relative;
+}
+.wastburg.personnage.sheet.actor nav.tabs .item:hover:not(.active) {
+  background: linear-gradient(to bottom, #4a4a4a, #3a3a3a);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+.wastburg.personnage.sheet.actor nav.tabs .item.active {
+  background: linear-gradient(to bottom, #6b4423, #4a2f18);
+  color: #ffffff;
+  border-color: #8b6239;
+  box-shadow: 0 -2px 8px rgba(139, 98, 57, 0.4);
+}
+.wastburg.personnage.sheet.actor nav.tabs .item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #d4a574;
+}
+.wastburg.personnage .sheet-body {
+  margin-top: 0.8rem;
+  color: #2c2416;
+  padding-right: 5px;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}
+.wastburg.personnage .sheet-body::-webkit-scrollbar {
+  width: 8px;
+}
+.wastburg.personnage .sheet-body::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+.wastburg.personnage .sheet-body::-webkit-scrollbar-thumb {
+  background: #8b7355;
+  border-radius: 4px;
+}
+.wastburg.personnage .sheet-body::-webkit-scrollbar-thumb:hover {
+  background: #6b5335;
+}
+.wastburg.personnage .sheet-body .section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.wastburg.personnage .sheet-body .section-header h3 {
+  margin: 0;
+  color: #2c2416;
+  font-size: 1.3rem;
+  font-weight: bold;
+  font-family: "RequiemforA", serif;
+  border: none;
+  padding: 0;
+}
+.wastburg.personnage .sheet-body .section-header button.item-create {
+  padding: 4px 8px;
+  margin: 2px;
+  border: 1px solid #999;
+  border-radius: 3px;
+  background: linear-gradient(to bottom, #f0f0f0, #d0d0d0);
+  cursor: pointer;
+  background: linear-gradient(to bottom, #6b4423, #4a2f18);
+  border: 1px solid #8b6239;
+  color: #fff;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+}
+.wastburg.personnage .sheet-body .section-header button.item-create:hover {
+  background: linear-gradient(to bottom, #f5f5f5, #d5d5d5);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+.wastburg.personnage .sheet-body .section-header button.item-create:active {
+  background: linear-gradient(to bottom, #d0d0d0, #f0f0f0);
+}
+.wastburg.personnage .sheet-body .section-header button.item-create:hover {
+  background: linear-gradient(to bottom, #7b5433, #5a3f28);
+  box-shadow: 0 0 8px rgba(139, 98, 57, 0.5);
+}
+.wastburg.personnage .sheet-body .section-header button.item-create i {
+  margin-right: 5px;
+}
+.wastburg.personnage .sheet-body h3 {
+  color: #2c2416;
+  margin: 15px 0 10px 0;
+  font-size: 1.3rem;
+  font-weight: bold;
+  font-family: "RequiemforA", serif;
+  border-bottom: 1px solid #999;
+  padding-bottom: 5px;
+}
+.wastburg.personnage .sheet-body .items-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.wastburg.personnage .sheet-body .items-list .item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  margin: 4px 0;
+  border: 1px solid #999;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.8);
+  transition: all 0.2s ease;
+}
+.wastburg.personnage .sheet-body .items-list .item:hover {
+  background: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.wastburg.personnage .sheet-body .items-list .item .item-img {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #999;
+  border-radius: 3px;
+  object-fit: cover;
+  cursor: pointer;
+}
+.wastburg.personnage .sheet-body .items-list .item .item-img:hover {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+.wastburg.personnage .sheet-body .items-list .item .item-name {
+  flex: 1;
+  font-weight: bold;
+  color: #2c2416;
+  cursor: pointer;
+}
+.wastburg.personnage .sheet-body .items-list .item .item-name:hover {
+  color: #6b4423;
+}
+.wastburg.personnage .sheet-body .items-list .item .item-name .contact-level {
+  font-weight: normal;
+  color: #6b4423;
+  font-size: 0.9rem;
+  margin-left: 6px;
+}
+.wastburg.personnage .sheet-body .items-list .item .item-type {
+  color: #666;
+  font-size: 0.9rem;
+  min-width: 120px;
+}
+.wastburg.personnage .sheet-body .items-list .item .item-controls {
+  display: flex;
+  gap: 8px;
+}
+.wastburg.personnage .sheet-body .items-list .item .item-controls .item-control {
+  cursor: pointer;
+  color: #666;
+  font-size: 1rem;
+  transition: color 0.2s ease;
+}
+.wastburg.personnage .sheet-body .items-list .item .item-controls .item-control:hover {
+  color: #2c2416;
+}
+.wastburg.personnage .sheet-body .items-list .item .item-controls .item-control.item-delete:hover {
+  color: #c00;
+}
+.wastburg.personnage .sheet-body ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.wastburg.personnage .sheet-body ul li.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0;
+  margin-right: 2rem;
+}
+.wastburg.personnage .sheet-body ul li.item label {
+  color: var(--actor-label-color);
+  font-weight: bold;
+}
+.wastburg.personnage .sheet-body ul li.item label.item-name-label-medium {
+  min-width: 6rem;
+}
+.wastburg.personnage .sheet-body ul li.item input,
+.wastburg.personnage .sheet-body ul li.item select {
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 2px 4px;
+  font-size: var(--actor-input-font-size);
+  color: var(--actor-input-color);
+  background: url("../assets/img/white-paper-texture.webp");
+}
+.wastburg.personnage .sheet-body ul li.item input.item-field-label-short,
+.wastburg.personnage .sheet-body ul li.item select.item-field-label-short {
+  width: 3rem;
+  min-width: 3rem;
+  max-width: 3rem;
+}
+.wastburg.personnage .sheet-body ul li.item input.item-field-label-vlong,
+.wastburg.personnage .sheet-body ul li.item select.item-field-label-vlong {
+  flex: 1;
+  min-width: 24rem;
+}
+.wastburg.personnage .sheet-body ul li.item .item-filler {
+  flex: 1;
+}
+.wastburg.personnage .sheet-body ul li.item button {
+  padding: 4px 8px;
+  margin: 2px;
+  border: 1px solid #999;
+  border-radius: 3px;
+  background: linear-gradient(to bottom, #f0f0f0, #d0d0d0);
+  cursor: pointer;
+}
+.wastburg.personnage .sheet-body ul li.item button:hover {
+  background: linear-gradient(to bottom, #f5f5f5, #d5d5d5);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+.wastburg.personnage .sheet-body ul li.item button:active {
+  background: linear-gradient(to bottom, #d0d0d0, #f0f0f0);
+}
+.wastburg.personnage .sheet-body .items-list .item .item-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.wastburg.personnage .sheet-body .items-list .item .item-details .contact-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  font-size: 0.85rem;
+}
+.wastburg.personnage .sheet-body .items-list .item .item-details .contact-info .contact-field {
+  color: #666;
+}
+.wastburg.personnage .sheet-body .items-list .item .item-details .contact-info .contact-field strong {
+  color: var(--actor-label-color);
+}
+.wastburg.personnage .etats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin: 10px 0;
+}
+.wastburg.personnage .etat-block {
+  border: 1px solid #999;
+  border-radius: 5px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.5);
+}
+.wastburg.personnage .etat-block h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.1rem;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+}
+.wastburg.personnage .etat-block .etat-content {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 8px;
+}
+.wastburg.personnage .etat-block .etat-value {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 5px;
+  align-items: center;
+}
+.wastburg.personnage .etat-block .etat-value label {
+  font-weight: bold;
+}
+.wastburg.personnage .etat-block .etat-value input {
+  flex: 1;
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 2px 4px;
+  font-size: var(--actor-input-font-size);
+  color: var(--actor-input-color);
+  background: url("../assets/img/white-paper-texture.webp");
+}
+.wastburg.personnage .etat-block .etat-value button {
+  padding: 4px 8px;
+  margin: 2px;
+  border: 1px solid #999;
+  border-radius: 3px;
+  background: linear-gradient(to bottom, #f0f0f0, #d0d0d0);
+  cursor: pointer;
+}
+.wastburg.personnage .etat-block .etat-value button:hover {
+  background: linear-gradient(to bottom, #f5f5f5, #d5d5d5);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+.wastburg.personnage .etat-block .etat-value button:active {
+  background: linear-gradient(to bottom, #d0d0d0, #f0f0f0);
+}
+.wastburg.personnage .combat-block {
+  grid-column: span 2;
+}
+.wastburg.personnage .combat-block .combat-stats {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+}
+.wastburg.personnage .combat-block .combat-stats .stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+.wastburg.personnage .combat-block .combat-stats .stat label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.wastburg.personnage .combat-block .combat-stats .stat input {
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 2px 4px;
+  font-size: var(--actor-input-font-size);
+  color: var(--actor-input-color);
+  background: url("../assets/img/white-paper-texture.webp");
+}
+.wastburg.personnage .ressources-block {
+  grid-column: span 2;
+}
+.wastburg.personnage .ressources-block .ressource-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+}
+.wastburg.personnage .ressources-block .ressource-grid .ressource {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+.wastburg.personnage .ressources-block .ressource-grid .ressource label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.wastburg.personnage .ressources-block .ressource-grid .ressource input {
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 2px 4px;
+  font-size: var(--actor-input-font-size);
+  color: var(--actor-input-color);
+  background: url("../assets/img/white-paper-texture.webp");
+}
+.wastburg.personnage .role-selection {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.05);
+  margin: 10px 0;
+  border-radius: 5px;
+}
+.wastburg.personnage .role-selection label {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.wastburg.personnage .role-selection label input[type="checkbox"] {
+  cursor: pointer;
+}
+.wastburg.personnage .bio-grid {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 15px;
+}
+.wastburg.personnage .bio-grid .bio-field {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+.wastburg.personnage .bio-grid .bio-field label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.wastburg.personnage .bio-grid .bio-field input {
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 2px 4px;
+  font-size: var(--actor-input-font-size);
+  color: var(--actor-input-color);
+  background: url("../assets/img/white-paper-texture.webp");
+}
+/* ==================== Prevot Sheet Specific ==================== */
+.wastburg.prevot .window-content {
+  background: url("../assets/img/white-paper-texture.webp");
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.wastburg.prevot .sheet-form-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+.wastburg.prevot .window-header {
+  background: transparent;
+  flex-shrink: 0;
+}
+.wastburg.prevot .sheet-header {
+  padding: 15px;
+  flex-shrink: 0;
+  margin-bottom: 0;
+}
+.wastburg.prevot .sheet-header .header-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.wastburg.prevot .sheet-header .profile-img {
+  width: 100px;
+  height: 100px;
+  border: 3px solid #8b6239;
+  cursor: pointer;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.wastburg.prevot .sheet-header .profile-img:hover {
+  box-shadow: 0 0 10px rgba(107, 68, 35, 0.6);
+}
+.wastburg.prevot .sheet-header .header-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.wastburg.prevot .sheet-header h1 {
+  margin: 0;
+}
+.wastburg.prevot .sheet-header h1 input {
+  font-size: 1.62rem;
+  font-weight: bold;
+  font-family: "RequiemforA", serif;
+  border: none;
+  background: transparent;
+  width: 100%;
+  padding: 5px 0;
+  color: #2c2416;
+}
+.wastburg.prevot .sheet-header .appreciation-controls {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+.wastburg.prevot .sheet-header .appreciation-controls .form-group-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.wastburg.prevot .sheet-header .appreciation-controls .form-group-inline label {
+  font-family: "RequiemforA", serif;
+  font-size: 0.99rem;
+  font-weight: bold;
+  color: #6b4423;
+  white-space: nowrap;
+}
+.wastburg.prevot .sheet-header .appreciation-controls .form-group-inline select {
+  padding: 4px 8px;
+  border: 1px solid #8b6239;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  color: #2c2416;
+}
+.wastburg.prevot .sheet-header .appreciation-controls .roll-controls {
+  display: flex;
+  gap: 8px;
+}
+.wastburg.prevot .sheet-header .appreciation-controls .roll-controls select {
+  padding: 4px 8px;
+  border: 1px solid #8b6239;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  color: #2c2416;
+}
+.wastburg.prevot .sheet-header .appreciation-controls .roll-controls button {
+  padding: 4px 12px;
+  background: linear-gradient(to bottom, #6b4423, #4a2f18);
+  border: 1px solid #8b6239;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+.wastburg.prevot .sheet-header .appreciation-controls .roll-controls button:hover {
+  background: linear-gradient(to bottom, #7b5433, #5a3f28);
+  box-shadow: 0 0 8px rgba(139, 98, 57, 0.5);
+}
+.wastburg.prevot .sheet-header .toggle-button {
+  padding: 8px 12px;
+  background: linear-gradient(to bottom, #6b4423, #4a2f18);
+  border: 1px solid #8b6239;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+}
+.wastburg.prevot .sheet-header .toggle-button:hover {
+  background: linear-gradient(to bottom, #7b5433, #5a3f28);
+  box-shadow: 0 0 8px rgba(139, 98, 57, 0.5);
+}
+.wastburg.prevot.sheet.actor nav.tabs {
+  display: flex;
+  border-bottom: 4px solid #999;
+  border-top: 0px;
+  background: transparent;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.wastburg.prevot.sheet.actor nav.tabs .item {
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2rem;
+  font-family: "RequiemforA", serif;
+  background: linear-gradient(to bottom, #3a3a3a, #2a2a2a);
+  border: 1px solid #555;
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  color: #ffffff;
+  transition: all 0.2s ease;
+  position: relative;
+}
+.wastburg.prevot.sheet.actor nav.tabs .item:hover:not(.active) {
+  background: linear-gradient(to bottom, #4a4a4a, #3a3a3a);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+.wastburg.prevot.sheet.actor nav.tabs .item.active {
+  background: linear-gradient(to bottom, #6b4423, #4a2f18);
+  color: #ffffff;
+  border-color: #8b6239;
+  box-shadow: 0 -2px 8px rgba(139, 98, 57, 0.4);
+}
+.wastburg.prevot.sheet.actor nav.tabs .item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #d4a574;
+}
+.wastburg.prevot .sheet-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 15px;
+  color: #2c2416;
+}
+.wastburg.prevot .sheet-body .tab {
+  display: none;
+}
+.wastburg.prevot .sheet-body .tab.active {
+  display: block;
+}
+.wastburg.prevot .sheet-body h3 {
+  font-family: "RequiemforA", serif;
+  font-size: 1.17rem;
+  font-weight: bold;
+  color: #6b4423;
+  margin: 0 0 8px 0;
+}
+.wastburg.prevot .sheet-body textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #8b6239;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.8);
+  font-family: "Helvetica", sans-serif;
+  font-size: 0.9rem;
+  color: #2c2416;
+  resize: vertical;
+}
+.wastburg.prevot .sheet-body .question-section {
+  margin-bottom: 20px;
+}
+.wastburg.prevot .sheet-body .rules-section h3 {
+  margin-top: 20px;
+}
+.wastburg.prevot .sheet-body .rules-section h3:first-child {
+  margin-top: 0;
+}
+.wastburg.prevot .sheet-body .rules-section .rules-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid #8b6239;
+}
+.wastburg.prevot .sheet-body .rules-section .rules-table th {
+  background: linear-gradient(to bottom, #d4a574, #c49564);
+  color: #2c2416;
+  font-family: "RequiemforA", serif;
+  font-size: 0.99rem;
+  font-weight: bold;
+  padding: 8px;
+  border: 1px solid #8b6239;
+  text-align: left;
+}
+.wastburg.prevot .sheet-body .rules-section .rules-table td {
+  padding: 8px;
+  border: 1px solid #8b6239;
+  font-size: 0.9rem;
+}
+.wastburg.prevot .sheet-body .rules-section .rules-table td:first-child {
+  font-weight: bold;
+  text-align: center;
+  width: 80px;
+}
+.wastburg.prevot .sheet-body .rules-section .rules-table tbody tr:nth-child(odd) {
+  background: rgba(212, 165, 116, 0.2);
+}
+.wastburg.prevot .sheet-body .traits-section .traits-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.wastburg.prevot .sheet-body .traits-section .traits-header h3 {
+  margin: 0;
+}
+.wastburg.prevot .sheet-body .traits-section .traits-header button {
+  padding: 6px 12px;
+  background: linear-gradient(to bottom, #6b4423, #4a2f18);
+  border: 1px solid #8b6239;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.wastburg.prevot .sheet-body .traits-section .traits-header button:hover {
+  background: linear-gradient(to bottom, #7b5433, #5a3f28);
+  box-shadow: 0 0 8px rgba(139, 98, 57, 0.5);
+}
+.wastburg.prevot .sheet-body .traits-section .item-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.wastburg.prevot .sheet-body .traits-section .item-list .item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid #8b6239;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+.wastburg.prevot .sheet-body .traits-section .item-list .item:hover {
+  background: rgba(212, 165, 116, 0.3);
+}
+.wastburg.prevot .sheet-body .traits-section .item-list .item .item-img {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border: 1px solid #8b6239;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.wastburg.prevot .sheet-body .traits-section .item-list .item .item-name {
+  flex: 1;
+  font-weight: bold;
+  font-size: 0.99rem;
+}
+.wastburg.prevot .sheet-body .traits-section .item-list .item .item-origin {
+  font-size: 0.9rem;
+  color: #6b4423;
+  font-style: italic;
+}
+.wastburg.prevot .sheet-body .traits-section .item-list .item .item-edit {
+  padding: 4px 8px;
+  background: transparent;
+  border: 1px solid #8b6239;
+  border-radius: 4px;
+  color: #6b4423;
+  cursor: pointer;
+}
+.wastburg.prevot .sheet-body .traits-section .item-list .item .item-edit:hover {
+  background: #6b4423;
+  border-color: #6b4423;
+  color: #fff;
+}
+.wastburg.prevot .sheet-body .traits-section .item-list .item .item-delete {
+  padding: 4px 8px;
+  background: transparent;
+  border: 1px solid #8b6239;
+  border-radius: 4px;
+  color: #6b4423;
+  cursor: pointer;
+}
+.wastburg.prevot .sheet-body .traits-section .item-list .item .item-delete:hover {
+  background: #d9534f;
+  border-color: #d9534f;
+  color: #fff;
+}
+/* ==================== Caid Sheet Specific ==================== */
+.wastburg.caid .window-content {
+  background: url("../assets/img/white-paper-texture.webp");
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.wastburg.caid .sheet-form-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+.wastburg.caid .window-header {
+  background: transparent;
+  flex-shrink: 0;
+}
+.wastburg.caid .sheet-header {
+  padding: 15px;
+  flex-shrink: 0;
+  margin-bottom: 0;
+}
+.wastburg.caid .sheet-header .header-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.wastburg.caid .sheet-header .profile-img {
+  width: 100px;
+  height: 100px;
+  border: 3px solid #8b6239;
+  cursor: pointer;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.wastburg.caid .sheet-header .profile-img:hover {
+  box-shadow: 0 0 10px rgba(107, 68, 35, 0.6);
+}
+.wastburg.caid .sheet-header .header-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.wastburg.caid .sheet-header h1 {
+  margin: 0;
+}
+.wastburg.caid .sheet-header h1 input {
+  font-size: 1.62rem;
+  font-weight: bold;
+  font-family: "RequiemforA", serif;
+  border: none;
+  background: transparent;
+  width: 100%;
+  padding: 5px 0;
+  color: #2c2416;
+}
+.wastburg.caid .sheet-header .confiance-controls {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+.wastburg.caid .sheet-header .confiance-controls .form-group-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.wastburg.caid .sheet-header .confiance-controls .form-group-inline label {
+  font-family: "RequiemforA", serif;
+  font-size: 0.99rem;
+  font-weight: bold;
+  color: #6b4423;
+  white-space: nowrap;
+}
+.wastburg.caid .sheet-header .confiance-controls .form-group-inline select {
+  padding: 4px 8px;
+  border: 1px solid #8b6239;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  color: #2c2416;
+}
+.wastburg.caid .sheet-header .confiance-controls .roll-controls {
+  display: flex;
+  gap: 8px;
+}
+.wastburg.caid .sheet-header .confiance-controls .roll-controls select {
+  padding: 4px 8px;
+  border: 1px solid #8b6239;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  color: #2c2416;
+}
+.wastburg.caid .sheet-header .confiance-controls .roll-controls button {
+  padding: 4px 12px;
+  background: linear-gradient(to bottom, #6b4423, #4a2f18);
+  border: 1px solid #8b6239;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+.wastburg.caid .sheet-header .confiance-controls .roll-controls button:hover {
+  background: linear-gradient(to bottom, #7b5433, #5a3f28);
+  box-shadow: 0 0 8px rgba(139, 98, 57, 0.5);
+}
+.wastburg.caid .sheet-header .toggle-button {
+  padding: 8px 12px;
+  background: linear-gradient(to bottom, #6b4423, #4a2f18);
+  border: 1px solid #8b6239;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+}
+.wastburg.caid .sheet-header .toggle-button:hover {
+  background: linear-gradient(to bottom, #7b5433, #5a3f28);
+  box-shadow: 0 0 8px rgba(139, 98, 57, 0.5);
+}
+.wastburg.caid.sheet.actor nav.tabs {
+  display: flex;
+  border-bottom: 4px solid #999;
+  border-top: 0px;
+  background: transparent;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.wastburg.caid.sheet.actor nav.tabs .item {
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2rem;
+  font-family: "RequiemforA", serif;
+  background: linear-gradient(to bottom, #3a3a3a, #2a2a2a);
+  border: 1px solid #555;
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  color: #ffffff;
+  transition: all 0.2s ease;
+  position: relative;
+}
+.wastburg.caid.sheet.actor nav.tabs .item:hover:not(.active) {
+  background: linear-gradient(to bottom, #4a4a4a, #3a3a3a);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+.wastburg.caid.sheet.actor nav.tabs .item.active {
+  background: linear-gradient(to bottom, #6b4423, #4a2f18);
+  color: #ffffff;
+  border-color: #8b6239;
+  box-shadow: 0 -2px 8px rgba(139, 98, 57, 0.4);
+}
+.wastburg.caid.sheet.actor nav.tabs .item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #d4a574;
+}
+.wastburg.caid .sheet-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 15px;
+  color: #2c2416;
+}
+.wastburg.caid .sheet-body .tab {
+  display: none;
+}
+.wastburg.caid .sheet-body .tab.active {
+  display: block;
+}
+.wastburg.caid .sheet-body h3 {
+  font-family: "RequiemforA", serif;
+  font-size: 1.17rem;
+  font-weight: bold;
+  color: #6b4423;
+  margin: 0 0 8px 0;
+}
+.wastburg.caid .sheet-body textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #8b6239;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.8);
+  font-family: "Helvetica", sans-serif;
+  font-size: 0.9rem;
+  color: #2c2416;
+  resize: vertical;
+}
+.wastburg.caid .sheet-body .question-section {
+  margin-bottom: 20px;
+}
+.wastburg.caid .sheet-body .rules-section h3 {
+  margin-top: 20px;
+}
+.wastburg.caid .sheet-body .rules-section h3:first-child {
+  margin-top: 0;
+}
+.wastburg.caid .sheet-body .rules-section .rules-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid #8b6239;
+}
+.wastburg.caid .sheet-body .rules-section .rules-table th {
+  background: linear-gradient(to bottom, #d4a574, #c49564);
+  color: #2c2416;
+  font-family: "RequiemforA", serif;
+  font-size: 0.99rem;
+  font-weight: bold;
+  padding: 8px;
+  border: 1px solid #8b6239;
+  text-align: left;
+}
+.wastburg.caid .sheet-body .rules-section .rules-table td {
+  padding: 8px;
+  border: 1px solid #8b6239;
+  font-size: 0.9rem;
+}
+.wastburg.caid .sheet-body .rules-section .rules-table td:first-child {
+  font-weight: bold;
+  text-align: center;
+  width: 80px;
+}
+.wastburg.caid .sheet-body .rules-section .rules-table tbody tr:nth-child(odd) {
+  background: rgba(212, 165, 116, 0.2);
+}
+.wastburg.caid .sheet-body .traits-section .traits-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.wastburg.caid .sheet-body .traits-section .traits-header h3 {
+  margin: 0;
+}
+.wastburg.caid .sheet-body .traits-section .traits-header button {
+  padding: 6px 12px;
+  background: linear-gradient(to bottom, #6b4423, #4a2f18);
+  border: 1px solid #8b6239;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.wastburg.caid .sheet-body .traits-section .traits-header button:hover {
+  background: linear-gradient(to bottom, #7b5433, #5a3f28);
+  box-shadow: 0 0 8px rgba(139, 98, 57, 0.5);
+}
+.wastburg.caid .sheet-body .traits-section .item-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.wastburg.caid .sheet-body .traits-section .item-list .item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid #8b6239;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+.wastburg.caid .sheet-body .traits-section .item-list .item:hover {
+  background: rgba(212, 165, 116, 0.3);
+}
+.wastburg.caid .sheet-body .traits-section .item-list .item .item-img {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border: 1px solid #8b6239;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.wastburg.caid .sheet-body .traits-section .item-list .item .item-name {
+  flex: 1;
+  font-weight: bold;
+  font-size: 0.99rem;
+}
+.wastburg.caid .sheet-body .traits-section .item-list .item .item-origin {
+  font-size: 0.9rem;
+  color: #6b4423;
+  font-style: italic;
+}
+.wastburg.caid .sheet-body .traits-section .item-list .item .item-edit {
+  padding: 4px 8px;
+  background: transparent;
+  border: 1px solid #8b6239;
+  border-radius: 4px;
+  color: #6b4423;
+  cursor: pointer;
+}
+.wastburg.caid .sheet-body .traits-section .item-list .item .item-edit:hover {
+  background: #6b4423;
+  border-color: #6b4423;
+  color: #fff;
+}
+.wastburg.caid .sheet-body .traits-section .item-list .item .item-delete {
+  padding: 4px 8px;
+  background: transparent;
+  border: 1px solid #8b6239;
+  border-radius: 4px;
+  color: #6b4423;
+  cursor: pointer;
+}
+.wastburg.caid .sheet-body .traits-section .item-list .item .item-delete:hover {
+  background: #d9534f;
+  border-color: #d9534f;
+  color: #fff;
+}
+/* ==================== Gourbi Sheet Specific ==================== */
+.wastburg.gourbi .window-content {
+  background: url("../assets/img/white-paper-texture.webp");
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.wastburg.gourbi .sheet-form-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+.wastburg.gourbi .window-header {
+  background: transparent;
+  flex-shrink: 0;
+}
+.wastburg.gourbi .sheet-header {
+  padding: 15px;
+  flex-shrink: 0;
+  margin-bottom: 0;
+}
+.wastburg.gourbi .sheet-header .header-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.wastburg.gourbi .sheet-header .profile-img {
+  width: 100px;
+  height: 100px;
+  border: 3px solid #8b6239;
+  cursor: pointer;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.wastburg.gourbi .sheet-header .profile-img:hover {
+  box-shadow: 0 0 10px rgba(107, 68, 35, 0.6);
+}
+.wastburg.gourbi .sheet-header .header-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.wastburg.gourbi .sheet-header h1 {
+  margin: 0;
+}
+.wastburg.gourbi .sheet-header h1 input {
+  font-size: 1.62rem;
+  font-weight: bold;
+  font-family: "RequiemforA", serif;
+  border: none;
+  background: transparent;
+  width: 100%;
+  padding: 5px 0;
+  color: #2c2416;
+}
+.wastburg.gourbi .sheet-header .gourbi-controls {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.wastburg.gourbi .sheet-header .gourbi-controls .form-group-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.wastburg.gourbi .sheet-header .gourbi-controls .form-group-inline label {
+  font-family: "RequiemforA", serif;
+  font-size: 0.99rem;
+  font-weight: bold;
+  color: #6b4423;
+  white-space: nowrap;
+}
+.wastburg.gourbi .sheet-header .gourbi-controls .form-group-inline input[type="text"] {
+  padding: 4px 8px;
+  border: 1px solid #8b6239;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  color: #2c2416;
+  min-width: 150px;
+}
+.wastburg.gourbi .sheet-header .gourbi-controls .gelder-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.wastburg.gourbi .sheet-header .gourbi-controls .gelder-controls button {
+  padding: 4px 8px;
+  background: linear-gradient(to bottom, #6b4423, #4a2f18);
+  border: 1px solid #8b6239;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.wastburg.gourbi .sheet-header .gourbi-controls .gelder-controls button:hover {
+  background: linear-gradient(to bottom, #7b5433, #5a3f28);
+  box-shadow: 0 0 8px rgba(139, 98, 57, 0.5);
+}
+.wastburg.gourbi .sheet-header .gourbi-controls .gelder-controls button:active {
+  background: linear-gradient(to bottom, #5a3f28, #3a1f08);
+}
+.wastburg.gourbi .sheet-header .gourbi-controls .gelder-controls input {
+  width: 60px;
+  text-align: center;
+  padding: 4px 8px;
+  border: 1px solid #8b6239;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  color: #2c2416;
+}
+.wastburg.gourbi.sheet.actor nav.tabs {
+  display: flex;
+  border-bottom: 4px solid #999;
+  border-top: 0px;
+  background: transparent;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.wastburg.gourbi.sheet.actor nav.tabs .item {
+  flex: 1;
+  text-align: center;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2rem;
+  font-family: "RequiemforA", serif;
+  background: linear-gradient(to bottom, #3a3a3a, #2a2a2a);
+  border: 1px solid #555;
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  color: #ffffff;
+  transition: all 0.2s ease;
+  position: relative;
+}
+.wastburg.gourbi.sheet.actor nav.tabs .item:hover:not(.active) {
+  background: linear-gradient(to bottom, #4a4a4a, #3a3a3a);
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+.wastburg.gourbi.sheet.actor nav.tabs .item.active {
+  background: linear-gradient(to bottom, #6b4423, #4a2f18);
+  color: #ffffff;
+  border-color: #8b6239;
+  box-shadow: 0 -2px 8px rgba(139, 98, 57, 0.4);
+}
+.wastburg.gourbi.sheet.actor nav.tabs .item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #d4a574;
+}
+.wastburg.gourbi .sheet-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 15px;
+  color: #2c2416;
+}
+.wastburg.gourbi .sheet-body .tab {
+  display: none;
+}
+.wastburg.gourbi .sheet-body .tab.active {
+  display: block;
+}
+.wastburg.gourbi .sheet-body h3 {
+  font-family: "RequiemforA", serif;
+  font-size: 1.17rem;
+  font-weight: bold;
+  color: #6b4423;
+  margin: 0 0 8px 0;
+}
+.wastburg.gourbi .sheet-body textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #8b6239;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.8);
+  font-family: "Helvetica", sans-serif;
+  font-size: 0.9rem;
+  color: #2c2416;
+  resize: vertical;
+}
+.wastburg.gourbi .sheet-body .question-section {
+  margin-bottom: 20px;
+}
+/* ==================== Chat Messages ==================== */
+.wastburg-chat-message {
+  padding: 10px;
+  background: url("../assets/img/white-paper-texture.webp");
+  font-family: "Helvetica", sans-serif;
+  border-radius: 8px;
+}
+.wastburg-chat-message .chat-actor-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #6b4423;
+}
+.wastburg-chat-message .chat-actor-header .chat-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #8b6239;
+  object-fit: cover;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+.wastburg-chat-message .chat-actor-header .actor-name {
+  font-family: "RequiemforA", serif;
+  font-size: 1.35rem;
+  font-weight: bold;
+  color: #2c2416;
+  margin: 0;
+}
+.wastburg-chat-message h2.roll-quality {
+  font-family: "RequiemforA", serif;
+  font-size: 1.26rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 8px;
+  margin: 0 0 8px 0;
+  border-radius: 6px;
+  border: 2px solid;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+.wastburg-chat-message h2.roll-quality.reussite-critique,
+.wastburg-chat-message h2.roll-quality.critical {
+  background: linear-gradient(135deg, #4CAF50, #45a049);
+  color: #fff;
+  border-color: #2d6b2f;
+  box-shadow: 0 3px 6px rgba(76, 175, 80, 0.4);
+}
+.wastburg-chat-message h2.roll-quality.reussite,
+.wastburg-chat-message h2.roll-quality.success {
+  background: linear-gradient(135deg, #8bc34a, #7cb342);
+  color: #fff;
+  border-color: #5a7f32;
+  box-shadow: 0 3px 6px rgba(139, 195, 74, 0.4);
+}
+.wastburg-chat-message h2.roll-quality.echec,
+.wastburg-chat-message h2.roll-quality.failure {
+  background: linear-gradient(135deg, #ff9800, #fb8c00);
+  color: #fff;
+  border-color: #b26500;
+  box-shadow: 0 3px 6px rgba(255, 152, 0, 0.4);
+}
+.wastburg-chat-message h2.roll-quality.echec-critique,
+.wastburg-chat-message h2.roll-quality.fumble {
+  background: linear-gradient(135deg, #f44336, #e53935);
+  color: #fff;
+  border-color: #a82824;
+  box-shadow: 0 3px 6px rgba(244, 67, 54, 0.4);
+}
+.wastburg-chat-message h2.roll-quality.result-final {
+  font-size: 1.44rem;
+  margin-top: 8px;
+  margin-bottom: 0;
+}
+.wastburg-chat-message .roll-description {
+  font-size: 0.9rem;
+  color: #2c2416;
+  font-weight: bold;
+  margin: 6px 0;
+  padding: 6px 10px;
+  background: rgba(107, 68, 35, 0.1);
+  border-left: 3px solid #6b4423;
+  border-radius: 3px;
+}
+.wastburg-chat-message .actions-section .modifiers-section {
+  margin: 8px 0;
+}
+.wastburg-chat-message .actions-section .modifiers-section h4 {
+  font-family: "RequiemforA", serif;
+  font-size: 0.99rem;
+  color: #6b4423;
+  margin: 0 0 6px 0;
+  padding-bottom: 3px;
+  border-bottom: 1px solid #d4a574;
+}
+.wastburg-chat-message .actions-section .modifiers-section ul.modifiers-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.wastburg-chat-message .actions-section .modifiers-section ul.modifiers-list li {
+  padding: 4px 8px;
+  margin: 3px 0;
+  background: rgba(255, 255, 255, 0.5);
+  border-left: 3px solid #6b4423;
+  border-radius: 3px;
+  font-size: 0.81rem;
+  color: #2c2416;
+}
+.wastburg-chat-message .actions-section .modifiers-section ul.modifiers-list li i {
+  margin-right: 6px;
+  width: 16px;
+  display: inline-block;
+}
+.wastburg-chat-message .actions-section .modifiers-section ul.modifiers-list li.modifier-bonus {
+  border-left-color: #4CAF50;
+}
+.wastburg-chat-message .actions-section .modifiers-section ul.modifiers-list li.modifier-bonus i {
+  color: #4CAF50;
+}
+.wastburg-chat-message .actions-section .modifiers-section ul.modifiers-list li.modifier-malus {
+  border-left-color: #f44336;
+}
+.wastburg-chat-message .actions-section .modifiers-section ul.modifiers-list li.modifier-malus i {
+  color: #f44336;
+}
+.wastburg-chat-message .actions-section .roll-summary {
+  background: rgba(212, 165, 116, 0.2);
+  border: 1px solid #d4a574;
+  border-radius: 6px;
+  padding: 8px;
+  margin: 8px 0;
+}
+.wastburg-chat-message .actions-section .roll-summary .summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+}
+.wastburg-chat-message .actions-section .roll-summary .summary-item .label {
+  font-weight: bold;
+  color: #6b4423;
+  font-size: 0.9rem;
+}
+.wastburg-chat-message .actions-section .roll-summary .summary-item .value {
+  font-weight: bold;
+  color: #2c2416;
+  font-size: 0.99rem;
+}
+.wastburg-chat-message .actions-section .roll-summary .summary-item.dice-results .dice-values {
+  display: flex;
+  gap: 5px;
+}
+.wastburg-chat-message .actions-section .roll-summary .summary-item.dice-results .dice-values .die-result {
+  display: inline-block;
+  min-width: 26px;
+  padding: 3px 6px;
+  background: white;
+  border: 2px solid #6b4423;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.99rem;
+  color: #2c2416;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.wastburg-chat-message .actions-section .reroll-notice {
+  padding: 6px 10px;
+  margin: 6px 0;
+  border-radius: 4px;
+  font-weight: bold;
+  text-align: center;
+  font-size: 0.9rem;
+}
+.wastburg-chat-message .actions-section .reroll-notice.success {
+  background: linear-gradient(135deg, #c8e6c9, #a5d6a7);
+  border: 1px solid #4CAF50;
+  color: #2d6b2f;
+}
+.wastburg-chat-message .actions-section .aubaine-actions {
+  margin: 8px 0;
+}
+.wastburg-chat-message .actions-section .aubaine-actions button.chat-card-button {
+  display: block;
+  width: 100%;
+  padding: 6px 10px;
+  margin: 4px 0;
+  font-size: 0.81rem;
+  font-weight: bold;
+  background: linear-gradient(to bottom, #6b4423, #4a2f18);
+  border: 1px solid #8b6239;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.wastburg-chat-message .actions-section .aubaine-actions button.chat-card-button i {
+  margin-right: 6px;
+}
+.wastburg-chat-message .actions-section .aubaine-actions button.chat-card-button:hover {
+  background: linear-gradient(to bottom, #7b5433, #5a3f28);
+  box-shadow: 0 0 8px rgba(139, 98, 57, 0.5);
+  transform: translateY(-1px);
+}
+.wastburg-chat-message .actions-section .aubaine-actions button.chat-card-button:active {
+  background: linear-gradient(to bottom, #5a3f28, #3a1f08);
+  transform: translateY(0);
+}
+.wastburg-chat-message .actions-section .aubaine-actions .aubaine-reward {
+  margin-top: 8px;
+  padding: 8px;
+  background: rgba(255, 235, 59, 0.2);
+  border: 2px solid #FFC107;
+  border-radius: 6px;
+}
+.wastburg-chat-message .actions-section .aubaine-actions .aubaine-reward .reward-notice {
+  font-weight: bold;
+  color: #F57F17;
+  text-align: center;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+}
+.wastburg-chat-message.welcome-message .welcome-banner {
+  font-family: "RequiemforA", serif;
+  font-size: 1.44rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  margin: 0 0 12px 0;
+  background: linear-gradient(135deg, #6b4423, #4a2f18);
+  color: #fff;
+  border-radius: 6px;
+  border: 2px solid #8b6239;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 6px rgba(107, 68, 35, 0.4);
+}
+.wastburg-chat-message.welcome-message .welcome-content .welcome-section {
+  margin: 10px 0;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  border-left: 3px solid #6b4423;
+  border-radius: 4px;
+}
+.wastburg-chat-message.welcome-message .welcome-content .welcome-section h4 {
+  font-family: "RequiemforA", serif;
+  font-size: 1.08rem;
+  color: #6b4423;
+  margin: 0 0 8px 0;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #d4a574;
+}
+.wastburg-chat-message.welcome-message .welcome-content .welcome-section h4 i {
+  margin-right: 6px;
+  color: #8b6239;
+}
+.wastburg-chat-message.welcome-message .welcome-content .welcome-section p {
+  font-size: 0.9rem;
+  color: #2c2416;
+  margin: 6px 0;
+  line-height: 1.4;
+}
+.wastburg-chat-message.welcome-message .welcome-content .welcome-section .welcome-link {
+  display: inline-block;
+  padding: 6px 12px;
+  margin: 4px 0;
+  background: linear-gradient(to bottom, #6b4423, #4a2f18);
+  border: 1px solid #8b6239;
+  border-radius: 4px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+.wastburg-chat-message.welcome-message .welcome-content .welcome-section .welcome-link i {
+  margin-right: 6px;
+}
+.wastburg-chat-message.welcome-message .welcome-content .welcome-section .welcome-link:hover {
+  background: linear-gradient(to bottom, #7b5433, #5a3f28);
+  box-shadow: 0 0 8px rgba(139, 98, 57, 0.5);
+  transform: translateY(-1px);
+}
+.wastburg-chat-message.welcome-message .welcome-content .welcome-section.changelog {
+  background: rgba(212, 165, 116, 0.2);
+  border-left-color: #d4a574;
+}
+.wastburg-chat-message.welcome-message .welcome-content .welcome-section.changelog .changelog-list {
+  list-style: none;
+  padding: 0;
+  margin: 6px 0;
+}
+.wastburg-chat-message.welcome-message .welcome-content .welcome-section.changelog .changelog-list li {
+  padding: 3px 0 3px 20px;
+  position: relative;
+  font-size: 0.9rem;
+  color: #2c2416;
+}
+.wastburg-chat-message.welcome-message .welcome-content .welcome-section.changelog .changelog-list li:before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: #6b4423;
+  font-weight: bold;
+}
+.wastburg-chat-message.welcome-message .welcome-footer {
+  text-align: center;
+  padding: 10px;
+  margin-top: 12px;
+  background: rgba(212, 165, 116, 0.3);
+  border-radius: 6px;
+  font-family: "RequiemforA", serif;
+  font-size: 1.17rem;
+  color: #2c2416;
+}
+#chat-log li.chat-message.message .message-header {
+  background: linear-gradient(to bottom, #6b4423, #4a2f18);
+  border: 1px solid #8b6239;
+  border-radius: 6px 6px 0 0;
+  padding: 6px 10px;
+}
+#chat-log li.chat-message.message .message-header h4.message-sender {
+  font-family: "RequiemforA", serif;
+  font-size: 1.08rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  margin: 0;
+}
+#chat-log li.chat-message.message .message-header .message-metadata {
+  font-size: 0.81rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+#chat-log li.chat-message.message .message-header .message-metadata time.message-timestamp {
+  color: rgba(255, 255, 255, 0.7);
+}
+#chat-log li.chat-message.message .message-header .message-metadata .message-delete {
+  color: rgba(255, 255, 255, 0.8);
+}
+#chat-log li.chat-message.message .message-header .message-metadata .message-delete:hover {
+  color: #fff;
+}
+#chat-log li.chat-message.message .message-content {
+  background: url("../assets/img/white-paper-texture.webp");
+  background-size: cover;
+  border: 1px solid #8b6239;
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+  padding: 10px;
+  font-family: "Helvetica", sans-serif;
+  color: #2c2416;
+}
+#chat-log li.chat-message.message .message-content p {
+  margin: 6px 0;
+  line-height: 1.4;
+}
+#chat-log li.chat-message.message .message-content p:first-child {
+  margin-top: 0;
+}
+#chat-log li.chat-message.message .message-content p:last-child {
+  margin-bottom: 0;
+}
+#chat-log li.chat-message.message .message-content .inline-roll {
+  display: inline-block;
+  padding: 2px 6px;
+  background: rgba(107, 68, 35, 0.15);
+  border: 1px solid #8b6239;
+  border-radius: 3px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+#chat-log li.chat-message.message .message-content .inline-roll:hover {
+  background: rgba(107, 68, 35, 0.25);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+#chat-log li.chat-message.message .message-content .inline-roll .inline-result {
+  color: #2c2416;
+}
+#chat-log li.chat-message.message .message-content .dice-formula {
+  font-family: monospace;
+  background: rgba(212, 165, 116, 0.2);
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-size: 0.9rem;
+}
+#chat-log li.chat-message.message .message-content .dice-total {
+  font-size: 1.17rem;
+  font-weight: bold;
+  color: #6b4423;
+  margin: 6px 0;
+}
+#chat-log li.chat-message.message .message-content a {
+  color: #6b4423;
+  text-decoration: underline;
+  font-weight: bold;
+}
+#chat-log li.chat-message.message .message-content a:hover {
+  color: #4a2f18;
+}
+#chat-log li.chat-message.message .message-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0;
+}
+#chat-log li.chat-message.message .message-content table th,
+#chat-log li.chat-message.message .message-content table td {
+  padding: 6px 8px;
+  border: 1px solid #8b6239;
+  text-align: left;
+}
+#chat-log li.chat-message.message .message-content table th {
+  background: rgba(212, 165, 116, 0.4);
+  font-weight: bold;
+  color: #2c2416;
+}
+#chat-log li.chat-message.message .message-content table tr:nth-child(even) {
+  background: rgba(212, 165, 116, 0.1);
+}
+#chat-log li.chat-message.message .message-content code,
+#chat-log li.chat-message.message .message-content pre {
+  font-family: monospace;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-size: 0.9rem;
+}
+#chat-log li.chat-message.message .message-content pre {
+  display: block;
+  padding: 8px;
+  margin: 6px 0;
+  overflow-x: auto;
+}
+#chat-log li.chat-message.message .message-content blockquote {
+  margin: 6px 0;
+  padding: 6px 10px;
+  border-left: 3px solid #6b4423;
+  background: rgba(107, 68, 35, 0.1);
+  font-style: italic;
+}
+#chat-log li.chat-message.message .message-content ul,
+#chat-log li.chat-message.message .message-content ol {
+  margin: 6px 0;
+  padding-left: 24px;
+}
+#chat-log li.chat-message.message .message-content ul li,
+#chat-log li.chat-message.message .message-content ol li {
+  margin: 3px 0;
+  line-height: 1.4;
+}
+#chat-log li.chat-message.message.whisper .message-header {
+  background: linear-gradient(to bottom, #4a4a4a, #2a2a2a);
+  border-color: #666;
+}
+#chat-log li.chat-message.message.whisper .message-header h4.message-sender {
+  color: #ddd;
+}
+#chat-log li.chat-message.message.whisper .message-content {
+  border-color: #666;
+  opacity: 0.85;
+}
+#chat-log li.chat-message.message.blind .message-header {
+  background: linear-gradient(to bottom, #2c1810, #1a0f08);
+  border-color: #4a2f18;
+}
+#chat-log li.chat-message.message.blind .message-header h4.message-sender::before {
+  content: "🔒 ";
+  margin-right: 4px;
+}
+#chat-log li.chat-message.message.emote .message-content {
+  font-style: italic;
+  color: #555;
+}
+#chat-log li.chat-message.message.ic .message-header {
+  background: linear-gradient(to bottom, #6b4423, #4a2f18);
+}
+#chat-log li.chat-message.message.ooc .message-header {
+  background: linear-gradient(to bottom, #5a5a5a, #3a3a3a);
+  border-color: #777;
+}
+#chat-log li.chat-message.message.ooc .message-content {
+  background: rgba(240, 240, 240, 0.9);
+}
+.chat-message.wastburg .message-header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 10px;
+  background: rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #999;
+}
+.chat-message.wastburg .message-header .message-sender {
+  font-weight: bold;
+}
+.chat-message.wastburg .message-header .message-metadata {
+  font-size: 0.8rem;
+  color: #666;
+}
+.chat-message.wastburg .message-content {
+  padding: 10px;
+}
+.chat-message.wastburg .message-content .roll-result {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+}
+.chat-message.wastburg .message-content .roll-result.success {
+  background: rgba(0, 255, 0, 0.2);
+  border: 2px solid green;
+}
+.chat-message.wastburg .message-content .roll-result.failure {
+  background: rgba(255, 0, 0, 0.2);
+  border: 2px solid red;
+}
+.chat-message.wastburg .message-content .dice-roll {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin: 10px 0;
+}
+.chat-message.wastburg .message-content .dice-roll .die {
+  padding: 5px 10px;
+  border: 1px solid #999;
+  border-radius: 3px;
+  background: white;
+  font-weight: bold;
+}
+/* ==================== Roll Complex Dialog ==================== */
+.wastburg-dialog-roll-complex {
+  background: url("../assets/img/white-paper-texture.webp");
+  font-family: "Helvetica", sans-serif;
+}
+.wastburg-dialog-roll-complex .dialog-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-bottom: 2px solid #6b4423;
+  margin-bottom: 12px;
+}
+.wastburg-dialog-roll-complex .dialog-header .actor-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #8b6239;
+  object-fit: cover;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+.wastburg-dialog-roll-complex .dialog-header .dialog-title {
+  font-family: "RequiemforA", serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2c2416;
+  margin: 0;
+}
+.wastburg-dialog-roll-complex .dialog-body {
+  padding: 0 12px 12px 12px;
+}
+.wastburg-dialog-roll-complex .dialog-body .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+.wastburg-dialog-roll-complex .dialog-body .form-group label {
+  font-weight: bold;
+  color: #6b4423;
+  font-size: 0.855rem;
+}
+.wastburg-dialog-roll-complex .dialog-body .form-group select {
+  padding: 6px 8px;
+  border: 1px solid #999;
+  border-radius: 3px;
+  background: white;
+  color: #2c2416;
+  font-size: 0.81rem;
+  cursor: pointer;
+}
+.wastburg-dialog-roll-complex .dialog-body .form-group select:focus {
+  outline: none;
+  border-color: #6b4423;
+  box-shadow: 0 0 0 2px rgba(107, 68, 35, 0.2);
+}
+.wastburg-dialog-roll-complex .dialog-body .form-group.checkbox-group {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+.wastburg-dialog-roll-complex .dialog-body .form-group.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  cursor: pointer;
+  font-weight: normal;
+  font-size: 0.81rem;
+}
+.wastburg-dialog-roll-complex .dialog-body .form-group.checkbox-group label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+.wastburg-dialog-roll-complex .dialog-body .form-group.checkbox-group label span {
+  color: #2c2416;
+}
+.wastburg-dialog-roll-complex .dialog-body .dialog-result {
+  margin-top: 16px;
+  padding: 12px;
+  background: linear-gradient(135deg, rgba(212, 165, 116, 0.3), rgba(212, 165, 116, 0.2));
+  border: 2px solid #d4a574;
+  border-radius: 6px;
+  text-align: center;
+}
+.wastburg-dialog-roll-complex .dialog-body .dialog-result strong {
+  font-family: "RequiemforA", serif;
+  font-size: 1.08rem;
+  color: #6b4423;
+}
+.wastburg-dialog-roll-complex .dialog-body .dialog-result strong #total-level {
+  color: #2c2416;
+  font-size: 1.17rem;
+}

@@ -21,8 +21,8 @@
 
           <li class="flexrow">
             <label class="item-field-label-long">Niveau</label>
-            <select class="item-field-label-long" type="text" name="system.value" value="{{system.value}}" data-dtype="String">
-              {{selectOptions config.levelsList selected=system.value valueAttr="value" nameAttr="value" labelAttr="label"}}
+            <select class="item-field-label-long" name="system.value" data-dtype="Number">
+              {{selectOptions config.levelsList selected=system.value valueAttr="value" labelAttr="label"}}
             </select> 
           </li>
 

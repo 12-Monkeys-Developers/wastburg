@@ -1,0 +1,47 @@
+/* ==================== Mixins ==================== */
+
+// Flexbox mixins
+.flexrow() {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.flexcol() {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+// Common button styles
+.button-mixin() {
+  padding: 4px 8px;
+  margin: 2px;
+  border: 1px solid #999;
+  border-radius: 3px;
+  background: linear-gradient(to bottom, #f0f0f0, #d0d0d0);
+  cursor: pointer;
+  
+  &:hover {
+    background: linear-gradient(to bottom, #f5f5f5, #d5d5d5);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  }
+  
+  &:active {
+    background: linear-gradient(to bottom, #d0d0d0, #f0f0f0);
+  }
+}
+
+// Input styles
+.input-mixin() {
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 2px 4px;
+  font-size: var(--actor-input-font-size);
+  color: var(--actor-input-color);
+  background: url("../assets/img/white-paper-texture.webp");
+}

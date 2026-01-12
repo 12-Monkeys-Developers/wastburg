@@ -1,105 +1,116 @@
-<div>
-  <h2 class="{{cssQuality}} roll-quality">{{rollQuality}}
-    <img class="chat-icon" src="{{actorImg}}" alt="{{actor.name}}" />
-  </h2>
-</div>
+<div class="wastburg-chat-message">
 
-{{#if description}}
-  <h3><strong>{{description}}</strong></h3>
-{{/if}}
+  <!-- Actor name header -->
+  <div class="chat-actor-header">
+    <img class="chat-icon" src="{{actorImg}}" alt="{{actorName}}" />
+    <h3 class="actor-name">{{actorName}}</h3>
+  </div>
 
-<div class="actions-section">
-  <ol class="items-list" id="{{rollDataId}}">
+  <!-- Result quality banner -->
+  <h2 class="{{cssQuality}} roll-quality">{{rollQuality}}</h2>
 
-    {{#if (ne selectedTraitBonus "none")}}
-    <li>Trait Bonus : {{traitBonus.name}}
-    </li>
-    {{/if}}
-    {{#if (ne selectedTraitMalus "none")}}
-    <li>Trait Malus : {{traitMalus.name}}
-    </li>
-    {{/if}}
-    {{#if (ne selectedContact "none")}}
-    <li>Contact : {{contact.name}} {{levelText contact.system.value}}
-    </li>
-    {{/if}}
-    {{#if selectedBonusMalus}}
-    <li>Bonus/Malus : {{levelText selectedBonusMalus}}
-    </li>
-    {{/if}}
-    {{#if applySante}}
-    <li>La Santé a été appliquée : {{levelText santeValue}}
-    </li>
-    {{/if}}
-    {{#if applyMental}}
-    <li>Le Mental a été appliquée : {{levelText mentalValue}}
-    </li>
-    {{/if}}
-    {{#if applySocial}}
-    <li>Le Social a été appliquée : {{levelText socialValue}}
-    </li>
+  {{#if description}}
+    <div class="roll-description">{{description}}</div>
+  {{/if}}
+
+  <div class="actions-section">
+
+    <!-- Modifiers details -->
+    {{#if (or (ne selectedTraitBonus "none") (ne selectedTraitMalus "none") (ne selectedContact "none") selectedBonusMalus applySante applyMental applySocial)}}
+    <div class="modifiers-section">
+      <h4>Modificateurs appliqués</h4>
+      <ul class="modifiers-list">
+        {{#if (ne selectedTraitBonus "none")}}
+        <li class="modifier-bonus"><i class="fas fa-plus-circle"></i> Trait Bonus : {{traitBonus.name}}</li>
+        {{/if}}
+        {{#if (ne selectedTraitMalus "none")}}
+        <li class="modifier-malus"><i class="fas fa-minus-circle"></i> Trait Malus : {{traitMalus.name}}</li>
+        {{/if}}
+        {{#if (ne selectedContact "none")}}
+        <li class="modifier-contact"><i class="fas fa-user"></i> Contact : {{contact.name}} {{levelText contact.system.value}}</li>
+        {{/if}}
+        {{#if selectedBonusMalus}}
+        <li class="modifier-bonus-malus"><i class="fas fa-balance-scale"></i> Bonus/Malus : {{levelText selectedBonusMalus}}</li>
+        {{/if}}
+        {{#if applySante}}
+        <li class="modifier-sante"><i class="fas fa-heart"></i> Santé : {{levelText santeValue}}</li>
+        {{/if}}
+        {{#if applyMental}}
+        <li class="modifier-mental"><i class="fas fa-brain"></i> Mental : {{levelText mentalValue}}</li>
+        {{/if}}
+        {{#if applySocial}}
+        <li class="modifier-social"><i class="fas fa-users"></i> Social : {{levelText socialValue}}</li>
+        {{/if}}
+      </ul>
+    </div>
     {{/if}}
 
-    <li>Modificateur final : {{levelText totalLevel}}
-    </li>
+    <!-- Roll summary -->
+    <div class="roll-summary">
+      <div class="summary-item">
+        <span class="label">Modificateur final :</span>
+        <span class="value">{{levelText totalLevel}}</span>
+      </div>
+      <div class="summary-item dice-results">
+        <span class="label">Dés :</span>
+        <span class="dice-values">
+          {{#each roll.terms.0.results as |result key|}}
+          <span class="die-result">{{result.result}}</span>
+          {{/each}}
+        </span>
+      </div>
+    </div>
 
-    <li>Dés :
-      {{#each roll.terms.0.results as |result key|}}
-      {{result.result}}
-      {{/each}}
-    </li>
-
-    {{#if rollGM}}
-
+    <!-- Aubaine actions -->
+    {{#if rollGM2}}
     {{else}}
       {{#if (eq rerollMode "aubaine-perso")}}
-      <li>Jet augmenté gâce à une aubaine personnelle !</li>
+      <div class="reroll-notice success">✓ Augmenté grâce à une aubaine personnelle !</div>
       {{else}}
       {{#if (eq rerollMode "aubaine-groupe")}}
-      <li>Jet relancé grâce à une aubaine de groupe !</li>
+      <div class="reroll-notice success">✓ Relancé grâce à une aubaine de groupe !</div>
       {{else}}
       {{#if (eq rerollMode "anciennete")}}
-      <li>Jet relancé grâce à 1 Point d'Ancienneté !</li>
+      <div class="reroll-notice success">✓ Relancé grâce à 1 Point d'Ancienneté !</div>
       {{else}}
-      <div id={{aubaineButtonId}}>
-
+      <div id={{aubaineButtonId}} class="aubaine-actions">
         {{#if aubainesPerso}}
-        <li>
-          <button class="chat-card-button apply-aubaine-perso">+1 (1 Aubaine perso, {{aubainesPerso}})</button>
-        </li>
+        <button class="chat-card-button apply-aubaine-perso" data-tooltip="Augmenter de +1 avec 1 aubaine personnelle">
+          <i class="fas fa-plus"></i> +1 (1 Aubaine perso, reste {{aubainesPerso}})
+        </button>
         {{/if}}
         {{#if anciennete}}
-        <li>
-          <button class="chat-card-button apply-anciennete">Relancer (1 P. d'Ancienneté, {{anciennete}})</button>
-        </li>
+        <button class="chat-card-button apply-anciennete" data-tooltip="Relancer avec 1 Point d'Ancienneté">
+          <i class="fas fa-redo"></i> 1 P. d'Ancienneté, reste {{anciennete}}
+        </button>
         {{/if}}
         {{#if aubainesDeGroupe}}
-        <li>
-          <button class="chat-card-button apply-aubaine-groupe">Relancer (1 Aubaine de groupe, {{aubainesDeGroupe}})</button>
-        </li>
+        <button class="chat-card-button apply-aubaine-groupe" data-tooltip="Relancer avec 1 aubaine de groupe">
+          <i class="fas fa-redo"></i> 1 Aubaine de groupe, reste {{aubainesDeGroupe}}
+        </button>
         {{/if}}
         {{#if nbOne}}
-        <li>
-          <label>Vous pouvez récupérer {{nbOne}} aubaines !</label>
-        </li>
-
-        {{#if (ne selectedTrait "none")}}
-        <li>
-          <button class="chat-card-button receive-aubaine-perso">Recevoir une aubaine perso</button>
-        </li>
-        {{/if}}
-        <li>
-          <button class="chat-card-button receive-aubaine-groupe">Recevoir une aubaine de groupe</button>
-        </li>
-        {{/if}}
-        {{/if}}
+        <div class="aubaine-reward">
+          <div class="reward-notice">Vous pouvez récupérer {{nbOne}} aubaine(s) !</div>
+          {{#if (ne selectedTrait "none")}}
+          <button class="chat-card-button receive-aubaine-perso">
+            <i class="fas fa-gift"></i> Recevoir une aubaine perso
+          </button>
+          {{/if}}
+          <button class="chat-card-button receive-aubaine-groupe">
+            <i class="fas fa-gift"></i> Recevoir une aubaine de groupe
+          </button>
+        </div>
         {{/if}}
       </div>
       {{/if}}
+      {{/if}}
+      {{/if}}
     {{/if}}
 
-  </ol>
+  </div>
 
-  <h2 class="{{cssQuality}} roll-quality"><strong>Résultat : {{result}}</strong></h2>
+  <!-- Final result -->
+  <h2 class="{{cssQuality}} roll-quality result-final"><strong>Résultat : {{result}}</strong></h2>
 
 </div>

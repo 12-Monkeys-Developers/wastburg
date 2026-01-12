@@ -99,7 +99,8 @@ export class WastburgActor extends Actor {
   /* -------------------------------------------- */
   async incDecAubainePerso(value) {
     let aubaine = foundry.utils.duplicate(this.system.aubaine)
-    aubaine.value += value
+    aubaine.value = Number(aubaine.value) || 0
+    aubaine.value += Number(value)
     aubaine.value = Math.max(aubaine.value, 0)
     await this.update({ 'system.aubaine': aubaine })
   }
@@ -107,7 +108,8 @@ export class WastburgActor extends Actor {
   /* -------------------------------------------- */
   async incDecAnciennete(value) {
     let anciennete = foundry.utils.duplicate(this.system.anciennetereputation)
-    anciennete.value += value
+    anciennete.value = Number(anciennete.value) || 0
+    anciennete.value += Number(value)
     anciennete.value = Math.max(anciennete.value, 0)
     await this.update({ 'system.anciennetereputation': anciennete })
   }
@@ -147,5 +149,18 @@ export class WastburgActor extends Actor {
       let r = await new Roll("1d6").roll()
       return r.total
     }
+  }
+
+  /* -------------------------------------------- */
+  async rollDice(mode) {
+    const WastburgUtility = await import('../system/utility.mjs').then(m => m.WastburgUtility)
+    const rollMode = game.settings.get('core', 'rollMode')
+    await WastburgUtility.manageWastburgSimpleRoll(this, Number(mode), rollMode)
+  }
+
+  /* -------------------------------------------- */
+  async rollComplex() {
+    const WastburgUtility = await import('../system/utility.mjs').then(m => m.WastburgUtility)
+    await WastburgUtility.manageWastburgComplexRoll(this, false)
   }
 }

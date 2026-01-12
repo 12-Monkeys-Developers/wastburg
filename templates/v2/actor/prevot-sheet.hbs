@@ -1,0 +1,157 @@
+<section class="{{cssClass}} sheet-form-layout" autocomplete="off">
+  <header class="sheet-header">
+    <div class="header-content">
+      <img class="profile-img" src="{{actor.img}}" data-action="editImage" title="{{actor.name}}" />
+
+      <div class="header-info">
+        <h1><input name="name" type="text" value="{{actor.name}}" placeholder="Nom du Prévôt" /></h1>
+
+        <div class="appreciation-controls">
+          <div class="form-group-inline">
+            <label>Appréciation</label>
+            <select name="system.appreciation" data-dtype="String">
+              {{selectOptions config.levelsList selected=system.appreciation valueAttr="value" nameAttr="value" labelAttr="label"}}
+            </select>
+          </div>
+
+          <div class="roll-controls">
+            <select class="roll-input" name="selectRollInput" data-dtype="Number">
+                  {{selectOptions config.levelsList selected=selectRollInput valueAttr="value" nameAttr="value" labelAttr="label"}}
+            </select>
+            <button type="button" data-action="rollSimpleMJ">Lancer!</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item{{#if (eq activeTab 'biodata')}} active{{/if}}" data-action="changeTab" data-tab="biodata">Biographie</a>
+    <a class="item{{#if (eq activeTab 'regles')}} active{{/if}}" data-action="changeTab" data-tab="regles">Règles</a>
+    <a class="item{{#if (eq activeTab 'trait')}} active{{/if}}" data-action="changeTab" data-tab="trait">Traits</a>
+  </nav>
+
+  <section class="sheet-body">
+    {{!-- Biographie Tab --}}
+    <div class="tab{{#if (eq activeTab 'biodata')}} active{{/if}}" data-tab="biodata">
+      <div class="question-section">
+        <h3>Honnêtenement, comment il l'a eu, son poste le prévôt ?</h3>
+        <textarea name="system.reponsePrevot01" rows="5">{{actor.system.reponsePrevot01}}</textarea>
+      </div>
+
+      <div class="question-section">
+        <h3>C'est quel genre de chef ?</h3>
+        <textarea name="system.reponsePrevot02" rows="5">{{actor.system.reponsePrevot02}}</textarea>
+      </div>
+
+      <div class="question-section">
+        <h3>Et comme gardoche, il a laissé quel souvenir ?</h3>
+        <textarea name="system.reponsePrevot03" rows="5">{{actor.system.reponsePrevot03}}</textarea>
+      </div>
+    </div>
+
+    {{!-- Règles Tab --}}
+    <div class="tab{{#if (eq activeTab 'regles')}} active{{/if}}" data-tab="regles">
+      <div class="rules-section">
+        <h3>Appréciation du Prévôt</h3>
+        <table class="rules-table">
+          <thead>
+            <tr>
+              <th>Score</th>
+              <th>Appréciation</th>
+              <th>Popularité</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>(++)</td>
+              <td>Mes meilleurs éléments</td>
+              <td>Les chouchous du prévôt (-)</td>
+            </tr>
+            <tr>
+              <td>(+)</td>
+              <td>Des bons</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>(0)</td>
+              <td>Le ventre mou</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>(-)</td>
+              <td>Je les ai à l'oeil</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>(--)</td>
+              <td>Des grosses tanches</td>
+              <td>Il exagère un peu avec eux, le prévôt (+)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>Jet pour obtenir des Bonus ?</h3>
+        <table class="rules-table">
+          <thead>
+            <tr>
+              <th>D6</th>
+              <th>Réponse</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Trait de caserne (--)</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Trait de caserne (-)</td>
+            </tr>
+            <tr>
+              <td>3 - 4</td>
+              <td>Trait de caserne (-) et un trait de caserne (+)</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Trait de caserne (+)</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>Trait de caserne (++)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    {{!-- Traits Tab --}}
+    <div class="tab{{#if (eq activeTab 'trait')}} active{{/if}}" data-tab="trait">
+      <div class="traits-section">
+        <div class="traits-header">
+          <h3>Traits</h3>
+          <button type="button" data-action="createItem" data-item-type="trait" title="Créer un trait">
+            <i class="fas fa-plus"></i> Ajouter un trait
+          </button>
+        </div>
+
+        <ul class="item-list">
+          {{#each traits as |trait|}}
+          <li class="item" data-item-id="{{trait._id}}">
+            <img class="item-img" src="{{trait.img}}" data-action="editItem" data-item-id="{{trait._id}}" />
+            <span class="item-name">{{trait.name}}</span>
+            <span class="item-origin">{{getTraitType trait.system.type}}</span>
+            <button type="button" class="item-edit" data-action="editItem" data-item-id="{{trait._id}}" title="Éditer">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button type="button" class="item-delete" data-action="deleteItem" data-item-id="{{trait._id}}" title="Supprimer">
+              <i class="fas fa-trash"></i>
+            </button>
+          </li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+  </section>
+</section>

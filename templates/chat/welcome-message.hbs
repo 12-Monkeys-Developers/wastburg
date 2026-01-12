@@ -1,0 +1,51 @@
+<div class="wastburg-chat-message welcome-message">
+
+  <!-- Header with system icon -->
+  <div class="chat-actor-header">
+    <img class="chat-icon" src="systems/wastburg/assets/illustrations/fond_page_lateral_03.webp" alt="Wastburg" />
+    <h3 class="actor-name">Wastburg v{{version}}</h3>
+  </div>
+
+  <!-- Welcome banner -->
+  <h2 class="welcome-banner">Bienvenue dans Wastburg !</h2>
+
+  <!-- Welcome content -->
+  <div class="welcome-content">
+    <div class="welcome-section">
+      <h4><i class="fas fa-book"></i> À propos</h4>
+      <p><strong>Wastburg</strong> est développé par LeRatierBretonnien, sur un travail initial de MagisterPhantom.</p>
+      <p>Ce jeu est édité par les XII Singes, sur la base d'un roman de Cédric Ferrand. Ce système est publié avec leur autorisation.</p>
+    </div>
+
+    <div class="welcome-section">
+      <h4><i class="fas fa-shopping-cart"></i> Acheter les livres</h4>
+      <p>Tous les livres de la gamme sont disponibles à l'achat via ce lien :</p>
+      <a href="https://www.les12singes.com/9-wastburg" target="_blank" class="welcome-link">
+        <i class="fas fa-external-link-alt"></i> Boutique des XII Singes
+      </a>
+    </div>
+
+    <div class="welcome-section">
+      <h4><i class="fab fa-discord"></i> Support et assistance</h4>
+      <p>Retrouvez-nous sur le Discord FR de Foundry :</p>
+      <a href="https://discord.gg/pPSDNJk" target="_blank" class="welcome-link">
+        <i class="fab fa-discord"></i> Discord FR de Foundry
+      </a>
+    </div>
+
+    {{#if changelog}}
+    <div class="welcome-section changelog">
+      <h4><i class="fas fa-scroll"></i> Quoi d'neuf dans le quartier ?</h4>
+      <ul class="changelog-list">
+        {{{changelog}}}
+      </ul>
+    </div>
+    {{/if}}
+  </div>
+
+  <!-- Footer -->
+  <div class="welcome-footer">
+    <strong>Bon courage les Gardoches !</strong>
+  </div>
+
+</div>

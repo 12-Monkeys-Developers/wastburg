@@ -1,0 +1,663 @@
+/* ==================== Chat Messages ==================== */
+
+.wastburg-chat-message {
+  padding: 10px;
+  background: url("../assets/img/white-paper-texture.webp");
+  font-family: "Helvetica", sans-serif;
+  border-radius: 8px;
+  
+  // Actor header with icon and name
+  .chat-actor-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #6b4423;
+    
+    .chat-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid #8b6239;
+      object-fit: cover;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+    
+    .actor-name {
+      font-family: "RequiemforA", serif;
+      font-size: 1.35rem;
+      font-weight: bold;
+      color: #2c2416;
+      margin: 0;
+    }
+  }
+  
+  // Result quality banner
+  h2.roll-quality {
+    font-family: "RequiemforA", serif;
+    font-size: 1.26rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 8px;
+    margin: 0 0 8px 0;
+    border-radius: 6px;
+    border: 2px solid;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    
+    // Quality colors
+    &.reussite-critique,
+    &.critical {
+      background: linear-gradient(135deg, #4CAF50, #45a049);
+      color: #fff;
+      border-color: #2d6b2f;
+      box-shadow: 0 3px 6px rgba(76, 175, 80, 0.4);
+    }
+    
+    &.reussite,
+    &.success {
+      background: linear-gradient(135deg, #8bc34a, #7cb342);
+      color: #fff;
+      border-color: #5a7f32;
+      box-shadow: 0 3px 6px rgba(139, 195, 74, 0.4);
+    }
+    
+    &.echec,
+    &.failure {
+      background: linear-gradient(135deg, #ff9800, #fb8c00);
+      color: #fff;
+      border-color: #b26500;
+      box-shadow: 0 3px 6px rgba(255, 152, 0, 0.4);
+    }
+    
+    &.echec-critique,
+    &.fumble {
+      background: linear-gradient(135deg, #f44336, #e53935);
+      color: #fff;
+      border-color: #a82824;
+      box-shadow: 0 3px 6px rgba(244, 67, 54, 0.4);
+    }
+    
+    &.result-final {
+      font-size: 1.44rem;
+      margin-top: 8px;
+      margin-bottom: 0;
+    }
+  }
+  
+  // Description
+  .roll-description {
+    font-size: 0.9rem;
+    color: #2c2416;
+    font-weight: bold;
+    margin: 6px 0;
+    padding: 6px 10px;
+    background: rgba(107, 68, 35, 0.1);
+    border-left: 3px solid #6b4423;
+    border-radius: 3px;
+  }
+  
+  // Actions section
+  .actions-section {
+    
+    // Modifiers section
+    .modifiers-section {
+      margin: 8px 0;
+      
+      h4 {
+        font-family: "RequiemforA", serif;
+        font-size: 0.99rem;
+        color: #6b4423;
+        margin: 0 0 6px 0;
+        padding-bottom: 3px;
+        border-bottom: 1px solid #d4a574;
+      }
+      
+      ul.modifiers-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        
+        li {
+          padding: 4px 8px;
+          margin: 3px 0;
+          background: rgba(255, 255, 255, 0.5);
+          border-left: 3px solid #6b4423;
+          border-radius: 3px;
+          font-size: 0.81rem;
+          color: #2c2416;
+          
+          i {
+            margin-right: 6px;
+            width: 16px;
+            display: inline-block;
+          }
+          
+          &.modifier-bonus {
+            border-left-color: #4CAF50;
+            i { color: #4CAF50; }
+          }
+          
+          &.modifier-malus {
+            border-left-color: #f44336;
+            i { color: #f44336; }
+          }
+        }
+      }
+    }
+    
+    // Roll summary
+    .roll-summary {
+      background: rgba(212, 165, 116, 0.2);
+      border: 1px solid #d4a574;
+      border-radius: 6px;
+      padding: 8px;
+      margin: 8px 0;
+      
+      .summary-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 4px 0;
+        
+        .label {
+          font-weight: bold;
+          color: #6b4423;
+          font-size: 0.9rem;
+        }
+        
+        .value {
+          font-weight: bold;
+          color: #2c2416;
+          font-size: 0.99rem;
+        }
+        
+        &.dice-results {
+          .dice-values {
+            display: flex;
+            gap: 5px;
+            
+            .die-result {
+              display: inline-block;
+              min-width: 26px;
+              padding: 3px 6px;
+              background: white;
+              border: 2px solid #6b4423;
+              border-radius: 4px;
+              text-align: center;
+              font-weight: bold;
+              font-size: 0.99rem;
+              color: #2c2416;
+              box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            }
+          }
+        }
+      }
+    }
+    
+    // Reroll notices
+    .reroll-notice {
+      padding: 6px 10px;
+      margin: 6px 0;
+      border-radius: 4px;
+      font-weight: bold;
+      text-align: center;
+      font-size: 0.9rem;
+      
+      &.success {
+        background: linear-gradient(135deg, #c8e6c9, #a5d6a7);
+        border: 1px solid #4CAF50;
+        color: #2d6b2f;
+      }
+    }
+    
+    // Aubaine actions
+    .aubaine-actions {
+      margin: 8px 0;
+      
+      button.chat-card-button {
+        display: block;
+        width: 100%;
+        padding: 6px 10px;
+        margin: 4px 0;
+        font-size: 0.81rem;
+        font-weight: bold;
+        background: linear-gradient(to bottom, #6b4423, #4a2f18);
+        border: 1px solid #8b6239;
+        border-radius: 4px;
+        color: #fff;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        
+        i {
+          margin-right: 6px;
+        }
+        
+        &:hover {
+          background: linear-gradient(to bottom, #7b5433, #5a3f28);
+          box-shadow: 0 0 8px rgba(139, 98, 57, 0.5);
+          transform: translateY(-1px);
+        }
+        
+        &:active {
+          background: linear-gradient(to bottom, #5a3f28, #3a1f08);
+          transform: translateY(0);
+        }
+      }
+      
+      .aubaine-reward {
+        margin-top: 8px;
+        padding: 8px;
+        background: rgba(255, 235, 59, 0.2);
+        border: 2px solid #FFC107;
+        border-radius: 6px;
+        
+        .reward-notice {
+          font-weight: bold;
+          color: #F57F17;
+          text-align: center;
+          margin-bottom: 6px;
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+}
+
+// Welcome message specific styles
+.wastburg-chat-message.welcome-message {
+  
+  .welcome-banner {
+    font-family: "RequiemforA", serif;
+    font-size: 1.44rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    margin: 0 0 12px 0;
+    background: linear-gradient(135deg, #6b4423, #4a2f18);
+    color: #fff;
+    border-radius: 6px;
+    border: 2px solid #8b6239;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 3px 6px rgba(107, 68, 35, 0.4);
+  }
+  
+  .welcome-content {
+    .welcome-section {
+      margin: 10px 0;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.5);
+      border-left: 3px solid #6b4423;
+      border-radius: 4px;
+      
+      h4 {
+        font-family: "RequiemforA", serif;
+        font-size: 1.08rem;
+        color: #6b4423;
+        margin: 0 0 8px 0;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #d4a574;
+        
+        i {
+          margin-right: 6px;
+          color: #8b6239;
+        }
+      }
+      
+      p {
+        font-size: 0.9rem;
+        color: #2c2416;
+        margin: 6px 0;
+        line-height: 1.4;
+      }
+      
+      .welcome-link {
+        display: inline-block;
+        padding: 6px 12px;
+        margin: 4px 0;
+        background: linear-gradient(to bottom, #6b4423, #4a2f18);
+        border: 1px solid #8b6239;
+        border-radius: 4px;
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+        
+        i {
+          margin-right: 6px;
+        }
+        
+        &:hover {
+          background: linear-gradient(to bottom, #7b5433, #5a3f28);
+          box-shadow: 0 0 8px rgba(139, 98, 57, 0.5);
+          transform: translateY(-1px);
+        }
+      }
+      
+      &.changelog {
+        background: rgba(212, 165, 116, 0.2);
+        border-left-color: #d4a574;
+        
+        .changelog-list {
+          list-style: none;
+          padding: 0;
+          margin: 6px 0;
+          
+          li {
+            padding: 3px 0 3px 20px;
+            position: relative;
+            font-size: 0.9rem;
+            color: #2c2416;
+            
+            &:before {
+              content: "→";
+              position: absolute;
+              left: 0;
+              color: #6b4423;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  .welcome-footer {
+    text-align: center;
+    padding: 10px;
+    margin-top: 12px;
+    background: rgba(212, 165, 116, 0.3);
+    border-radius: 6px;
+    font-family: "RequiemforA", serif;
+    font-size: 1.17rem;
+    color: #2c2416;
+  }
+}
+
+// Default styling for all chat messages in Wastburg
+#chat-log {
+  li.chat-message.message {
+    .message-header {
+      background: linear-gradient(to bottom, #6b4423, #4a2f18);
+      border: 1px solid #8b6239;
+      border-radius: 6px 6px 0 0;
+      padding: 6px 10px;
+      
+      h4.message-sender {
+        font-family: "RequiemforA", serif;
+        font-size: 1.08rem;
+        font-weight: bold;
+        color: #fff;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        margin: 0;
+      }
+      
+      .message-metadata {
+        font-size: 0.81rem;
+        color: rgba(255, 255, 255, 0.8);
+        
+        time.message-timestamp {
+          color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .message-delete {
+          color: rgba(255, 255, 255, 0.8);
+          
+          &:hover {
+            color: #fff;
+          }
+        }
+      }
+    }
+    
+    .message-content {
+      background: url("../assets/img/white-paper-texture.webp");
+      background-size: cover;
+      border: 1px solid #8b6239;
+      border-top: none;
+      border-radius: 0 0 6px 6px;
+      padding: 10px;
+      font-family: "Helvetica", sans-serif;
+      color: #2c2416;
+      
+      p {
+        margin: 6px 0;
+        line-height: 1.4;
+        
+        &:first-child {
+          margin-top: 0;
+        }
+        
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+      
+      // Style for inline rolls
+      .inline-roll {
+        display: inline-block;
+        padding: 2px 6px;
+        background: rgba(107, 68, 35, 0.15);
+        border: 1px solid #8b6239;
+        border-radius: 3px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        
+        &:hover {
+          background: rgba(107, 68, 35, 0.25);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .inline-result {
+          color: #2c2416;
+        }
+      }
+      
+      // Style for roll formulas
+      .dice-formula {
+        font-family: monospace;
+        background: rgba(212, 165, 116, 0.2);
+        padding: 2px 4px;
+        border-radius: 3px;
+        font-size: 0.9rem;
+      }
+      
+      // Style for roll results
+      .dice-total {
+        font-size: 1.17rem;
+        font-weight: bold;
+        color: #6b4423;
+        margin: 6px 0;
+      }
+      
+      // Style for links
+      a {
+        color: #6b4423;
+        text-decoration: underline;
+        font-weight: bold;
+        
+        &:hover {
+          color: #4a2f18;
+        }
+      }
+      
+      // Style for tables
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 8px 0;
+        
+        th, td {
+          padding: 6px 8px;
+          border: 1px solid #8b6239;
+          text-align: left;
+        }
+        
+        th {
+          background: rgba(212, 165, 116, 0.4);
+          font-weight: bold;
+          color: #2c2416;
+        }
+        
+        tr:nth-child(even) {
+          background: rgba(212, 165, 116, 0.1);
+        }
+      }
+      
+      // Style for code blocks
+      code, pre {
+        font-family: monospace;
+        background: rgba(0, 0, 0, 0.05);
+        padding: 2px 4px;
+        border-radius: 3px;
+        font-size: 0.9rem;
+      }
+      
+      pre {
+        display: block;
+        padding: 8px;
+        margin: 6px 0;
+        overflow-x: auto;
+      }
+      
+      // Style for blockquotes
+      blockquote {
+        margin: 6px 0;
+        padding: 6px 10px;
+        border-left: 3px solid #6b4423;
+        background: rgba(107, 68, 35, 0.1);
+        font-style: italic;
+      }
+      
+      // Style for lists
+      ul, ol {
+        margin: 6px 0;
+        padding-left: 24px;
+        
+        li {
+          margin: 3px 0;
+          line-height: 1.4;
+        }
+      }
+    }
+    
+    // Whisper messages
+    &.whisper {
+      .message-header {
+        background: linear-gradient(to bottom, #4a4a4a, #2a2a2a);
+        border-color: #666;
+        
+        h4.message-sender {
+          color: #ddd;
+        }
+      }
+      
+      .message-content {
+        border-color: #666;
+        opacity: 0.85;
+      }
+    }
+    
+    // Blind messages (GM only)
+    &.blind {
+      .message-header {
+        background: linear-gradient(to bottom, #2c1810, #1a0f08);
+        border-color: #4a2f18;
+        
+        h4.message-sender::before {
+          content: "🔒 ";
+          margin-right: 4px;
+        }
+      }
+    }
+    
+    // Emote messages
+    &.emote {
+      .message-content {
+        font-style: italic;
+        color: #555;
+      }
+    }
+    
+    // IC (In Character) messages
+    &.ic {
+      .message-header {
+        background: linear-gradient(to bottom, #6b4423, #4a2f18);
+      }
+    }
+    
+    // OOC (Out of Character) messages
+    &.ooc {
+      .message-header {
+        background: linear-gradient(to bottom, #5a5a5a, #3a3a3a);
+        border-color: #777;
+      }
+      
+      .message-content {
+        background: rgba(240, 240, 240, 0.9);
+      }
+    }
+  }
+}
+
+// Legacy chat styles for backwards compatibility
+.chat-message {
+  &.wastburg {
+    .message-header {
+      .flexrow();
+      justify-content: space-between;
+      padding: 5px 10px;
+      background: rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid #999;
+      
+      .message-sender {
+        font-weight: bold;
+      }
+      
+      .message-metadata {
+        font-size: 0.8rem;
+        color: #666;
+      }
+    }
+    
+    .message-content {
+      padding: 10px;
+      
+      .roll-result {
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-align: center;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        
+        &.success {
+          background: rgba(0, 255, 0, 0.2);
+          border: 2px solid green;
+        }
+        
+        &.failure {
+          background: rgba(255, 0, 0, 0.2);
+          border: 2px solid red;
+        }
+      }
+      
+      .dice-roll {
+        .flexrow();
+        justify-content: center;
+        gap: 5px;
+        margin: 10px 0;
+        
+        .die {
+          padding: 5px 10px;
+          border: 1px solid #999;
+          border-radius: 3px;
+          background: white;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,382 @@
+/* ==================== Prevot Sheet Specific ==================== */
+
+.wastburg.prevot {
+
+  .window-content {
+    background: url("../assets/img/white-paper-texture.webp");
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .sheet-form-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+  }
+
+  .window-header {
+    background: transparent;
+    flex-shrink: 0;
+  }
+
+  .sheet-header {
+    padding: 15px;
+    flex-shrink: 0;
+    margin-bottom: 0;
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .profile-img {
+      width: 100px;
+      height: 100px;
+      border: 3px solid #8b6239;
+      cursor: pointer;
+      object-fit: cover;
+      border-radius: 50%;
+
+      &:hover {
+        box-shadow: 0 0 10px rgba(107, 68, 35, 0.6);
+      }
+    }
+
+    .header-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    h1 {
+      margin: 0;
+
+      input {
+        font-size: 1.62rem;
+        font-weight: bold;
+        font-family: "RequiemforA", serif;
+        border: none;
+        background: transparent;
+        width: 100%;
+        padding: 5px 0;
+        color: #2c2416;
+      }
+    }
+
+    .appreciation-controls {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+
+      .form-group-inline {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        label {
+          font-family: "RequiemforA", serif;
+          font-size: 0.99rem;
+          font-weight: bold;
+          color: #6b4423;
+          white-space: nowrap;
+        }
+
+        select {
+          padding: 4px 8px;
+          border: 1px solid #8b6239;
+          border-radius: 4px;
+          background: rgba(255, 255, 255, 0.8);
+          font-size: 0.9rem;
+          color: #2c2416;
+        }
+      }
+
+      .roll-controls {
+        display: flex;
+        gap: 8px;
+
+        select {
+          padding: 4px 8px;
+          border: 1px solid #8b6239;
+          border-radius: 4px;
+          background: rgba(255, 255, 255, 0.8);
+          font-size: 0.9rem;
+          color: #2c2416;
+        }
+
+        button {
+          padding: 4px 12px;
+          background: linear-gradient(to bottom, #6b4423, #4a2f18);
+          border: 1px solid #8b6239;
+          border-radius: 4px;
+          color: #fff;
+          cursor: pointer;
+          font-size: 0.9rem;
+          font-weight: bold;
+
+          &:hover {
+            background: linear-gradient(to bottom, #7b5433, #5a3f28);
+            box-shadow: 0 0 8px rgba(139, 98, 57, 0.5);
+          }
+        }
+      }
+    }
+
+    .toggle-button {
+      padding: 8px 12px;
+      background: linear-gradient(to bottom, #6b4423, #4a2f18);
+      border: 1px solid #8b6239;
+      border-radius: 4px;
+      color: #fff;
+      cursor: pointer;
+
+      &:hover {
+        background: linear-gradient(to bottom, #7b5433, #5a3f28);
+        box-shadow: 0 0 8px rgba(139, 98, 57, 0.5);
+      }
+    }
+  }
+
+  // Navigation tabs
+  &.sheet.actor nav.tabs {
+    display: flex;
+    border-bottom: 4px solid #999;
+    border-top: 0px;
+    background: transparent;
+    gap: 8px;
+    flex-shrink: 0;
+
+    .item {
+      flex: 1;
+      text-align: center;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.2rem;
+      font-family: "RequiemforA", serif;
+      background: linear-gradient(to bottom, #3a3a3a, #2a2a2a);
+      border: 1px solid #555;
+      border-bottom: none;
+      border-radius: 8px 8px 0 0;
+      color: #ffffff;
+      transition: all 0.2s ease;
+      position: relative;
+
+      &:hover:not(.active) {
+        background: linear-gradient(to bottom, #4a4a4a, #3a3a3a);
+        color: #ffffff;
+        transform: translateY(-2px);
+      }
+
+      &.active {
+        background: linear-gradient(to bottom, #6b4423, #4a2f18);
+        color: #ffffff;
+        border-color: #8b6239;
+        box-shadow: 0 -2px 8px rgba(139, 98, 57, 0.4);
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 3px;
+          background: #d4a574;
+        }
+      }
+    }
+  }
+
+  .sheet-body {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 15px;
+    color: #2c2416;
+
+    .tab {
+      display: none;
+
+      &.active {
+        display: block;
+      }
+    }
+
+    h3 {
+      font-family: "RequiemforA", serif;
+      font-size: 1.17rem;
+      font-weight: bold;
+      color: #6b4423;
+      margin: 0 0 8px 0;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #8b6239;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.8);
+      font-family: "Helvetica", sans-serif;
+      font-size: 0.9rem;
+      color: #2c2416;
+      resize: vertical;
+    }
+
+    .question-section {
+      margin-bottom: 20px;
+    }
+
+    .rules-section {
+      h3 {
+        margin-top: 20px;
+
+        &:first-child {
+          margin-top: 0;
+        }
+      }
+
+      .rules-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        background: rgba(255, 255, 255, 0.6);
+        border: 1px solid #8b6239;
+
+        th {
+          background: linear-gradient(to bottom, #d4a574, #c49564);
+          color: #2c2416;
+          font-family: "RequiemforA", serif;
+          font-size: 0.99rem;
+          font-weight: bold;
+          padding: 8px;
+          border: 1px solid #8b6239;
+          text-align: left;
+        }
+
+        td {
+          padding: 8px;
+          border: 1px solid #8b6239;
+          font-size: 0.9rem;
+
+          &:first-child {
+            font-weight: bold;
+            text-align: center;
+            width: 80px;
+          }
+        }
+
+        tbody tr:nth-child(odd) {
+          background: rgba(212, 165, 116, 0.2);
+        }
+      }
+    }
+
+    .traits-section {
+      .traits-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+
+        h3 {
+          margin: 0;
+        }
+
+        button {
+          padding: 6px 12px;
+          background: linear-gradient(to bottom, #6b4423, #4a2f18);
+          border: 1px solid #8b6239;
+          border-radius: 4px;
+          color: #fff;
+          cursor: pointer;
+          font-size: 0.9rem;
+          font-weight: bold;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+
+          &:hover {
+            background: linear-gradient(to bottom, #7b5433, #5a3f28);
+            box-shadow: 0 0 8px rgba(139, 98, 57, 0.5);
+          }
+        }
+      }
+
+      .item-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        .item {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 8px;
+          background: rgba(255, 255, 255, 0.6);
+          border: 1px solid #8b6239;
+          border-radius: 4px;
+          margin-bottom: 8px;
+
+          &:hover {
+            background: rgba(212, 165, 116, 0.3);
+          }
+
+          .item-img {
+            width: 36px;
+            height: 36px;
+            object-fit: cover;
+            border: 1px solid #8b6239;
+            border-radius: 4px;
+            cursor: pointer;
+          }
+
+          .item-name {
+            flex: 1;
+            font-weight: bold;
+            font-size: 0.99rem;
+          }
+
+          .item-origin {
+            font-size: 0.9rem;
+            color: #6b4423;
+            font-style: italic;
+          }
+
+          .item-edit {
+            padding: 4px 8px;
+            background: transparent;
+            border: 1px solid #8b6239;
+            border-radius: 4px;
+            color: #6b4423;
+            cursor: pointer;
+
+            &:hover {
+              background: #6b4423;
+              border-color: #6b4423;
+              color: #fff;
+            }
+          }
+
+          .item-delete {
+            padding: 4px 8px;
+            background: transparent;
+            border: 1px solid #8b6239;
+            border-radius: 4px;
+            color: #6b4423;
+            cursor: pointer;
+
+            &:hover {
+              background: #d9534f;
+              border-color: #d9534f;
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+}

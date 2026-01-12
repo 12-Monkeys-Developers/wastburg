@@ -1,0 +1,177 @@
+/* ==================== Item Sheets ==================== */
+
+.wastburg.item {
+  // Remove dark window header
+  .window-header {
+    background: transparent;
+  }
+
+  // Background for item sheets
+  .window-content {
+    background: url("../assets/illustrations/fond_page_lateral_03.webp");
+    background-position: 0px 0px;
+    background-repeat: no-repeat;
+    overflow-y: auto;
+  }
+
+  .sheet-header {
+    display: flex;
+    flex-direction: row;
+    padding: 5px 10px;
+    border-bottom: 2px solid #999;
+    gap: 10px;
+    align-items: center;
+
+    .profile-img,
+    .item-sheet-img {
+      flex: 0 0 60px;
+      width: 60px;
+      height: 60px;
+      border: 2px solid #999;
+      cursor: pointer;
+      object-fit: cover;
+
+      &:hover {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      }
+    }
+
+    h1 {
+      margin: 0;
+
+      input {
+        font-size: 1.4rem;
+        font-weight: bold;
+        border: none;
+        width: 20rem;
+        color: #d5caca;
+      }
+    }
+  }
+
+  .sheet-body {
+    padding: 15px;
+    color: #000;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li.flexrow {
+        .flexrow();
+        margin: 10px 0;
+        gap: 10px;
+
+        label {
+          font-weight: bold;
+          color: var(--actor-label-color);
+        }
+
+        input,
+        select {
+          .input-mixin();
+        }
+      }
+    }
+
+    .tab.description {
+      padding: 10px;
+
+      span {
+        color: #000;
+      }
+    }
+
+    .form-group {
+      margin: 15px 0;
+
+      label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: var(--actor-label-color);
+      }
+
+      input[type="text"],
+      input[type="number"],
+      select,
+      textarea {
+        .input-mixin();
+        width: 100%;
+      }
+
+      textarea {
+        min-height: 80px;
+        resize: vertical;
+      }
+    }
+  }
+}
+
+// Trait specific styles
+.wastburg.trait {
+  .sheet-body {
+    ul {
+      li.flexrow {
+        label {
+          min-width: 100px;
+        }
+        
+        select.item-field-label-long {
+          flex: 1;
+          min-width: 200px;
+        }
+      }
+    }
+    
+    .form-group {
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+// Contact specific styles
+.wastburg.contact {
+  .sheet-body {
+    ul {
+      li.flexrow {
+        label {
+          min-width: 120px;
+        }
+        
+        select.item-field-label-long,
+        input.item-field-label-long {
+          flex: 1;
+          min-width: 200px;
+        }
+        
+        input.item-field-label-long3 {
+          flex: 1;
+          min-width: 200px;
+        }
+      }
+    }
+    
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 15px;
+
+    .form-group {
+      margin: 0;
+
+      &:nth-child(1),
+      &:nth-child(2),
+      &:nth-child(4),
+      &:nth-child(5) {
+        grid-column: span 2;
+      }
+
+      &.full-width {
+        grid-column: span 2;
+      }
+    }
+  }
+}

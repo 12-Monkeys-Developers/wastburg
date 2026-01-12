@@ -11,13 +11,11 @@
   "browserslist": [
     "last 3 versions"
   ],
-  "author": "Abolas",
+  "author": "LeRatierBretonnien",
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "gulp": "^4",
-    "gulp-autoprefixer": "^8",
-    "gulp-sass": "^4",
-    "gulp-sourcemaps": "^3"
+    "gulp": "^4.0.2",
+    "gulp-less": "^5.0.0"
   }
 }

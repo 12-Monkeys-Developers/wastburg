@@ -1,62 +1,71 @@
-<div class="skill-roll-dialog">
-  <header class="roll-dialog-header">
+<div class="wastburg-dialog-roll-complex">
+  <header class="dialog-header">
     {{#if img}}
-    <img class="actor-icon" src="{{img}}" data-edit="img" title="{{name}}" />
+    <img class="actor-icon" src="{{img}}" title="{{name}}" />
     {{/if}}
-    <h1 class="dialog-roll-title roll-dialog-header">{{title}}</h1>
+    <h2 class="dialog-title">{{title}}</h2>
   </header>
 
-  <div class="flexcol">
+  <div class="dialog-body">
 
-    <div class="flexrow roll-dialog-list">
-      <span class="roll-dialog-label">Trait (Bonus)</span>
-        <select class="status-small-label color-class-common" id ="select-trait-bonus" type="text" name="attrKey" value="selectedTraitBonus" data-dtype="string" >
-          <option value="none">Aucun</option>
-          {{selectOptions traits selected=selectedTraitBonus valueAttr="id" nameAttr="id" labelAttr="name"}}
+    <div class="form-group">
+      <label>Trait (Bonus)</label>
+      <select id="select-trait-bonus" name="selectedTraitBonus">
+        <option value="none">Aucun</option>
+        {{selectOptions traits selected=selectedTraitBonus valueAttr="id" labelAttr="name"}}
       </select>
     </div>
 
-    <div class="flexrow roll-dialog-list">
-      <span class="roll-dialog-label">Trait (Malus)</span>
-        <select class="status-small-label color-class-common" id ="select-trait-malus" type="text" name="attrKey" value="selectedTraitMalus" data-dtype="string" >
-          <option value="none">Aucun</option>
-          {{selectOptions traits selected=selectedTraitMalus valueAttr="id" nameAttr="id" labelAttr="name"}}
+    <div class="form-group">
+      <label>Trait (Malus)</label>
+      <select id="select-trait-malus" name="selectedTraitMalus">
+        <option value="none">Aucun</option>
+        {{selectOptions traits selected=selectedTraitMalus valueAttr="id" labelAttr="name"}}
       </select>
     </div>
 
-    <div class="flexrow roll-dialog-list">
-      <span class="roll-dialog-label">Contact</span>
-        <select class="status-small-label color-class-common" id ="select-contact" type="text" name="attrKey" value="selectedContact" data-dtype="string" >
-          <option value="none">Aucun</option>
-          {{selectOptions contacts selected=selectedContact valueAttr="id" nameAttr="id" labelAttr="name"}}
+    <div class="form-group">
+      <label>Contact</label>
+      <select id="select-contact" name="selectedContact">
+        <option value="none">Aucun</option>
+        {{#each contacts as |contact|}}
+        <option value="{{contact.id}}" {{#if (eq ../selectedContact contact.id)}}selected{{/if}}>
+          {{contact.name}} ({{getLevel contact.system.value}})
+        </option>
+        {{/each}}
       </select>
     </div>
 
-    <div class="flexrow roll-dialog-list">
-      <span class="roll-dialog-label">Bonus/Malus </span>
-        <select class="status-small-label color-class-common"  id="select-bonusmalus" value="selectedBonusMalus" data-dtype="Number">
-        {{selectOptions config.levelsList selected=selectedBonusMalus valueAttr="value" nameAttr="value" labelAttr="label"}}
-        </select>
+    <div class="form-group">
+      <label>Bonus/Malus</label>
+      <select id="select-bonusmalus" name="selectedBonusMalus">
+        {{selectOptions config.levelsList selected=selectedBonusMalus valueAttr="value" labelAttr="label"}}
+      </select>
     </div>
 
-    <div class="flexrow roll-dialog-list">
-      <label class="roll-dialog-status-label">Appliquer la santé ( {{getLevel santeValue}} ) ? </label>
-      <input type="checkbox" id="applySante" name="applySante" {{checked applySante}}/>
+    <div class="form-group checkbox-group">
+      <label>
+        <input type="checkbox" id="applySante" name="applySante" {{checked applySante}}/>
+        <span>Appliquer la santé ( {{getLevel santeValue}} )</span>
+      </label>
     </div>
 
-    <div class="flexrow roll-dialog-list">
-      <label class="roll-dialog-status-label">Appliquer le mental ( {{getLevel mentalValue}} ) ? </label>
-      <input type="checkbox" id="applyMental" name="applyMental" {{checked applyMental}}/>
+    <div class="form-group checkbox-group">
+      <label>
+        <input type="checkbox" id="applyMental" name="applyMental" {{checked applyMental}}/>
+        <span>Appliquer le mental ( {{getLevel mentalValue}} )</span>
+      </label>
     </div>
 
-    <div class="flexrow roll-dialog-list">
-      <label class="roll-dialog-status-label">Appliquer le social ( {{getLevel socialValue}} ) ? </label>
-      <input type="checkbox" id="applySocial" name="applySocial" {{checked applySocial}}/>
+    <div class="form-group checkbox-group">
+      <label>
+        <input type="checkbox" id="applySocial" name="applySocial" {{checked applySocial}}/>
+        <span>Appliquer le social ( {{getLevel socialValue}} )</span>
+      </label>
     </div>
 
-    <div class="flexrow roll-dialog-list dialog-result">
-      <strong><label class="roll-dialog-status-label">Niveau final : </label>
-      <label id="total-level">(0)</label></strong>
+    <div class="dialog-result">
+      <strong>Niveau final : <span id="total-level">(0)</span></strong>
     </div>
 
   </div>

@@ -1,9 +1,6 @@
 // Import document classes.
 import { WastburgActor } from "./documents/actor.mjs";
 import { WastburgItem } from "./documents/item.mjs";
-// Import sheet classes.
-import { WastburgActorSheet } from "./sheets/actor-sheet.mjs";
-import { WastburgItemSheet } from "./sheets/item-sheet.mjs";
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { WastburgHelpers } from "./helpers/helpers.mjs";
@@ -12,6 +9,10 @@ import { WastburgCombatManager } from "./system/combat.mjs";
 import { WastburgCommands} from "./system/commands.mjs"
 import { WASTBURG } from "./helpers/config.mjs"
 import { ClassCounter} from "https://www.uberwald.me/fvtt_appcount/count-class-ready.js"
+// Import DataModels
+import * as models from "./models/_module.mjs";
+// Import AppV2 Sheets
+import * as applications from "./applications/_module.mjs";
 
 /* -------------------------------------------- */
 /*  Init Hook                                   */
@@ -24,7 +25,9 @@ Hooks.once('init', async function () {
   game.wastburg = {
     WastburgActor,
     WastburgItem,
-    WastburgUtility
+    WastburgUtility,
+    models,
+    applications
   };
 
   // Add custom constants for configuration.
@@ -39,14 +42,31 @@ Hooks.once('init', async function () {
 
   // Define custom Document classes
   CONFIG.Actor.documentClass = WastburgActor;
+  CONFIG.Actor.dataModels = {
+    personnage: models.PersonnageDataModel,
+    prevot: models.PrevotDataModel,
+    caid: models.CaidDataModel,
+    gourbi: models.GourbiDataModel
+  }
+
   CONFIG.Item.documentClass = WastburgItem;
+  CONFIG.Item.dataModels = {
+    trait: models.TraitDataModel,
+    contact: models.ContactDataModel
+  }
+
   CONFIG.Combat.documentClass = WastburgCombatManager;
 
   // Register sheet application classes
   foundry.documents.collections.Actors.unregisterSheet("core", foundry.appv1.sheets.ActorSheet);
-  foundry.documents.collections.Actors.registerSheet("wastburg", WastburgActorSheet, { makeDefault: true });
+  foundry.documents.collections.Actors.registerSheet("wastburg", applications.WastburgPersonnageSheet, { types: ["personnage"], makeDefault: true });
+  foundry.documents.collections.Actors.registerSheet("wastburg", applications.WastburgPrevotSheet, { types: ["prevot"], makeDefault: true });
+  foundry.documents.collections.Actors.registerSheet("wastburg", applications.WastburgCaidSheet, { types: ["caid"], makeDefault: true });
+  foundry.documents.collections.Actors.registerSheet("wastburg", applications.WastburgGourbiSheet, { types: ["gourbi"], makeDefault: true });
+
   foundry.documents.collections.Items.unregisterSheet("core", foundry.appv1.sheets.ItemSheet);
-  foundry.documents.collections.Items.registerSheet("wastburg", WastburgItemSheet, { makeDefault: true });
+  foundry.documents.collections.Items.registerSheet("wastburg", applications.WastburgTraitSheet, { types: ["trait"], makeDefault: true });
+  foundry.documents.collections.Items.registerSheet("wastburg", applications.WastburgContactSheet, { types: ["contact"], makeDefault: true });
 
   WastburgUtility.registerHooks()
   WastburgUtility.setupBanner()
@@ -73,20 +93,27 @@ Hooks.once("ready", async function () {
   // World count
   ClassCounter.registerUsageCount("MyApp")
 
-  // Welcome messages
+  // Welcome message
+  const changelogItems = [
+    "Migration en DataModel et Appv2",
+    "Révision des styles et rendus des fiches",
+    "Amélioration des messages de tchat",
+  ].map(item => `<li>${item}</li>`).join('')
+
+  const templateData = {
+    version: game.system.version,
+    changelog: changelogItems
+  }
+
+  const content = await foundry.applications.handlebars.renderTemplate(
+    "systems/wastburg/templates/chat/welcome-message.hbs",
+    templateData
+  )
+
   ChatMessage.create({
     user: game.user.id,
     whisper: [game.user.id],
-    content: `<div id="welcome-message-wastburg"><span class="rdd-roll-part">
-    <strong>Bienvenu dans le système Wastburg pour FoundryVTT</strong>, développé par LeRatierBretonnien, sur un travail initial de MagisterPhantom.
-    <br><strong>Wastburg</strong> est un jeu édité par les XII Singes, sur la base d'un roman de Cédric Ferrand. Ce système est publié avec leur autorisation.
-    <br>Tout les livres de la <a href="https://www.les12singes.com/9-wastburg">gamme sont disponibles à l'achat via ce lien</a>.
-    <br>Support et assistance sur le <a href="https://discord.gg/pPSDNJk">Discord FR de Foundry</a>.
-    <br><strong>Bon courage les Gardoches !</strong>
-    <br><strong> Quoi d'neuf dans le quartier (v${game.system.version}) ?</strong>
-    <br>- Augmentation de la taille des zones d'équipement,
-    <br>- Bannières des compendiums,
-    <br>- Correction des styles CSS pour les compendiums`
-  } )
+    content: content
+  })
 
 })

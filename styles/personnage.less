@@ -1,0 +1,564 @@
+/* ==================== Personnage Sheet Specific ==================== */
+
+.wastburg.personnage {
+
+  .window-content {
+    background: url("../assets/illustrations/fond_page_lateral_03.webp");
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .sheet-form-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+  }
+
+  // Remove dark window header
+  .window-header {
+    background: transparent;
+    flex-shrink: 0;
+  }
+
+  // Custom header layout for personnage
+  .sheet-header {
+    padding: 10px;
+    flex-shrink: 0;
+
+    .header-fields {
+      .flexrow {
+        gap: 15px;
+        align-items: center;
+
+        .profile-img-div {
+          flex-shrink: 0;
+          max-width: 164px;
+
+          .profile-img {
+            width: 160px;
+            height: 160px;
+            border: 2px solid #999;
+            cursor: pointer;
+            object-fit: cover;
+
+            &:hover {
+              box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            }
+          }
+        }
+
+        .dice-buttons {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+          flex-shrink: 0;
+          max-width: 64px;
+
+          button {
+            .button-mixin();
+            padding: 4px 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            min-width: 50px;
+            max-width: 50px;
+            background: linear-gradient(to bottom, #4a4a4a, #2a2a2a);
+            border: 1px solid #666;
+            color: #fff;
+
+            &:hover {
+              background: linear-gradient(to bottom, #5a5a5a, #3a3a3a);
+              box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+            }
+
+            &:active {
+              background: linear-gradient(to bottom, #2a2a2a, #1a1a1a);
+            }
+          }
+        }
+
+        .main-info {
+          flex: 1;
+
+          h1.charname {
+            margin: 0 0 10px 0;
+
+            input {
+              font-size: 2rem;
+              font-weight: bold;
+              font-family: "RequiemforA", serif;
+              border: none;
+              background: transparent;
+              width: 100%;
+              padding: 5px 0;
+              color: #2a2a2a;
+            }
+          }
+
+          .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px 15px;
+
+            .stat-item {
+              display: flex;
+              flex-direction: row;
+              gap: 8px;
+              align-items: center;
+
+              label {
+                font-size: var(--actor-label-font-size);
+                font-weight: var(--actor-label-font-weight);
+                color: var(--actor-label-color);
+                margin: 0;
+                min-width: 4rem;
+                max-width: 4rem;
+              }
+
+              input,
+              select {
+                .input-mixin();
+                padding: 4px 8px;
+                max-width: 3.5rem;
+                font-size: var(--actor-input-font-size);
+                font-weight: var(--actor-input-font-weight);
+              }
+
+              &.advanced-test-button {
+                grid-column: span 2;
+
+                button.roll-complex {
+                  .button-mixin();
+                  padding: 8px 12px;
+                  font-size: 0.9rem;
+                  font-weight: bold;
+                  width: 100%;
+                  background: linear-gradient(to bottom, #6b4423, #4a2f18);
+                  border: 1px solid #8b6239;
+                  color: #fff;
+
+                  &:hover {
+                    background: linear-gradient(to bottom, #7b5433, #5a3f28);
+                    box-shadow: 0 0 10px rgba(139, 98, 57, 0.5);
+                  }
+
+                  &:active {
+                    background: linear-gradient(to bottom, #5a3f28, #3a1f08);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Navigation tabs
+  &.sheet.actor nav.tabs {
+    display: flex;
+    border-bottom: 4px solid #999;
+    border-top: 0px;
+    background: transparent;
+    gap: 8px;
+    flex-shrink: 0;
+
+    .item {
+      flex: 1;
+      text-align: center;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.2rem;
+      font-family: "RequiemforA", serif;
+      background: linear-gradient(to bottom, #3a3a3a, #2a2a2a);
+      border: 1px solid #555;
+      border-bottom: none;
+      border-radius: 8px 8px 0 0;
+      color: #ffffff;
+      transition: all 0.2s ease;
+      position: relative;
+
+      &:hover:not(.active) {
+        background: linear-gradient(to bottom, #4a4a4a, #3a3a3a);
+        color: #ffffff;
+        transform: translateY(-2px);
+      }
+
+      &.active {
+        background: linear-gradient(to bottom, #6b4423, #4a2f18);
+        color: #ffffff;
+        border-color: #8b6239;
+        box-shadow: 0 -2px 8px rgba(139, 98, 57, 0.4);
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 3px;
+          background: #d4a574;
+        }
+      }
+    }
+  }
+
+  // Sheet body with scrollbar on tabs only
+  .sheet-body {
+    margin-top: 0.8rem;
+    color: #2c2416;
+    padding-right: 5px;
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #8b7355;
+      border-radius: 4px;
+
+      &:hover {
+        background: #6b5335;
+      }
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+
+      h3 {
+        margin: 0;
+        color: #2c2416;
+        font-size: 1.3rem;
+        font-weight: bold;
+        font-family: "RequiemforA", serif;
+        border: none;
+        padding: 0;
+      }
+
+      button.item-create {
+        .button-mixin();
+        background: linear-gradient(to bottom, #6b4423, #4a2f18);
+        border: 1px solid #8b6239;
+        color: #fff;
+        padding: 6px 12px;
+        font-size: 0.9rem;
+
+        &:hover {
+          background: linear-gradient(to bottom, #7b5433, #5a3f28);
+          box-shadow: 0 0 8px rgba(139, 98, 57, 0.5);
+        }
+
+        i {
+          margin-right: 5px;
+        }
+      }
+    }
+
+    h3 {
+      color: #2c2416;
+      margin: 15px 0 10px 0;
+      font-size: 1.3rem;
+      font-weight: bold;
+      font-family: "RequiemforA", serif;
+      border-bottom: 1px solid #999;
+      padding-bottom: 5px;
+    }
+
+    .items-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      .item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px;
+        margin: 4px 0;
+        border: 1px solid #999;
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.8);
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: rgba(255, 255, 255, 1);
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .item-img {
+          width: 40px;
+          height: 40px;
+          border: 1px solid #999;
+          border-radius: 3px;
+          object-fit: cover;
+          cursor: pointer;
+
+          &:hover {
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+          }
+        }
+
+        .item-name {
+          flex: 1;
+          font-weight: bold;
+          color: #2c2416;
+          cursor: pointer;
+
+          &:hover {
+            color: #6b4423;
+          }
+          
+          .contact-level {
+            font-weight: normal;
+            color: #6b4423;
+            font-size: 0.9rem;
+            margin-left: 6px;
+          }
+        }
+
+        .item-type {
+          color: #666;
+          font-size: 0.9rem;
+          min-width: 120px;
+        }
+
+        .item-controls {
+          display: flex;
+          gap: 8px;
+
+          .item-control {
+            cursor: pointer;
+            color: #666;
+            font-size: 1rem;
+            transition: color 0.2s ease;
+
+            &:hover {
+              color: #2c2416;
+            }
+
+            &.item-delete:hover {
+              color: #c00;
+            }
+          }
+        }
+      }
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li.item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 8px 0;
+        margin-right: 2rem;
+
+        label {
+          color: var(--actor-label-color);
+          font-weight: bold;
+
+          &.item-name-label-medium {
+            min-width: 6rem;
+          }
+        }
+
+        input,
+        select {
+          .input-mixin();
+
+          &.item-field-label-short {
+            width: 3rem;
+            min-width: 3rem;
+            max-width: 3rem;
+          }
+
+          &.item-field-label-vlong {
+            flex: 1;
+            min-width: 24rem;
+          }
+        }
+
+        .item-filler {
+          flex: 1;
+        }
+
+        button {
+          .button-mixin();
+        }
+      }
+    }
+
+    // Contact-specific styles
+    .items-list .item {
+      .item-details {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        .contact-info {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 15px;
+          font-size: 0.85rem;
+
+          .contact-field {
+            color: #666;
+
+            strong {
+              color: var(--actor-label-color);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Etats grid
+  .etats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 10px 0;
+  }
+
+  .etat-block {
+    border: 1px solid #999;
+    border-radius: 5px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.5);
+
+    h3 {
+      margin: 0 0 10px 0;
+      font-size: 1.1rem;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+    }
+
+    .etat-content {
+      .flexcol();
+      gap: 8px;
+    }
+
+    .etat-value {
+      .flexrow();
+      gap: 5px;
+      align-items: center;
+
+      label {
+        font-weight: bold;
+      }
+
+      input {
+        flex: 1;
+        .input-mixin();
+      }
+
+      button {
+        .button-mixin();
+      }
+    }
+  }
+
+  .combat-block {
+    grid-column: span 2;
+
+    .combat-stats {
+      .flexrow();
+      gap: 15px;
+
+      .stat {
+        flex: 1;
+        .flexcol();
+
+        label {
+          font-weight: bold;
+          margin-bottom: 5px;
+        }
+
+        input {
+          .input-mixin();
+        }
+      }
+    }
+  }
+
+  .ressources-block {
+    grid-column: span 2;
+
+    .ressource-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+
+      .ressource {
+        .flexcol();
+
+        label {
+          font-weight: bold;
+          margin-bottom: 5px;
+        }
+
+        input {
+          .input-mixin();
+        }
+      }
+    }
+  }
+
+  // Role selection
+  .role-selection {
+    .flexrow();
+    gap: 20px;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.05);
+    margin: 10px 0;
+    border-radius: 5px;
+
+    label {
+      .flexrow();
+      gap: 5px;
+      font-weight: bold;
+      cursor: pointer;
+
+      input[type="checkbox"] {
+        cursor: pointer;
+      }
+    }
+  }
+
+  // Biography grid
+  .bio-grid {
+    .flexcol();
+    gap: 15px;
+
+    .bio-field {
+      .flexcol();
+
+      label {
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      input {
+        .input-mixin();
+      }
+    }
+  }
+}

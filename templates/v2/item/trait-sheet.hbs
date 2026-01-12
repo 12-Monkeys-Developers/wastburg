@@ -1,0 +1,25 @@
+<section class="{{cssClass}} item-sheet" autocomplete="off">
+  <header class="sheet-header">
+    <img class="profile-img" src="{{item.img}}" data-action="editImage" title="{{item.name}}" />
+    <h1><input name="name" type="text" value="{{item.name}}" placeholder="Nom du trait" /></h1>
+  </header>
+
+  <section class="sheet-body">
+    <div class="form-group">
+      <label>Type</label>
+      <select name="system.type" data-dtype="String">
+        {{selectOptions config.traitTypes selected=system.type}}
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label>Description</label>
+      {{formInput systemFields.description enriched=enrichedDescription value=system.description name="system.description" toggled=true}}
+    </div>
+    
+    <div class="form-group">
+      <label>Historique</label>
+      {{formInput systemFields.historique.fields.value enriched=enrichedHistorique value=system.historique.value name="system.historique.value" toggled=true}}
+    </div>
+  </section>
+</section>

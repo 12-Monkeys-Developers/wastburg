@@ -1,70 +1,155 @@
 {
-  "id": "wastburg",
-  "title": "Wastburg",
-  "description": "The Wastburg system for FoundryVTT!",
-  "version": "13.0.0",
+  "authors": [
+    {
+      "flags": {},
+      "name": "LeRatierBretonnien"
+    },
+    {
+      "flags": {},
+      "name": "MagisterPhantom"
+    }
+  ],
   "compatibility": {
     "minimum": "11",
     "verified": "13"
   },
-  "authors": [
-    {
-      "name": "LeRatierBretonnien",
-      "flags": {}
+  "description": "The Wastburg system for FoundryVTT!",
+  "download": "https://github.com/12-Monkeys-Developers/wastburg/releases/download/13.0.0/system.zip",
+  "documentTypes": {
+    "Actor": {
+      "personnage": {
+        "htmlFields": [
+          "biography",
+          "signes",
+          "note",
+          "arme",
+          "protection",
+          "materiel",
+          "fortune",
+          "dettes"
+        ]
+      },
+      "prevot": {
+        "htmlFields": [
+          "biography",
+          "signes",
+          "note",
+          "arme",
+          "protection",
+          "materiel",
+          "fortune",
+          "dettes",
+          "reponsePrevot01",
+          "reponsePrevot02",
+          "reponsePrevot03"
+        ]
+      },
+      "caid": {
+        "htmlFields": [
+          "biography",
+          "signes",
+          "note",
+          "arme",
+          "protection",
+          "materiel",
+          "fortune",
+          "dettes",
+          "reponseCaid01",
+          "reponseCaid02",
+          "reponseCaid03"
+        ]
+      },
+      "gourbi": {
+        "htmlFields": [
+          "biography",
+          "signes",
+          "note",
+          "arme",
+          "protection",
+          "materiel",
+          "fortune",
+          "dettes"
+        ]
+      }
     },
-    {
-      "name": "MagisterPhantom",
-      "flags": {}
+    "Item": {
+      "trait": {
+        "htmlFields": [
+          "description",
+          "historique.value"
+        ]
+      },
+      "contact": {
+        "htmlFields": []
+      }
     }
-  ],
+  },
   "esmodules": [
     "module/wastburg.mjs"
   ],
-  "styles": [
-    "css/style.css"
-  ],
-  "languages": [
-    {
-      "lang": "fr",
-      "name": "French",
-      "path": "lang/fr.json",
-      "flags": {}
+  "flags": {
+    "hotReload": {
+      "extensions": [
+        "css",
+        "html",
+        "hbs",
+        "json"
+      ],
+      "paths": [
+        "css",
+        "./",
+        "templates",
+        "lang/fr.json"
+      ]
     }
-  ],
-  "packs": [
-    {
-      "label": "Aides de Jeu",
-      "type": "JournalEntry",
-      "name": "aides-de-jeu",
-      "path": "packs/aides-de-jeu",
-      "system": "wastburg",
-      "flags": {},
-      "ownership": {
-        "PLAYER": "OBSERVER",
-        "ASSISTANT": "OWNER"
-      }
-    },
-    {
-      "label": "Scènes",
-      "type": "Scene",
-      "name": "wastburg-scenes",
-      "path": "packs/wastburg-scenes",
-      "system": "wastburg",
-      "flags": {},
-      "ownership": {
-        "PLAYER": "OBSERVER",
-        "ASSISTANT": "OWNER"
-      }
-    }
-  ],
+  },
   "grid": {
     "distance": 5,
     "units": "m"
   },
+  "id": "wastburg",
+  "languages": [
+    {
+      "flags": {},
+      "lang": "fr",
+      "name": "French",
+      "path": "lang/fr.json"
+    }
+  ],
+  "license": "LICENSE.txt",
+  "manifest": "https://github.com/12-Monkeys-Developers/wastburg/releases/latest/download/system.json",
+  "packs": [
+    {
+      "flags": {},
+      "label": "Aides de Jeu",
+      "name": "aides-de-jeu",
+      "ownership": {
+        "ASSISTANT": "OWNER",
+        "PLAYER": "OBSERVER"
+      },
+      "path": "packs/aides-de-jeu",
+      "system": "wastburg",
+      "type": "JournalEntry"
+    },
+    {
+      "flags": {},
+      "label": "Scènes",
+      "name": "wastburg-scenes",
+      "ownership": {
+        "ASSISTANT": "OWNER",
+        "PLAYER": "OBSERVER"
+      },
+      "path": "packs/wastburg-scenes",
+      "system": "wastburg",
+      "type": "Scene"
+    }
+  ],
   "primaryTokenAttribute": "health",
   "secondaryTokenAttribute": "power",
-  "manifest": "https://github.com/12-Monkeys-Developers/wastburg/releases/latest/download/system.json",
-  "download": "https://github.com/12-Monkeys-Developers/wastburg/releases/download/13.0.0/system.zip",
   "socket": true,
-  "license": "LICENSE.txt"
+  "styles": [
+    "css/wastburg.css"
+  ],
+  "title": "Wastburg",
+  "version": "13.0.0"
 }

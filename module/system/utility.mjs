@@ -135,8 +135,9 @@ export class WastburgUtility {
   }
   /* -------------------------------------------- */
   static processIncDecAubaineGroupe(value) {
-    let aubainesDeGroupe = game.settings.get("wastburg", "aubaine-de-groupe")
-    aubainesDeGroupe += value
+    let aubainesDeGroupe = Number(game.settings.get("wastburg", "aubaine-de-groupe")) || 0
+    aubainesDeGroupe += Number(value)
+    aubainesDeGroupe = Math.max(aubainesDeGroupe, 0)
     game.settings.set("wastburg", "aubaine-de-groupe", aubainesDeGroupe)
     this.updateAubaineGroupe()
   }
@@ -352,9 +353,9 @@ export class WastburgUtility {
       applySocial: false,
       totalLevel: 0,
       selectRollInput: 3,
-      aubainesPerso: Number(actor.system.aubaine.value),
+      aubainesPerso: Number(actor.system.aubaine?.value || 0),
       aubainesDeGroupe: Number(game.settings.get("wastburg", "aubaine-de-groupe")),
-      anciennete: Number(actor.system.anciennetereputation.value),
+      anciennete: Number(actor.system.anciennetereputation?.value || 0),
       rollGM: game.user.isGM,
       config: CONFIG.WASTBURG
     }

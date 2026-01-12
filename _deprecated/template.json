@@ -1,0 +1,129 @@
+{
+  "Actor": {
+    "types": [
+      "personnage",
+      "prevot",
+      "caid",
+      "gourbi"
+    ],
+    "templates": {
+      "base": {
+        "biography": "",
+        "lieunaissance":"",
+        "age": "",
+        "residence":"",
+        "signes": "",
+        "persotype": "gardoche",
+        "note": "",
+        "arme": "",
+        "protection": "",
+        "materiel": "",
+        "fortune": "",
+        "dettes": "",
+        "anciennete": ""
+      }
+    },
+    "gourbi": {
+      "templates": [
+        "base"
+      ],
+      "emplacement": "",
+      "gelder": {
+        "value": 0
+      }
+    },
+    "personnage": {
+      "templates": [
+        "base"
+      ],
+      "role": {
+        "gardoche": {
+          "label": "Gardoche",
+          "checkGardoche": false
+        },
+        "malfrat": {
+          "label": "Malfrat",
+          "checkMalfrat": false
+        }
+      },
+      "anciennetereputation": {
+        "value": "0"
+      },
+      "aubaine": {
+        "value": "0"
+      },
+      "aubainegroupe": {
+        "value": "0"
+      },
+      "reputation": {
+        "value": 0
+      },
+      "sante": {
+        "santeText": "",
+        "value": 0
+      },
+      "mental": {
+        "mentalText": "",
+        "value": 0
+      },
+      "social": {
+        "socialText": "",
+        "value": 0
+      },
+      "combat": {
+        "santemax": 8,
+        "santecurrent": 8,
+        "initiative": 0
+      },
+      "gelder": {
+        "value": 0
+      }
+    },
+    "prevot": {
+      "templates": [
+        "base"
+      ],
+      "reponsePrevot01": "",
+      "reponsePrevot02": "",
+      "reponsePrevot03": "",
+      "appreciation": "0"
+    },
+    "caid": {
+      "templates": [
+        "base"
+      ],
+      "reponseCaid01": "",
+      "reponseCaid02": "",
+      "reponseCaid03": "",
+      "confiance": "0"
+    }
+  },
+  "Item": {
+    "types": [
+      "trait",
+      "contact"
+    ],
+    "templates": {
+      "base": {
+        "description": ""
+      }
+    },
+    "trait": {
+      "templates": [
+        "base"
+      ],
+      "type": "",
+      "key": "",
+      "historique": {
+        "value": ""
+      }
+    },
+    "contact": {
+      "contactName": "",
+      "value": 0,
+      "quartier": "",
+      "trait1": "",
+      "trait2": ""
+    }
+  }
+}
