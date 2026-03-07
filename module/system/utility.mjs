@@ -325,6 +325,7 @@ export class WastburgUtility {
     rollData.rollQuality = this.getRollQuality(rollData.roll.total)
     rollData.cssQuality = this.getClassQuality(rollData.roll.total)
     if (rollData.roll.total < 6 && actor.type == "personnage") {
+      rollData.showAubaines = true
       rollData.aubainesPerso = Number(actor.system.aubaine.value) || 0
       rollData.aubainesDeGroupe = Number(game.settings.get("wastburg", "aubaine-de-groupe")) || 0
     }
@@ -356,7 +357,7 @@ export class WastburgUtility {
       aubainesPerso: Number(actor.system.aubaine?.value || 0),
       aubainesDeGroupe: Number(game.settings.get("wastburg", "aubaine-de-groupe")),
       anciennete: Number(actor.system.anciennetereputation?.value || 0),
-      showAubaines: actor.type == "personnage",
+      showAubaines: false,
       rollGM: game.user.isGM,
       config: CONFIG.WASTBURG,
       description: ""
@@ -550,6 +551,7 @@ export class WastburgUtility {
     }
     rollData.rollQuality = this.getRollQuality(rollData.result)
     rollData.cssQuality = this.getClassQuality(rollData.result)
+    rollData.showAubaines = rollData.showAubaines && rollData.result < 6
     rollData.rollDataId = foundry.utils.randomID(16)
 
     this.outputRollMessage(rollData)

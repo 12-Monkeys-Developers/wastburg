@@ -1855,6 +1855,12 @@ textarea {
   background: linear-gradient(to bottom, #5a3f28, #3a1f08);
   transform: translateY(0);
 }
+.wastburg-chat-message .actions-section .aubaine-actions button.chat-card-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
 .wastburg-chat-message .actions-section .aubaine-actions .aubaine-reward {
   margin-top: 8px;
   padding: 8px;
