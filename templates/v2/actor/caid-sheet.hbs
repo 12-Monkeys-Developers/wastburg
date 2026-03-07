@@ -139,13 +139,13 @@
         <ul class="item-list">
           {{#each traits as |trait|}}
           <li class="item" data-item-id="{{trait._id}}">
-            <img class="item-img" src="{{trait.img}}" data-action="editItem" data-item-id="{{trait._id}}" />
+            <img class="item-img" src="{{trait.img}}" data-action="editItem" />
             <span class="item-name">{{trait.name}}</span>
             <span class="item-origin">{{getTraitType trait.system.type}}</span>
-            <button type="button" class="item-edit" data-action="editItem" data-item-id="{{trait._id}}" title="Éditer">
+            <button type="button" class="item-edit" data-action="editItem" title="Éditer">
               <i class="fas fa-edit"></i>
             </button>
-            <button type="button" class="item-delete" data-action="deleteItem" data-item-id="{{trait._id}}" title="Supprimer">
+            <button type="button" class="item-delete" data-action="deleteItem" title="Supprimer">
               <i class="fas fa-trash"></i>
             </button>
           </li>

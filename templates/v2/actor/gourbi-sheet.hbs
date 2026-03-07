@@ -32,6 +32,7 @@
 
   <nav class="sheet-tabs tabs" data-group="primary">
     <a class="item{{#if (eq activeTab 'description')}} active{{/if}}" data-action="changeTab" data-tab="description">Description</a>
+    <a class="item{{#if (eq activeTab 'finances')}} active{{/if}}" data-action="changeTab" data-tab="finances">Finances</a>
     <a class="item{{#if (eq activeTab 'notes')}} active{{/if}}" data-action="changeTab" data-tab="notes">Notes</a>
   </nav>
 
@@ -56,6 +57,19 @@
       <div class="question-section">
         <h3>Protections</h3>
         <textarea name="system.protection" rows="5">{{actor.system.protection}}</textarea>
+      </div>
+    </div>
+
+    {{!-- Finances Tab --}}
+    <div class="tab{{#if (eq activeTab 'finances')}} active{{/if}}" data-tab="finances">
+      <div class="question-section">
+        <h3>Fortune</h3>
+        <textarea name="system.fortune" rows="8">{{actor.system.fortune}}</textarea>
+      </div>
+
+      <div class="question-section">
+        <h3>Dettes</h3>
+        <textarea name="system.dettes" rows="8">{{actor.system.dettes}}</textarea>
       </div>
     </div>
 

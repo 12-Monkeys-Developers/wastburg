@@ -32,6 +32,7 @@ export default class WastburgPersonnageSheet extends WastburgActorSheet {
     context.traits = actor.items.filter(i => i.type === "trait")
     context.contacts = actor.items.filter(i => i.type === "contact")
     context.config = CONFIG.WASTBURG
+    context.initiative = actor.getFlag("world", "last-initiative") ?? -1
 
     return context
   }

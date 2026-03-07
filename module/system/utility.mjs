@@ -324,9 +324,9 @@ export class WastburgUtility {
   static processRollQuality(rollData, actor) {
     rollData.rollQuality = this.getRollQuality(rollData.roll.total)
     rollData.cssQuality = this.getClassQuality(rollData.roll.total)
-    if (rollData.roll.total < 6 && actor == "personnage") {
-      rollData.aubainesPerso = actor.system.aubaine.value
-      rollData.aubainesDeGroupe = game.settings.get("wastburg", "aubaine-de-groupe")
+    if (rollData.roll.total < 6 && actor.type == "personnage") {
+      rollData.aubainesPerso = Number(actor.system.aubaine.value) || 0
+      rollData.aubainesDeGroupe = Number(game.settings.get("wastburg", "aubaine-de-groupe")) || 0
     }
     if (rollData.roll.total == 1) {
       let oneList = rollData.roll.terms[0].results.filter(res => res.result == 1)
@@ -356,16 +356,18 @@ export class WastburgUtility {
       aubainesPerso: Number(actor.system.aubaine?.value || 0),
       aubainesDeGroupe: Number(game.settings.get("wastburg", "aubaine-de-groupe")),
       anciennete: Number(actor.system.anciennetereputation?.value || 0),
+      showAubaines: actor.type == "personnage",
       rollGM: game.user.isGM,
-      config: CONFIG.WASTBURG
+      config: CONFIG.WASTBURG,
+      description: ""
     }
   }
 
   /* -------------------------------------------- */
-  static async manageWastburgSimpleRoll(actor, value, rollMode) {
+  static async manageWastburgSimpleRoll(actor, value, rollMode, description = "") {
 
     let diceFormula = WastburgUtility.getRollFormula(value)
-    const roll = await new Roll(diceFormula).roll()
+    const roll = await new Roll(diceFormula).evaluate()
     await this.showDiceSoNice(roll, rollMode)
 
     let rollData = this.getCommonRollData(actor)
@@ -375,6 +377,7 @@ export class WastburgUtility {
     rollData.result = roll.total
     rollData.totalLevel = value
     rollData.rollMode = rollMode
+    rollData.description = description
 
     this.processRollQuality(rollData, actor)
     this.outputRollMessage(rollData)
@@ -406,6 +409,7 @@ export class WastburgUtility {
 
     let result = await WastburgRollDialog2.wait({
       window: { title: "Jet complet" },
+      position: { width: 560 },
       content: html,
       rollData: rollData,
       buttons: [
@@ -471,12 +475,21 @@ export class WastburgUtility {
   static async performRollComplex(rollData) {
     let diceFormula = WastburgUtility.getRollFormula(rollData.totalLevel)
 
-    const roll = await new Roll(diceFormula).roll()
+    const roll = await new Roll(diceFormula).evaluate()
     await this.showDiceSoNice(roll, game.settings.get("core", "rollMode"))
 
     rollData.roll = foundry.utils.duplicate(roll)
     rollData.diceFormula = diceFormula
     rollData.result = roll.total
+
+    const descParts = []
+    if (rollData.selectedTraitBonus !== "none" && rollData.traitBonus)
+      descParts.push(`Trait + : ${rollData.traitBonus.name}`)
+    if (rollData.selectedTraitMalus !== "none" && rollData.traitMalus)
+      descParts.push(`Trait − : ${rollData.traitMalus.name}`)
+    if (rollData.selectedContact !== "none" && rollData.contact)
+      descParts.push(`Contact : ${rollData.contact.name}`)
+    rollData.description = descParts.join(" · ")
 
     let actor = WastburgUtility.getActorFromRollData(rollData)
     this.processRollQuality(rollData, actor)
@@ -523,14 +536,14 @@ export class WastburgUtility {
       let actor = WastburgUtility.getActorFromRollData(rollData)
       actor.incDecAnciennete(-1)
       rollData.anciennete -= 1
-      const roll = await new Roll(rollData.diceFormula).roll()
+      const roll = await new Roll(rollData.diceFormula).evaluate()
       await this.showDiceSoNice(roll, game.settings.get("core", "rollMode"))
       rollData.roll = foundry.utils.duplicate(roll)
       rollData.result = roll.total
     } else {
       rollData.aubainesDeGroupe -= 1
       this.incDecAubaineGroupe(-1)
-      const roll = await new Roll(rollData.diceFormula).roll()
+      const roll = await new Roll(rollData.diceFormula).evaluate()
       await this.showDiceSoNice(roll, game.settings.get("core", "rollMode"))
       rollData.roll = foundry.utils.duplicate(roll)
       rollData.result = roll.total

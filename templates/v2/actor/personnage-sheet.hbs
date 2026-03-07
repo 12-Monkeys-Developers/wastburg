@@ -115,8 +115,8 @@
             <input type="text" class="item-field-label-short" name="system.combat.santemax" value="{{system.combat.santemax}}" {{#if (not isGM)}}disabled{{/if}} />
           </li>
           <li class="flexrow item">
-            <label class="item-name-label-medium">Initiative : {{initiative}}</label>
-            <button class="roll-initiative chat-card-button button-width1" type="button">Relancer</button>
+            <label class="item-name-label-medium">Initiative : {{#if (gt initiative 0)}}{{initiative}}{{else}}—{{/if}}</label>
+            <button class="roll-initiative chat-card-button button-width1" type="button" data-action="rollInitiative">Relancer</button>
           </li>
         </ul>
         {{/if}}
@@ -130,7 +130,7 @@
 
         <div class="section-header">
           <h3>Traits</h3>
-          <button type="button" class="item-create" data-action="createItem" data-type="trait">
+          <button type="button" class="item-create" data-action="createItem" data-item-type="trait">
             <i class="fas fa-plus"></i> Créer un trait
           </button>
         </div>
@@ -163,7 +163,7 @@
 
         <div class="section-header">
           <h3>Contacts</h3>
-          <button type="button" class="item-create" data-action="createItem" data-type="contact">
+          <button type="button" class="item-create" data-action="createItem" data-item-type="contact">
             <i class="fas fa-plus"></i> Créer un contact
           </button>
         </div>
@@ -272,6 +272,17 @@
               </li>
             </ul>
           </div>
+        </div>
+
+        <div class="role-selection">
+          <label>
+            <input type="checkbox" name="system.role.gardoche.checkGardoche" {{checked system.role.gardoche.checkGardoche}} />
+            Gardoche
+          </label>
+          <label>
+            <input type="checkbox" name="system.role.malfrat.checkMalfrat" {{checked system.role.malfrat.checkMalfrat}} />
+            Malfrat
+          </label>
         </div>
 
         <div>

@@ -24,7 +24,7 @@ export class WastburgCombatManager extends Combat {
       let combatants = this.combatants.contents
       for (let c of combatants) {
         let actor = game.actors.get(c.actorId)
-        actor.clearInitiative()
+        if (actor) actor.clearInitiative()
       }  
     }
     super._onDelete()

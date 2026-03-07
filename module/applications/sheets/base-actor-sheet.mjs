@@ -46,6 +46,7 @@ export default class WastburgActorSheet extends HandlebarsApplicationMixin(found
       createItem: WastburgActorSheet.#onCreateItem,
       rollDice: WastburgActorSheet.#onRollDice,
       rollComplex: WastburgActorSheet.#onRollComplex,
+      rollInitiative: WastburgActorSheet.#onRollInitiative,
       rollSimpleMJ: WastburgActorSheet.#onRollSimpleMJ,
       rollSante: WastburgActorSheet.#onRollSante,
       rollMental: WastburgActorSheet.#onRollMental,
@@ -323,6 +324,20 @@ export default class WastburgActorSheet extends HandlebarsApplicationMixin(found
     event.preventDefault()
     const actor = this.document
     await actor.rollComplex()
+  }
+
+  /**
+   * Handle rolling initiative (house-rule mode: roll 1d6 and store on actor flag)
+   * @param {Event} event - The triggering event
+   * @param {HTMLElement} target - The target element
+   */
+  static async #onRollInitiative(event, target) {
+    event.preventDefault()
+    const actor = this.document
+    const r = await new Roll("1d6").evaluate()
+    await r.toMessage({ speaker: ChatMessage.getSpeaker({ actor }), flavor: `Initiative de ${actor.name}` })
+    await actor.setInitiative(r.total)
+    this.render()
   }
 
   /**

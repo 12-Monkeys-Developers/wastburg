@@ -146,7 +146,7 @@ export class WastburgActor extends Actor {
       }
       return value || -1
     } else {
-      let r = await new Roll("1d6").roll()
+      let r = await new Roll("1d6").evaluate()
       return r.total
     }
   }
@@ -160,6 +160,46 @@ export class WastburgActor extends Actor {
 
   /* -------------------------------------------- */
   async rollComplex() {
+    const WastburgUtility = await import('../system/utility.mjs').then(m => m.WastburgUtility)
+    await WastburgUtility.manageWastburgComplexRoll(this, false)
+  }
+
+  /* -------------------------------------------- */
+  async rollSante() {
+    if (!this.system.sante) return
+    const WastburgUtility = await import('../system/utility.mjs').then(m => m.WastburgUtility)
+    const rollMode = game.settings.get('core', 'rollMode')
+    await WastburgUtility.manageWastburgSimpleRoll(this, this.system.sante.value, rollMode, "Santé")
+  }
+
+  /* -------------------------------------------- */
+  async rollMental() {
+    if (!this.system.mental) return
+    const WastburgUtility = await import('../system/utility.mjs').then(m => m.WastburgUtility)
+    const rollMode = game.settings.get('core', 'rollMode')
+    await WastburgUtility.manageWastburgSimpleRoll(this, this.system.mental.value, rollMode, "Mental")
+  }
+
+  /* -------------------------------------------- */
+  async rollSocial() {
+    if (!this.system.social) return
+    const WastburgUtility = await import('../system/utility.mjs').then(m => m.WastburgUtility)
+    const rollMode = game.settings.get('core', 'rollMode')
+    await WastburgUtility.manageWastburgSimpleRoll(this, this.system.social.value, rollMode, "Social")
+  }
+
+  /* -------------------------------------------- */
+  async rollTrait(traitId) {
+    const trait = this.items.get(traitId)
+    if (!trait) return
+    const WastburgUtility = await import('../system/utility.mjs').then(m => m.WastburgUtility)
+    await WastburgUtility.manageWastburgComplexRoll(this, false)
+  }
+
+  /* -------------------------------------------- */
+  async rollContact(contactId) {
+    const contact = this.items.get(contactId)
+    if (!contact) return
     const WastburgUtility = await import('../system/utility.mjs').then(m => m.WastburgUtility)
     await WastburgUtility.manageWastburgComplexRoll(this, false)
   }

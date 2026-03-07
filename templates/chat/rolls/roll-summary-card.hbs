@@ -74,21 +74,18 @@
       <div class="reroll-notice success">✓ Relancé grâce à 1 Point d'Ancienneté !</div>
       {{else}}
       <div id={{aubaineButtonId}} class="aubaine-actions">
-        {{#if aubainesPerso}}
-        <button class="chat-card-button apply-aubaine-perso" data-tooltip="Augmenter de +1 avec 1 aubaine personnelle">
+        {{#if showAubaines}}
+        <button class="chat-card-button apply-aubaine-perso" {{#unless aubainesPerso}}disabled{{/unless}} data-tooltip="Augmenter de +1 avec 1 aubaine personnelle">
           <i class="fas fa-plus"></i> +1 (1 Aubaine perso, reste {{aubainesPerso}})
         </button>
-        {{/if}}
-        {{#if anciennete}}
-        <button class="chat-card-button apply-anciennete" data-tooltip="Relancer avec 1 Point d'Ancienneté">
+        <button class="chat-card-button apply-anciennete" {{#unless anciennete}}disabled{{/unless}} data-tooltip="Relancer avec 1 Point d'Ancienneté">
           <i class="fas fa-redo"></i> 1 P. d'Ancienneté, reste {{anciennete}}
         </button>
-        {{/if}}
-        {{#if aubainesDeGroupe}}
-        <button class="chat-card-button apply-aubaine-groupe" data-tooltip="Relancer avec 1 aubaine de groupe">
+        <button class="chat-card-button apply-aubaine-groupe" {{#unless aubainesDeGroupe}}disabled{{/unless}} data-tooltip="Relancer avec 1 aubaine de groupe">
           <i class="fas fa-redo"></i> 1 Aubaine de groupe, reste {{aubainesDeGroupe}}
         </button>
         {{/if}}
+        {{#if showAubaines}}
         {{#if nbOne}}
         <div class="aubaine-reward">
           <div class="reward-notice">Vous pouvez récupérer {{nbOne}} aubaine(s) !</div>
@@ -101,6 +98,7 @@
             <i class="fas fa-gift"></i> Recevoir une aubaine de groupe
           </button>
         </div>
+        {{/if}}
         {{/if}}
       </div>
       {{/if}}
