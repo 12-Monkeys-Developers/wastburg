@@ -10,11 +10,12 @@
     }
   ],
   "compatibility": {
-    "minimum": "11",
+    "minimum": "13",
     "verified": "13"
   },
   "description": "The Wastburg system for FoundryVTT!",
   "download": "https://github.com/12-Monkeys-Developers/wastburg/releases/download/13.0.0/system.zip",
+  "background": "systems/wastburg/assets/ui/fond_wastburg.webp",
   "documentTypes": {
     "Actor": {
       "personnage": {
