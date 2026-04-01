@@ -1,3 +1,7 @@
-2026/03/07-16:34:33.802405 7fe8c3fff6c0 Log #76: 0 ops saved to Table #77 OK
-2026/03/07-16:34:33.802537 7fe8c3fff6c0 Archiving /home/morr/foundry/foundrydata-v13/Data/systems/wastburg/packs/wastburg-scenes/000076.log: OK
-2026/03/07-16:34:33.814994 7fe8c3fff6c0 **** Repaired leveldb /home/morr/foundry/foundrydata-v13/Data/systems/wastburg/packs/wastburg-scenes; recovered 0 files; 0 bytes. Some data may have been lost. ****
+2026/03/29-20:52:07.634903 7feb0a3fd6c0 Recovering log #80
+2026/03/29-20:52:07.645300 7feb0a3fd6c0 Delete type=3 #78
+2026/03/29-20:52:07.645370 7feb0a3fd6c0 Delete type=0 #80
+2026/03/29-20:52:23.232543 7feb093fb6c0 Level-0 table #85: started
+2026/03/29-20:52:23.232595 7feb093fb6c0 Level-0 table #85: 0 bytes OK
+2026/03/29-20:52:23.292214 7feb093fb6c0 Delete type=0 #83
+2026/03/29-20:52:23.362722 7feb093fb6c0 Manual compaction at level-0 from 'undefined' @ 72057594037927935 : 1 .. 'undefined' @ 0 : 0; will stop at (end)

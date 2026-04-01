@@ -11,10 +11,10 @@
   ],
   "compatibility": {
     "minimum": "13",
-    "verified": "13"
+    "verified": "14"
   },
   "description": "The Wastburg system for FoundryVTT!",
-  "download": "https://github.com/12-Monkeys-Developers/wastburg/releases/download/13.0.0/system.zip",
+  "download": "https://github.com/12-Monkeys-Developers/wastburg/releases/download/14.0.0/system.zip",
   "background": "systems/wastburg/assets/ui/fond_wastburg.webp",
   "documentTypes": {
     "Actor": {
@@ -152,5 +152,5 @@
     "css/wastburg.css"
   ],
   "title": "Wastburg",
-  "version": "13.0.0"
+  "version": "14.0.0"
 }

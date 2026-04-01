@@ -13,11 +13,6 @@ export class WastburgActor extends Actor {
     super.prepareData();
   }
 
-  /** @override */
-  prepareBaseData() {
-    // Data modifications in this step occur before processing embedded
-    // documents or derived data.
-  }
   /**
      * @override
      * Augment the basic actor data with additional dynamic data. Typically,
@@ -85,12 +80,12 @@ export class WastburgActor extends Actor {
   }
 
   /* -------------------------------------------- */
-  setAubaineGroupe( value ) {
-    if ( this.type =="personnage") {
+  setAubaineGroupe(value) {
+    if (this.type == "personnage") {
       let aubaine = this.system.aubainegroupe
       aubaine.value = game.settings.get("wastburg", "aubaine-de-groupe")
       aubaine.value = Math.max(aubaine.value, 0)
-      if ( this.sheet.rendered) {
+      if (this.sheet.rendered) {
         this.sheet.render(true)
       }
     }
@@ -118,14 +113,14 @@ export class WastburgActor extends Actor {
   modifySante(value) {
     let q = this.system.combat.santecurrent + Number(value)
     q = Math.max(q, 0)
-    this.update( { 'system.combat.santecurrent'  : q } )
+    this.update({ 'system.combat.santecurrent': q })
   }
   /* -------------------------------------------- */
-  modifyGelder( value) {
+  modifyGelder(value) {
     let baseVal = Number(this.system.gelder.value) || 0
     let q = baseVal + Number(value)
     q = Math.max(q, 0)
-    this.update( { 'system.gelder.value'  : q } )
+    this.update({ 'system.gelder.value': q })
   }
 
   /* -------------------------------------------- */
@@ -139,9 +134,9 @@ export class WastburgActor extends Actor {
   }
   /* -------------------------------------------- */
   async getInitiative(fromCombat = false) {
-    if ( game.settings.get("wastburg", "house-combat-rules") ) {
+    if (game.settings.get("wastburg", "house-combat-rules")) {
       let value = this.getFlag("world", "last-initiative")
-      if ( fromCombat && (!value || value == -1) ) {
+      if (fromCombat && (!value || value == -1)) {
         ui.notifications.warn("Votre Initiative n'a pas été initialisée pour ce combat. Faites un jet depuis votre fiche de personnage.")
       }
       return value || -1

@@ -1,3 +1,7 @@
-2026/03/07-16:34:33.533988 7fe8c37fe6c0 Log #75: 0 ops saved to Table #76 OK
-2026/03/07-16:34:33.534055 7fe8c37fe6c0 Archiving /home/morr/foundry/foundrydata-v13/Data/systems/wastburg/packs/aides-de-jeu/000075.log: OK
-2026/03/07-16:34:33.562718 7fe8c37fe6c0 **** Repaired leveldb /home/morr/foundry/foundrydata-v13/Data/systems/wastburg/packs/aides-de-jeu; recovered 0 files; 0 bytes. Some data may have been lost. ****
+2026/03/29-20:52:07.621351 7feb09bfc6c0 Recovering log #79
+2026/03/29-20:52:07.631660 7feb09bfc6c0 Delete type=3 #77
+2026/03/29-20:52:07.631760 7feb09bfc6c0 Delete type=0 #79
+2026/03/29-20:52:23.292455 7feb093fb6c0 Level-0 table #84: started
+2026/03/29-20:52:23.292496 7feb093fb6c0 Level-0 table #84: 0 bytes OK
+2026/03/29-20:52:23.362445 7feb093fb6c0 Delete type=0 #82
+2026/03/29-20:52:23.362736 7feb093fb6c0 Manual compaction at level-0 from 'undefined' @ 72057594037927935 : 1 .. 'undefined' @ 0 : 0; will stop at (end)
